@@ -1,0 +1,64 @@
+.i-div {
+    text-align: center;
+    padding: 170px 10px 215px;
+}
+.i-div1 {
+    padding: 50px 50px 0px;
+}
+.i-div-text {
+    text-align: center;
+}
+.i-input {
+    list-style: none;
+    background: #FFFFFF;
+
+    box-sizing: border-box;
+    box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+
+    width: 500px;
+    height: 45px;
+
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+    border-collapse: collapse;
+}
+.i-text {
+    list-style: none;
+    background: #FFFFFF;
+
+    box-sizing: border-box;
+    box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+
+    width: 1000px;
+    height: 350px;
+
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+    border-collapse: collapse;
+}
+.i-table {
+    margin: 10px 70px 10px;
+
+    border-collapse: separate;
+    border-spacing: 0px 10px;
+}
+.listbox-canter{
+    display: inline-block;
+
+    list-style: none;
+    background: #FFFFFF;
+
+    box-sizing: border-box;
+    box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+
+    width: 500px;
+    height: 55px;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+}

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="author" content="jongs">
+  <meta name="date" content="">
+  <meta name="description" content="">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/board-css.css">
+  <link rel="shortcut icon" href="https://sdsdfile.s3.ap-northeast-2.amazonaws.com/img/favicon.png" type="image/x-icon">
+  <!--썸머노트 에디터 css-->
+  <link rel="stylesheet" href="/css/summernote/summernote-lite.css">
+  <title>숙덕숙덕 | 숙박 예약과 커뮤니티를 한번에</title>
+  <style>
+
+  </style>
+
+</head>
+<body class="index">
+<!-- admin header -->
+<div data-th-include="/admin/admin-header.html" id="admin-header" th:if="${session.loginId eq 'admin'}"></div>
+
+<!-- header -->
+<div data-th-include="header" id="header" th:if="${session.loginId ne 'admin'}"></div>
+
+<!-- PageUpButton-->
+<a href="#header" class="bi bi-arrow-up-circle" th:if="${session.loginId ne 'admin'}"></a>
+<a href="#admin-header" class="bi bi-arrow-up-circle" th:if="${session.loginId eq 'admin'}"></a>
+<main class="main-body">
+<div class="boardMR_table_div">
+  <form action="/mrWrite" method="post">
+    <h2>홍보 요청작성</h2>
+    <table class="listbox_Write_MR" style="width: 100%;">
+      <tr>
+        <th>사업체</th>
+        <td>
+          <input type="text" name="mrSoName" th:value="${session.soName}" class="GBnickName" readonly/>
+        </td>
+      </tr>
+
+      <tr>
+        <th>제목</th>
+        <td ><input type="text" name="mrTitle" size="165"  class="listbox_Write" ></td>
+      </tr>
+
+      <tr>
+        <th>숙소 일련 번호</th>
+        <td ><input type="text" name="mrAno" size="165"  th:value="${ano}" class="listbox_Write" ></td>
+      </tr>
+
+
+      <tr id="textBox">
+        <th style="height: 400px">내용</th>
+        <td><textarea id="text11" style="width: 100%; height: 400px;" name="mrContent"></textarea></br>
+          <span class="textCount" >0</span><span class="textTotal"> / 100</span></td></td>
+      </tr>
+
+    </table>
+    <p class="Write_right"><input type="submit" value="등록"  class="listbox_Write_submit"></p>
+  </form>
+</div>
+</main>
+<!-- footer -->
+<div data-th-include="footer" id="footer"></div>
+</body>
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- 썸머노트 에디터 js -->
+<script src="/js/summernote/summernote-lite.js"></script>
+<script src="/js/summernote/lang/summernote-ko-KR.js"></script>
+
+<script>
+
+  // 글자수 제한 펑션
+  $('#textBox').keyup(function () {
+    let content = $('#text11').val();
+
+    // 글자수 세기
+    if (content.length == 0 || content == '') {
+      $('.textCount').text('0');
+    } else {
+      $('.textCount').text(content.length );
+    }
+
+    // 글자수 제한
+    if (content.length > 100) {
+      // 100자 부터는 타이핑 되지 않도록
+      $(this).val($(this).val().substring(0, 100));
+      // 100자 넘으면 알림창 뜨도록
+      alert('글자수는 100자까지 입력 가능합니다.');
+    };
+  });
+
+
+</script>
+
+</html>

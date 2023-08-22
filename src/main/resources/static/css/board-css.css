@@ -1,0 +1,405 @@
+/*------게시판 페이지 전체----------------------------------------------------------------------------------------------------------------------------------------*/
+html,body{
+    height: 100%;
+}
+.list_a{
+    text-decoration: none; color: #275da0;
+}
+
+/*------자유게시판 홍보게시판 리스트--------------------------------------------------------------------------------------------------------------------------------*/
+.generalBoard,.maketingBoard{
+    width: 100%;
+    margin: 0 auto;
+    height: auto;
+    min-height: 100%;
+    padding-bottom: 88px;
+}
+
+.first_td{
+    width:120px;
+}
+
+.second_td{
+    width:600px;
+}
+
+.last_td{
+    width:70px;
+}
+
+.board_title{
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.title_name {
+    margin-top: 25px;
+}
+
+.paging_list {
+    display: inline-block;
+    margin-top: 30px;
+}
+
+.listbox{
+    list-style: none;
+    background: #FFFFFF;
+    box-sizing: border-box;
+    box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    margin-top: 9px;
+    height: 40px;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+}
+
+.btn-outline-primary {
+    --bs-btn-color: #275DA0;
+    --bs-btn-border-color: #275DA0;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #275DA0;
+    --bs-btn-hover-border-color: #275DA0;
+    --bs-btn-focus-shadow-rgb: 13,110,253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #275DA0;
+    --bs-btn-active-border-color: #275DA0;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #275DA0;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #275DA0;
+    --bs-gradient: none;
+
+}
+
+.paging_div {
+    margin-top: 10px;
+    display: inline-block
+}
+
+/*------홍보게시판 리스트------------------------------------------------------------------------------------------------------------------------------------------*/
+.bdTitle{
+    text-align: left;
+}
+
+.maketingBoard a{
+    text-decoration-line: none;
+    color: #333;
+}
+
+.maketingBoard a:hover{
+    text-decoration-line: underline;
+    color: #333;
+}
+.MBlist_border{
+    border:1px solid #dddddd;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+/*------자유게시판 리스트------------------------------------------------------------------------------------------------------------------------------------------*/
+.generalBoard a{
+    text-decoration-line: none;
+    color: #333;
+}
+
+.generalBoard a:hover{
+    text-decoration-line: underline;
+    color: #333;
+}
+
+.listbox_boardlist{
+    list-style: none;
+    background: #FFFFFF;
+    float: right;
+    box-sizing: border-box;
+    box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    margin-top: 9px;
+
+    height: 40px;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+}
+
+.list_title{
+    margin-bottom: 9px;
+    font-size: 34px;
+    font-weight: bold;
+}
+
+/*------게시판 작성페이지-------------------------------------------------------------------------------------------------------------------------------------------*/
+
+.GBnickName{
+    padding-left: 10px;
+    border: none;
+}
+.GBCode{
+    padding-left:10px;
+    margin-left: 10px;
+}
+.listbox_Write{
+    list-style: none;
+    background: #FFFFFF;
+    border-radius: 4px;
+    box-sizing: border-box;
+    height: 40px;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+}
+
+.listbox_Write tr{
+    list-style: none;
+    background: #FFFFFF;
+    border-radius: 4px;
+    box-sizing: border-box;
+    height: 40px;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+}
+
+.filebox .upload-name {
+
+    --bs-btn-color: #275da0;
+    --bs-btn-border-color: #275da0;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #275da0;
+    --bs-btn-hover-border-color: #275da0;
+    --bs-btn-focus-shadow-rgb: 13,110,253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #275da0;
+    --bs-btn-active-border-color: #275da0;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #275da0;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #275da0;
+    --bs-gradient: none;
+
+    width: 100px;
+}
+
+.board_table_div{
+    padding: 50px 150px 100px 150px;
+}
+
+.Write_right{
+    padding-top: 10px;
+    text-align: right;
+}
+
+.listbox_Write th{
+    list-style: none;
+    background: #FFFFFF;
+    border-radius: 4px;
+    box-sizing: border-box;
+    height: 40px;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+}
+
+.listbox_Write_submit{
+    list-style: none;
+    background: #FFFFFF;
+    border-radius: 4px;
+    box-sizing: border-box;
+    height: 40px;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+    box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.15);
+}
+.listbox_Write_button{
+    list-style: none;
+    background: #FFFFFF;
+    border-radius: 4px;
+    box-sizing: border-box;
+    height: 40px;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+    box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.15);
+    margin-left: 5px;
+}
+
+/*홍보요청게시판 작성*/
+.listbox_Write_MR{
+    list-style: none;
+    background: #FFFFFF;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+
+}
+.listbox_Write_MR td{
+    padding: 10px;
+}
+.listbox_Write_MR table{
+height: 800px;
+}
+.listbox_Write_MR th{
+    width: 150px;
+}
+.boardMR_table_div{
+    padding: 50px 50px 100px 50px;
+}
+
+/*------게시판 상세보기 css영역------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+.view_gbview{
+    text-align: left;
+    font-size: 20px;
+}
+
+.view_GbNum{
+    font-weight: bold;
+    color: #545353;
+    font-family: "맑은 고딕";
+    padding-right: 100px;
+}
+
+.view_GbWriter{
+    font-weight: bold;
+    color: #295DA0;
+    font-size: 15px;
+    font-family: "맑은 고딕";
+    padding-right: 100px;
+}
+.view_GbDate{
+    font-weight: bolder;
+    padding-left: 300px;
+    font-family: "맑은 고딕";
+    font-size: 15px;
+    color: #9c9c9c;
+}
+.view_GbHit{
+    font-weight: bolder;
+    font-size: 15px;
+    font-family: "맑은 고딕";
+    float: right;
+    color: #9c9c9c;
+}
+
+.view_Gb_modify_delete{
+    text-align: right;
+    padding-bottom: 50px;
+}
+
+.view_Gb_content {
+    margin: 60px 50px 60px;
+}
+
+.view_Gb_img_div {
+    margin-bottom: 35px;
+}
+
+/*------댓글영역 ---------------------------------------------------------------------------------------------------------------------------------------------------*/
+.board_cmt_div{
+    padding-left: 250px;
+    padding-bottom: 50px;
+}
+
+.board_cmt_box{
+    list-style: none;
+    background: #FFFFFF;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    width: 60%;
+    height: 150px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+}
+
+.board_cmt_btn{
+
+    list-style: none;
+    background: #FFFFFF;
+    box-sizing: border-box;
+    box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    height: 150px;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+}
+
+.board_cmt_writer_div{
+    margin-right: 260px;
+}
+
+.comment_list_content{
+    font-family: "맑은 고딕";
+
+}
+
+.comment_list_div{
+    padding-left: 250px;
+    padding-right: 210px;
+
+}
+.comment_list_Date{
+    font-size: 12px;
+    color: #9c9c9c;
+}
+.comment_list_border{
+    border-top: #dddddd solid 1px;
+    border-bottom: #dddddd solid 1px;
+}
+.comment_list_table{
+    width: 1133px;
+}
+.comment_list_th{
+    width: 150px;
+}
+.comment_list_td1{
+    padding: 50px;
+}
+.comment_list_td2{
+    width: 100px;
+}
+.listGo{
+    padding: 10px;
+    text-align: right;
+    margin-right: 260px;
+
+}
+.cmt_nick{
+    display: inline-block;
+    font-weight: bold;
+
+}
+
+/*------------숙소 홍보 게시판------------------------------------------------------------------------------------------------------------------------------------*/
+.card-HotelName{
+    font-size: 25px;
+    font-weight: bold;
+    color: #295DA0;
+}
+.card-HotelAddr{
+    font-weight: bold;
+    font-size:12px;
+    color: #9c9c9c;
+}
+.card-title{
+    font-size: 20px;
+    font-weight: bold;
+    font-family: "함초롬바탕 확장B";
+
+}
+.card-text{
+    font-weight: bold;
+    font-family: "함초롬바탕 확장B";
+
+}
+.card-main-div{
+    margin-top: 20px;
+}
+.card_div{
+    height: 250px;
+    overflow:auto;
+}

@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="kiho">
+    <meta name="date" content="">
+    <meta name="description" content="">
+    <!--구글 fonts-->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <!--bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="https://sdsdfile.s3.ap-northeast-2.amazonaws.com/img/favicon.png" type="image/x-icon">
+    <title>숙덕숙덕 | 숙박 예약과 커뮤니티를 한번에</title>
+</head>
+
+
+<body class="index">
+<!-- admin header -->
+<div data-th-include="/admin/admin-header.html" id="admin-header" th:if="${session.loginId eq 'admin'}"></div>
+
+<!-- header -->
+<div data-th-include="header" id="header" th:if="${session.loginId ne 'admin'}"></div>
+
+<!-- PageUpButton-->
+<a href="#header" class="bi bi-arrow-up-circle" th:if="${session.loginId ne 'admin'}"></a>
+<a href="#admin-header" class="bi bi-arrow-up-circle" th:if="${session.loginId eq 'admin'}"></a>
+<!--main 시작-->
+<main>
+
+    <div class="container">
+        <br/>
+        <h1>고객센터</h1>
+        <br/>
+
+        <div class="row">
+            <!-- 메뉴 -->
+            <div class="col-2">
+                <nav id="navbar-example3" class="h-100 flex-column align-items-stretch pe-4 border-end" style="position: fixed;">
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link" href="#item-1">자주 묻는 질문</a>
+                        <nav class="nav nav-pills flex-column">
+                            <a class="nav-link ms-3 my-1" href="#item-1-1">TOP5</a>
+                        </nav>
+                        <a class="nav-link" href="#item-2">이용문의</a>
+                        <a class="nav-link" href="#item-3">결제</a>
+                        <a class="nav-link" href="#item-4">포인트/커뮤니티</a>
+                        <a class="nav-link" href="#item-5">국내숙소</a>
+                        <a class="nav-link" href="/inquiry">1:1 문의</a>
+                    </nav>
+                </nav>
+            </div>
+
+            <!-- 질문 -->
+            <div class="col-10">
+                <div data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-smooth-scroll="true"
+                     class="scrollspy-example-2" tabindex="0">
+                    <div id="item-1">
+                        <h3>자주 묻는 질문</h3>
+                        <span>도움이 필요하신가요?<br/>도움말 주제 선택하고 답변을 확인하거나 1:1 문의로 숙덕숙덕 고객센터로 문의하실 수 있습니다.</span>
+                    </div>
+                    <br/>
+                    <!-- TOP5 -->
+                    <div id="item-1-1">
+                        <h4>TOP5</h4>
+                        <div class="accordion" id="accordionExample1">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading1-1">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapse1-1" aria-expanded="true"
+                                            aria-controls="collapse1-1">
+                                        [숙박] 예약을 취소하고 싶어요.
+                                    </button>
+                                </h2>
+                                <div id="collapse1-1" class="accordion-collapse collapse "
+                                     aria-labelledby="heading1-1" data-bs-parent="#accordionExample1">
+                                    <div class="accordion-body">
+                                        <strong>예약취소는 내정보 > 예약내역 > 결제취소 에서 직접 가능합니다. </strong><br/><br/>
+                                        예약/결제 진행 당시 안내된 취소/환불 규정에 따라 처리되며, 취소수수료가 발생할 경우 취소수수료를 차감한 금액으로 환불
+                                        처리됩니다.<br/><br/>
+                                        일부 숙소에 한해 취소가 가능한 시점이나 웹에서 취소가 불가할 수 있으니 이 경우에는 고객센터(1:1 문의)로 요청해 주시길 바랍니다.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading1-2">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapse1-2" aria-expanded="false"
+                                            aria-controls="collapse1-2">
+                                        [공통] 천재지변/감염병으로 인한 예약취소는 어떻게 하나요?
+                                    </button>
+                                </h2>
+                                <div id="collapse1-2" class="accordion-collapse collapse" aria-labelledby="heading1-2"
+                                     data-bs-parent="#accordionExample1">
+                                    <div class="accordion-body">
+                                        천재지변(기상악화), 법정 감염병 등 불가항력적인 사유로 제휴점 이용이 불가할 경우 고객센터(1:1 문의)로 예약내역 및 증빙서류(결항확인서,
+                                        e-티켓, 진단확인서 등)를 보내주시면 확인 후 예약취소 가능 여부를 확인해 드립니다.
+                                        <br/><br/>
+                                        다만, 당사는 판매 중개 플랫폼의 입장으로 제휴점에 대하여 취소/환불을 강제할 수 없어 각 제휴점의 규정에 근거하여 상황에 따라 수수료가
+                                        발생하거나 취소가 어려울 수 있는 점 양해 부탁드립니다.<br/><br/>
+                                        <strong>[접수방법]</strong>
+                                        ※ 고객센터 > 1:1 문의 (예약자명, 숙소명, 체크인 날짜 필수)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading1-3">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapse1-3" aria-expanded="false"
+                                            aria-controls="collapse1-3">
+                                        [숙박] 예약대기 건 예약취소하고 싶어요.
+                                    </button>
+                                </h2>
+                                <div id="collapse1-3" class="accordion-collapse collapse" aria-labelledby="heading1-3"
+                                     data-bs-parent="#accordionExample1">
+                                    <div class="accordion-body">
+                                        예약 대기중에는 여기어때 고객센터(1:1 문의)에 예약취소 요청해주시길 바랍니다.<br/><br/>
+                                        단, 예약확정이 될 경우 수수료가 발생하거나 예약취소가 불가할 수 있습니다.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading1-4">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapse1-4" aria-expanded="false"
+                                            aria-controls="collapse1-4">
+                                        [숙박] 체크인날짜/객실타입을 변경하고 싶어요.
+                                    </button>
+                                </h2>
+                                <div id="collapse1-4" class="accordion-collapse collapse" aria-labelledby="heading1-4"
+                                     data-bs-parent="#accordionExample1">
+                                    <div class="accordion-body">
+                                        예약 결제 완료 후 날짜 및 객실타입 등 부분 변경은 불가합니다.<br/><br/>
+                                        예약취소와 동일하게 취소 및 환불 규정에 따라 처리되므로 예약취소가 가능한 기간에는 예약취소 후 재결제 하셔서 이용
+                                        부탁드립니다.<br/><br/>
+                                        만약, 예약취소가 불가하거나 수수료가 발생하는 경우라면 고객센터(1:1 문의)로 문의해주시길 바랍니다.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading1-5">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapse1-5" aria-expanded="false"
+                                            aria-controls="collapse1-5">
+                                        [공통] 현금영수증 발급받고 싶어요.
+                                    </button>
+                                </h2>
+                                <div id="collapse1-5" class="accordion-collapse collapse" aria-labelledby="heading1-5"
+                                     data-bs-parent="#accordionExample1">
+                                    <div class="accordion-body">
+                                        현금영수증은 현금성 결제수단으로 결제 시 발급이 가능합니다.<br/><br/>
+                                        결제 단계에서 현금영수증을 신청하면 자동으로 발행되지만,<br/>
+                                        신청을 누락했거나 발행받지 못한 경우라면 영수증 확인 후 국세청에서 자진발급분을 등록해 주시길 바랍니다.<br/><br/>
+                                        [네이버페이]<br/>
+                                        - 결제 단계에서 현금영수증 신청하면 자동으로 발행 (19년 12월 26일 시행)<br/>
+                                        - 자진발급 : 네이버페이 > 결제내역 > 주문건 > 주문상세정보 > 영수증 발급내역 > 현금영수증 확인<br/>
+                                        - 단, 19년 12월 26일 10시 이전 결제 건은 숙덕숙덕 고객센터(1:1 문의)로 요청<br/><br/>
+                                        [카카오페이]<br/>
+                                        - 카카오페이머니 결제 시 자동으로 발행<br/>
+                                        - 자진발급 : 카카오톡 > pay > 우측톱니바퀴(나의 카카오페이) > 이용내역 > 결제 > 개별 상세내역 > 현금영수증 확인<br/>
+                                        [무통장 입금 / TOSS]<br/>
+                                        - 결제 단계에서 현금영수증 신청하면 자동으로 발행<br/>
+                                        - 단, 무통장 입금의 경우 숙덕숙덕 고객센터(1:1 문의)로 요청 또는 국세청에서 자진발급분을 등록
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <!-- 이용문의 -->
+                    <div id="item-2">
+                        <h4>이용문의</h4>
+                        <div class="accordion" id="accordionExample2">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading2-1">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapse2-1" aria-expanded="true"
+                                            aria-controls="collapse2-1">
+                                        [회원정보] 회원탈퇴는 어떻게 하나요?
+                                    </button>
+                                </h2>
+                                <div id="collapse2-1" class="accordion-collapse collapse "
+                                     aria-labelledby="heading2-1" data-bs-parent="#accordionExample2">
+                                    <div class="accordion-body">
+                                        회원탈퇴는 아래 방법을 통해 가능하며, 반드시 주의사항을 확인 후 진행해 주시기 바랍니다.<br/><br/>
+                                        [일반회원]<br/>
+                                        - 숙덕숙덕 웹 > 내정보 > 프로필 > 탈퇴하기<br/><br/>
+                                        [사업자회원]<br/>
+                                        - 개별적으로 회원탈퇴 불가<br/>
+                                        - 기업 담당자 문의 또는 숙덕숙덕 고객센터(1:1 문의)로 기업회원 탈퇴요청<br/><br/>
+                                        *주의사항<br/>
+                                        · 회원탈퇴 시 계정 정보는 복구가 불가하며 1일 이후 재가입이 가능합니다.<br/>
+                                        · 현재 보유 중인 포인트는 모두 소멸되며 복구할 수 없습니다.<br/>
+                                        · 등록된 리뷰는 자동으로 삭제되지 않습니다. 삭제를 원하실 경우 탈퇴 전 개별적으로 삭제해 주시기 바랍니다.<br/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading2-2">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapse2-2" aria-expanded="false"
+                                            aria-controls="collapse2-2">
+                                        [회원정보] 소셜회원 로그인 해제는 어떻게 하나요?
+                                    </button>
+                                </h2>
+                                <div id="collapse2-2" class="accordion-collapse collapse" aria-labelledby="heading2-2"
+                                     data-bs-parent="#accordionExample2">
+                                    <div class="accordion-body">
+                                        소셜 회원의 로그인은 가입 시 연동 된 계정으로 자동 로그인 됩니다.<br/>
+                                        동일한 소셜의 다른 계정으로 로그인을 원하시는 경우 연동 로그인 해제 후 접속을 원하는 계정으로 로그인을 시도해 주시길
+                                        바랍니다.<br/><br/>
+                                        [카카오톡]<br/>
+                                        ① 숙덕숙덕 웹 내 로그인 되어있는 카카오 계정으로 카카오톡 접속<br/>
+                                        ② 카카오톡 전체 설정 선택 후 개인/보안 클릭<br/>
+                                        ③ 개인정보 관리 선택 후 카카오계정 및 연결된 서비스 접속<br/>
+                                        ④ 연결된 서비스 관리에서 숙덕숙덕 선택 후 모든 정보 삭제 클릭<br/>
+                                        -> 숙덕숙덕 웹 재접속 후 원하는 연동 아이디 선택 후 로그인 가능
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading2-3">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapse2-3" aria-expanded="false"
+                                            aria-controls="collapse2-3">
+                                        리뷰는 어떻게 등록할 수 있나요?
+                                    </button>
+                                </h2>
+                                <div id="collapse2-3" class="accordion-collapse collapse" aria-labelledby="heading2-3"
+                                     data-bs-parent="#accordionExample2">
+                                    <div class="accordion-body">
+                                        <div style="font-size: 14px;">
+                                            실제 숙소를 이용한 회원만 리뷰를 작성할 수 있습니다.<br/>
+                                            모텔 : 체크인 시간~체크아웃 14일 이내<br/>
+                                            모텔 외 : 체크인 시간~체크아웃 30일 이내<br/><br/>
+                                        </div>
+                                        [등록방법]<br/>
+                                        - 숙덕숙덕 웹 내정보 > 이용 후 > 리뷰등록 버튼 클릭 후 리뷰작성<br/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading2-4">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapse2-4" aria-expanded="false"
+                                            aria-controls="collapse2-4">
+                                        [회원정보] 아이디와 비밀번호를 잊었어요.
+                                    </button>
+                                </h2>
+                                <div id="collapse2-4" class="accordion-collapse collapse" aria-labelledby="heading2-4"
+                                     data-bs-parent="#accordionExample2">
+                                    <div class="accordion-body">
+                                        로그인 창에서 '아이디 찾기'와 '비밀번호 찾기'를 통해 아이디와 비밀번호를 찾으실 수 있습니다.<br/><br/>
+                                        [아이디 찾기]<br/><br/>
+                                        1. 가입 시 등록한 닉네임이나 이메일 주소 일부를 고객센터(1:1 문의)에 조회 요청<br/>
+                                        2. 카카오톡 계정으로 가입한 회원 : 해당 계정관리 업체의 고객센터에 문의<br/><br/>
+                                        위 방법으로도 이용에 불편을 겪으실 경우 숙덕숙덕 고객센터(1:1 문의)로 문의해주시길 바랍니다.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading2-5">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapse2-5" aria-expanded="false"
+                                            aria-controls="collapse2-5">
+                                        [회원정보] 회원정보 수정은 어떻게 하나요?
+                                    </button>
+                                </h2>
+                                <div id="collapse2-5" class="accordion-collapse collapse" aria-labelledby="heading2-5"
+                                     data-bs-parent="#accordionExample2">
+                                    <div class="accordion-body">
+                                        숙덕숙덕 웹 > 내정보 > 프로필 > 수정하기 에서 회원정보를 수정할 수 있습니다.<br/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading2-6">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapse2-6" aria-expanded="false"
+                                            aria-controls="collapse2-6">
+                                        [회원정보] 여러 개의 아이디를 만들 수 있나요?
+                                    </button>
+                                </h2>
+                                <div id="collapse2-6" class="accordion-collapse collapse" aria-labelledby="heading2-6"
+                                     data-bs-parent="#accordionExample2">
+                                    <div class="accordion-body">
+                                        여기어때는 한 명이 여러 개의 아이디를 만드는 것을 허용합니다.<br/>
+                                        단, 개별 아이디에 적립된 포인트나 구매내역 등은 통합 또는 양도가 불가하며, 각각의 아이디에서만 확인 가능합니다.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading2-7">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapse2-7" aria-expanded="false"
+                                            aria-controls="collapse2-7">
+                                        [이용문의] 운영중인 숙소를 등록하고 싶어요.
+                                    </button>
+                                </h2>
+                                <div id="collapse2-7" class="accordion-collapse collapse" aria-labelledby="heading2-7"
+                                     data-bs-parent="#accordionExample2">
+                                    <div class="accordion-body">
+                                        숙덕숙덕 입점을 원하실 경우 숙덕숙덕 고객센터(1:1문의)를 통해 문의해 주시길 바랍니다.<br/>
+                                        숙덕숙덕 웹 상단 '숙소홍보' 메뉴를 통해 숙소 홍보가 가능합니다.<br/><br/>
+                                        더 자세한 문의는 숙덕숙덕 고객센터(1:1 문의)를 통해 문의해 주시면 친절하게 안내드리겠습니다.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <!-- 결제 -->
+                    <div id="item-3">
+                        <h4>결제</h4>
+                        <div class="accordion" id="accordionExample3">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading3-1">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapse3-1" aria-expanded="true"
+                                            aria-controls="collapse3-1">
+                                        현금영수증 발급받고 싶어요.
+                                    </button>
+                                </h2>
+                                <div id="collapse3-1" class="accordion-collapse collapse "
+                                     aria-labelledby="heading3-1" data-bs-parent="#accordionExample3">
+                                    <div class="accordion-body">
+                                        현금영수증은 현금성 결제수단으로 결제 시 발급이 가능합니다.<br/><br/>
+                                        결제 단계에서 현금영수증을 신청하면 자동으로 발행되지만,<br/>
+                                        신청을 누락했거나 발행받지 못한 경우라면 영수증 확인 후 국세청에서 자진발급분을 등록해 주시길 바랍니다.<br/><br/>
+                                        [네이버페이]<br/>
+                                        - 결제 단계에서 현금영수증 신청하면 자동으로 발행 (19년 12월 26일 시행)<br/>
+                                        - 자진발급 : 네이버페이 > 결제내역 > 주문건 > 주문상세정보 > 영수증 발급내역 > 현금영수증 확인<br/>
+                                        - 단, 19년 12월 26일 10시 이전 결제 건은 숙덕숙덕 고객센터(1:1 문의)로 요청<br/><br/>
+                                        [카카오페이]<br/>
+                                        - 카카오페이머니 결제 시 자동으로 발행<br/>
+                                        - 자진발급 : 카카오톡 > pay > 우측톱니바퀴(나의 카카오페이) > 이용내역 > 결제 > 개별 상세내역 > 현금영수증 확인<br/>
+                                        [TOSS]<br/>
+                                        - 결제 단계에서 현금영수증 신청하면 자동으로 발행
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading3-2">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapse3-2" aria-expanded="false"
+                                            aria-controls="collapse3-2">
+                                        사용가능한 카드 종류가 없어요.
+                                    </button>
+                                </h2>
+                                <div id="collapse3-2" class="accordion-collapse collapse" aria-labelledby="heading3-2"
+                                     data-bs-parent="#accordionExample3">
+                                    <div class="accordion-body">
+                                        숙덕숙덕 예약 서비스 결제 시 사용 가능한 카드 종류는 PG사(전자결제 대행사)에서 정하는 부분이므로 일부 카드는 결제지원이 불가할 수
+                                        있습니다.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <!-- 포인트/커뮤니티 -->
+                        <div id="item-4">
+                            <h4>포인트/커뮤니티</h4>
+                            <div class="accordion" id="accordionExample4">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="heading4-1">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#collapse4-1" aria-expanded="true"
+                                                aria-controls="collapse4-1">
+                                            [포인트]포인트는 무엇인가요?
+                                        </button>
+                                    </h2>
+                                    <div id="collapse4-1" class="accordion-collapse collapse "
+                                         aria-labelledby="heading4-1" data-bs-parent="#accordionExample4">
+                                        <div class="accordion-body">
+                                            로그인, 게시글 작성 등 숙덕숙덕 서비스를 이용하면서 적립된 포인트를 말합니다.<br/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="heading4-2">
+                                        <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapse4-2"
+                                                aria-expanded="false" aria-controls="collapse4-2">
+                                            [포인트] 사용하지 않은 포인트는 자동 소멸 되나요?
+                                        </button>
+                                    </h2>
+                                    <div id="collapse4-2" class="accordion-collapse collapse"
+                                         aria-labelledby="heading4-2" data-bs-parent="#accordionExample4">
+                                        <div class="accordion-body">
+                                            숙덕숙덕 서비스에서 제공되는 포인트는 자동 소멸되지 않으며, 회원 탈퇴 시 보유 중인 포인트가 모두 소멸됩니다.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <!-- 국내숙소 -->
+                            <div id="item-5">
+                                <h4>국내숙소</h4>
+                                <div class="accordion" id="accordionExample5">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading5-1">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#collapse5-1" aria-expanded="true"
+                                                    aria-controls="collapse5-1">
+                                                [국내숙소] 취소/환불규정은 어떻게 되나요?
+                                            </button>
+                                        </h2>
+                                        <div id="collapse5-1" class="accordion-collapse collapse "
+                                             aria-labelledby="heading5-1" data-bs-parent="#accordionExample5">
+                                            <div class="accordion-body">
+                                                취소/환불 규정은 '입실일'을 기준으로 적용되며, 취소 수수료는 ‘판매 금액’을 기준으로 계산됩니다.<br/><br/>
+                                                ■ 모텔<br/>
+                                                - 입실일 기준 1일 전까지 무료 취소가 가능하며, 입실일 당일 예약은 체크인 시간 3시간 전까지 무료 취소가
+                                                가능합니다.<br/>
+                                                - 입실일과 무관하게 예약 후 1시간 이내는 무료 취소가 가능합니다.<br/>
+                                                단, 체크인 시간을 경과하여 예약한 경우는 예약 후 15분 이내에만 무료 취소가 가능합니다.<br/>
+                                                - 연박 예약 시 일부 날짜만 부분 취소는 불가합니다.<br/><br/>
+                                                ■ 호텔/펜션/게스트하우스/홈&빌라<br/>
+                                                - 예약 후 10분 이내에는 무료 취소가 가능합니다.<br/>
+                                                단, 체크인 시간을 경과하여 예약한 경우에는 취소가 불가합니다.<br/><br/>
+                                                ■ 공통<br/>
+                                                - 제휴점별 취소/환불 규정이 상이합니다. 예약 전 꼭 확인해주세요.<br/>
+                                                - 일부 제휴점은 웹 내에서 무료 취소가 불가하며, 고객센터(1:1 문의)를 통하여 무료 취소가 가능합니다.<br/>
+                                                - 무료 취소는 여기어때 앱/웹 예약에 한 해 적용됩니다.<br/>
+                                                - No-Show 또는 입실 후에는 취소가 불가합니다.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading5-2">
+                                            <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapse5-2"
+                                                    aria-expanded="false" aria-controls="collapse5-2">
+                                                예약을 취소하고 싶어요.
+                                            </button>
+                                        </h2>
+                                        <div id="collapse5-2" class="accordion-collapse collapse"
+                                             aria-labelledby="heading5-2" data-bs-parent="#accordionExample5">
+                                            <div class="accordion-body">
+                                                예약취소는 웹 > 내정보 > 예약내역 > 결제취소 에서 직접 가능합니다.<br/><br/>
+                                                예약/결제 진행 당시 안내된 취소/환불 규정에 따라 처리되며, 취소수수료가 발생할 경우 취소수수료를 차감한 금액으로 환불
+                                                처리됩니다.<br/>
+                                                일부 숙소에 한해 취소가 가능한 시점이나 웹에서 취소가 불가할 수 있으니 이 경우에는 고객센터(1:1 )문의로 요청해 주시길
+                                                바랍니다.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading5-3">
+                                            <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapse5-3"
+                                                    aria-expanded="false" aria-controls="collapse5-3">
+                                                예약확인은 어떻게 하나요?
+                                            </button>
+                                        </h2>
+                                        <div id="collapse5-3" class="accordion-collapse collapse"
+                                             aria-labelledby="heading5-3" data-bs-parent="#accordionExample5">
+                                            <div class="accordion-body">
+                                                예약은 웹 > 내정보 > 예약내역에서 확인 가능합니다.<br/><br/>
+                                                단, 예약대기로 진행되는 상품은 예약대기와 예약확정 여부에 대해 각각 발송해 드리고 있으니 참고 부탁드립니다.<br/><br/>
+                                                *예약대기 : 예약 시 대기 상태로 접수되며, 숙소의 확인 후 예약확정 여부가 안내됩니다.<br/>
+                                                만약 숙소 사정으로 예약이 불가할 경우 결제된 금액은 자동으로 취소됩니다.<br/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading5-4">
+                                            <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapse5-4"
+                                                    aria-expanded="false" aria-controls="collapse5-4">
+                                                천재지변으로 인한 예약취소는 어떻게 하나요?
+                                            </button>
+                                        </h2>
+                                        <div id="collapse5-4" class="accordion-collapse collapse"
+                                             aria-labelledby="heading5-4" data-bs-parent="#accordionExample5">
+                                            <div class="accordion-body">
+                                                천재지변(기상악화)으로 숙소 이용이 불가할 경우 고객행복센터로 예약내역 및 증빙서류(결항확인서, e-티켓 등)를 보내주시면 확인
+                                                후 예약취소 여부를 안내해 드립니다.<br/>
+                                                다만, 상황에 따라 취소가 어려울 수 있는 점 참고 부탁드립니다.<br/><br/>
+                                                [접수방법]<br/>
+                                                ※ 고객센터 > 1:1 문의 (예약자명, 숙소명, 체크인 날짜 필수)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading5-5">
+                                            <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapse5-5"
+                                                    aria-expanded="false" aria-controls="collapse5-5">
+                                                미성년자도 예약이 가능한가요?
+                                            </button>
+                                        </h2>
+                                        <div id="collapse5-5" class="accordion-collapse collapse"
+                                             aria-labelledby="heading5-5" data-bs-parent="#accordionExample5">
+                                            <div class="accordion-body">
+                                                만 19세 미만의 미성년자는 청소년 보호법에 의거하여 숙박업소 출입/고용이 불가하며, 숙박시설 이용에 제한이 있을 수
+                                                있습니다.<br/><br/>
+                                                미성년자 예약으로 인해 발생하는 입실 거부에 대해서는 취소나 환불이 불가하오니, 예약 진행 전 반드시 숙소에 확인해 주시기
+                                                바랍니다.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading5-6">
+                                            <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapse5-6"
+                                                    aria-expanded="false" aria-controls="collapse5-6">
+                                                부대시설, 조식 등 부가요금은 어떻게 지불하나요?
+                                            </button>
+                                        </h2>
+                                        <div id="collapse5-6" class="accordion-collapse collapse"
+                                             aria-labelledby="heading5-6" data-bs-parent="#accordionExample5">
+                                            <div class="accordion-body">
+                                                객실 예약 이외의 추가발생(조식, 추가인원, 침구 등) 요금은 현장 결제로 진행됩니다.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading5-7">
+                                            <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapse5-7"
+                                                    aria-expanded="false" aria-controls="collapse5-7">
+                                                [모텔] 새벽에 바로 입실하려면 몇 시까지 예약해야 가능하나요?
+                                            </button>
+                                        </h2>
+                                        <div id="collapse5-7" class="accordion-collapse collapse"
+                                             aria-labelledby="heading5-7" data-bs-parent="#accordionExample5">
+                                            <div class="accordion-body">
+                                                새벽 3시 이전에 날짜 변경없이 예약한 경우(체크인 일자가 예약일-1일)는, 바로 입실이 가능합니다.<br/>
+                                                새벽 3시 넘어 예약하시거나, 체크인 일자를 변경한 경우는 바로 입실이 어렵습니다.<br/><br/>
+                                                예시) 10월 26일 새벽 0시 ~ 3시 사이 예약 시,<br/>
+                                                바로 입실을 원하는 경우 날짜 변경 없이 예약해주세요 (체크인 10/25)<br/>
+                                                10/26 오후 입실을 원하는 경우 날자 변경 후 예약해주세요 (체크인 10/26)<br/><br/>
+                                                체크인 일자는 새벽 3시에 오늘 날짜로 업데이트 되오니 예약 시 이용을 원하는 날짜가 맞는지 꼭 확인해주세요.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading5-8">
+                                            <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapse5-8"
+                                                    aria-expanded="false" aria-controls="collapse5-8">
+                                                숙소에서 예약취소 했어요. 어떻게 하나요?
+                                            </button>
+                                        </h2>
+                                        <div id="collapse5-8" class="accordion-collapse collapse"
+                                             aria-labelledby="heading5-8" data-bs-parent="#accordionExample5">
+                                            <div class="accordion-body">
+                                                숙덕숙덕은 숙소 사정으로 예약하신 상품이 취소된 경우 대안 숙소를 찾아드리는 안심예약제를 운영하고 있습니다.<br/><br/>
+                                                단순 환불 처리에 그치지 않고 더 좋은 숙소에서 이용하실 수 있도록 도움드리고 있사오니 아래 적용/제외 기준을 참고하여
+                                                고객행복센터로 문의해 주시길 바랍니다.<br/><br/>
+                                                [적용기준]<br/>
+                                                - 숙덕숙덕 예약 서비스를 이용한 예약 건<br/>
+                                                - 숙소의 귀책으로 발생되는 취소 건<br/>
+                                                - 국내 숙소 중 모든 숙박 카테고리 동일 적용 (액티비티 제외, 안심예약 가능 업체만 적용)<br/><br/>
+                                                [제외기준]<br/>
+                                                - 고객의 귀책(변심 등)으로 인한 취소 건<br/>
+                                                - 타 사이트, 타 플랫폼을 통한 예약 건<br/>
+                                                - 페이백/엘리트 등급의 예약 건<br/>
+                                                - 예약대기 상태의 취소 건<br/>
+                                                - 부대시설 이용 불가 건
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading5-9">
+                                            <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapse5-9"
+                                                    aria-expanded="false" aria-controls="collapse5-9">
+                                                여러 개의 객실을 동시에 예약할 수 있나요?
+                                            </button>
+                                        </h2>
+                                        <div id="collapse5-9" class="accordion-collapse collapse"
+                                             aria-labelledby="heading5-9" data-bs-parent="#accordionExample5">
+                                            <div class="accordion-body">
+                                                숙덕숙덕 예약 서비스 이용 시, 한 번에 예약 가능한 객실 수는 1개입니다.<br/>
+                                                여러 개 객실이 필요하신 경우, 필요하신 수량의 객실을 각각 결제 부탁드립니다.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+<!--main 마지막-->
+
+<div data-th-include="footer" id="footer" style="margin-top: 50px;"></div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script
+        src="https://code.jquery.com/jquery-3.6.4.js"
+        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+        crossorigin="anonymous">
+</script>
+
+</html>

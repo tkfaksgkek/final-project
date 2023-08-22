@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="jongs">
+    <meta name="date" content="">
+    <meta name="description" content="">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="favicon/favicon.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>숙덕숙덕 | 숙박 예약과 커뮤니티를 한번에</title>
+</head>
+<body class="index">
+<!-- header -->
+<div data-th-include="header" id="header"></div>
+
+<main class="main-body">
+    <div class="modal-body">
+
+        <!-- 일반 로그인 -->
+        <div class="container">
+            <div class="row login_row_border">
+                <div class="col-sm-6 login_border ">
+                    <p>일반 로그인</p>
+                <form action="/mLogin" method="post">
+                    <div class="input-group mb-3 login_padding">
+                        <span class="input-group-text"><i class="bi bi-person"></i></span>
+                        <input type="text" class="form-control" name="smId" placeholder="아이디를 입력해주세요">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text"><i class="bi bi-key"></i></span>
+                        <input type="password" class="form-control" name="smPw" placeholder="비밀번호를 입력해주세요">
+                    </div>
+                    <div class="login_padding">
+                        <a href="/idForm" class="h-div-a" data-bs-toggle="modal" data-bs-target="#myModal2">
+                            <strong>아이디 찾기</strong></a><span class="idFormfont">&nbsp;|</span>
+                        <a href="/changePW" class="h-div-a" data-bs-toggle="modal" data-bs-target="#myModal3">
+                            <strong>비밀번호 찾기</strong></a>
+                        <input type="submit" value="로그인" class="btn btn-outline-primary h-btn-input ">
+                    </div>
+                </form>
+                    <div class="d-flex justify-content-between login_padding" style="margin-top: 5px;">
+                        <a th:href="@{|${kakaoUrl}|}" class="kakao-btn">카카오로그인</a>
+                    </div>
+                </div>
+                <!-- 사업자 로그인 -->
+                <div class="col-sm-6">
+                    <p>사업자 로그인</p>
+                <form action="/soLogin" method="post">
+                    <div class="input-group mb-3 login_padding">
+                        <span class="input-group-text"><i class="bi bi-person"></i></span>
+                        <input type="text" class="form-control" name="soBusnum"
+                               placeholder="사업자 등록 번호를 입력해주세요"></br>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text"><i class="bi bi-key"></i></span>
+                        <input type="password" class="form-control" name="soPw"
+                               placeholder="비밀번호를 입력해주세요"></br>
+                    </div>
+                    <div class="login_padding">
+                        <a href="/idForm" class="h-div-a" data-bs-toggle="modal" data-bs-target="#myModal2">
+                            <strong>아이디 찾기</strong></a><span class="idFormfont">&nbsp;|</span>
+                        <a href="/changePW" class="h-div-a" data-bs-toggle="modal" data-bs-target="#myModal3">
+                            <strong>비밀번호 찾기</strong></a>
+                        <input type="submit" value="로그인" class="btn btn-outline-primary h-btn-input">
+                    </div>
+                </form>
+                </div>
+
+                <br/>
+                <hr/>
+
+            </div>
+        </div>
+    </div>
+</main>
+<div data-th-include="footer" id="footer" class="main-footer">
+</div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+        crossorigin="anonymous"></script>
+<script>
+
+</script>
+
+</html>

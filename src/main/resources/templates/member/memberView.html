@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="Hyehwi">
+    <meta name="date" content="">
+    <meta name="description" content="">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="https://sdsdfile.s3.ap-northeast-2.amazonaws.com/img/favicon.png" type="image/x-icon">
+    <title>숙덕숙덕 | 숙박 예약과 커뮤니티를 한번에</title>
+</head>
+<body class="index">
+<!-- admin header -->
+<div data-th-include="/admin/admin-header.html" id="admin-header" th:if="${session.loginId eq 'admin'}"></div>
+
+<!-- header -->
+<div data-th-include="header" id="header" th:if="${session.loginId ne 'admin'}"></div>
+
+<!-- PageUpButton-->
+<a href="#header" class="bi bi-arrow-up-circle" th:if="${session.loginId ne 'admin'}"></a>
+<a href="#admin-header" class="bi bi-arrow-up-circle" th:if="${session.loginId eq 'admin'}"></a>
+<main class="main-body">
+
+    <div class="container">
+        <h2><i class="bi bi-person-circle"></i>내 정보</h2>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active">프로필</li>
+                <li class="breadcrumb-item"><a href="/index">Home</a></li>
+            </ol>
+        </nav>
+    </div>
+
+    <section class="container m-section">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="card m-div-card">
+                    <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                        <label><strong>프로필 사진</strong></label><br/>
+                        <img th:src="${view.smProfileName}" width="200px;" alt="Profile"
+                             class="rounded-circle" onerror='this.src="https://sdsdfile.s3.ap-northeast-2.amazonaws.com/img/defaultProfile.png"'><br/>
+                        <h3 class="m-color">[[${view.smNickname}]]</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-8">
+                <div class="card">
+                    <div class="card-body pt-3">
+                        <div class="container mt-3">
+
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist" id="infoTab">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-bs-toggle="tab" href="#Profile">프로필</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#menu1">찜</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#menu2">예약내역</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#menu3">결제대기</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#menu4">이용&nbsp;후</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#menu5">예약취소</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#menu6">내가쓴글</a>
+                                </li>
+                            </ul>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div id="Profile" class="m-div tab-pane active"><br>
+                                    <p class="h5"><strong class="m-color">[[${view.smNickname}]]</strong>님의 프로필</p><br/>
+
+                                    <div class="row mb-3">
+                                        <label class="col-md-4 col-lg-3 col-form-label"><strong>이름</strong></label>
+                                        <div class="col-md-8 col-lg-9 m-profile-div">
+                                            [[${view.smName}]]
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label class="col-md-4 col-lg-3 col-form-label"><strong>아이디</strong></label>
+                                        <div class="col-md-8 col-lg-9 m-profile-div">
+                                            [[${view.smId}]]
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label class="col-md-4 col-lg-3 col-form-label"><strong>닉네임</strong></label>
+                                        <div class="col-md-8 col-lg-9 m-profile-div">
+                                            [[${view.smNickname}]]
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label class="col-md-4 col-lg-3 col-form-label"><strong>생년월일</strong></label>
+                                        <div class="col-md-8 col-lg-9 m-profile-div">
+                                            [[${view.smBirth}]]
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label class="col-md-4 col-lg-3 col-form-label"><strong>성별</strong></label>
+                                        <div class="col-md-8 col-lg-9 m-profile-div">
+                                            [[${view.smGender}]]
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label class="col-md-4 col-lg-3 col-form-label"><strong>주소</strong></label>
+                                        <div class="col-md-8 col-lg-9 m-profile-div">
+                                            [[${view.smAddr}]]
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label class="col-md-4 col-lg-3 col-form-label"><strong>휴대폰 번호</strong></label>
+                                        <div class="col-md-8 col-lg-9 m-profile-div">
+                                            [[${view.smPhone}]]
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label class="col-md-4 col-lg-3 col-form-label"><strong>이메일</strong></label>
+                                        <div class="col-md-8 col-lg-9 m-profile-div">
+                                            [[${view.smEmail}]]
+                                        </div>
+                                    </div>
+
+                                    <div class="pt-2 m-btn">
+                                        <button id="modify" class="btn btn-outline-primary" title="프로필 수정">
+                                            <i class="bi bi-pencil-square"></i> 수정하기
+                                        </button>
+                                        <button id="delete" class="btn btn-outline-primary" title="프로필 탈퇴">
+                                            <i class="bi bi-trash"></i> 탈퇴하기
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- 프로필 끝 -->
+
+                                <!-- 찜 -->
+                                <div id="menu1" class="tab-pane fade"><br>
+                                    <div class="container mt-3">
+                                        <div class="fav">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 찜 끝 -->
+
+                                <!-- 예약내역 -->
+                                <div id="menu2" class="m-menu2-div tab-pane fade"><br>
+                                    <p>※ 결제취소 시 예약취소 내역으로 이동합니다.</p>
+                                    <div class="tklist"></div>
+
+                                </div>
+                                <!-- 예약내역 끝 -->
+
+                                <!-- 결제대기 -->
+                                <div id="menu3" class="m-menu2-div tab-pane fade"><br>
+                                    <p>※ 결제대기 내역은 시간이 지나면 사라집니다.</p>
+                                    <div class="tklist0"></div>
+
+                                </div>
+                                <!-- 결제대기 끝 -->
+
+                                <!-- 이용 후 -->
+                                <div id="menu4" class="m-menu2-div tab-pane fade "><br/>
+                                    <p>※ 미사용결제내역 환불요청은 숙소에 직접문의 하셔야 합니다.</p>
+                                    <div class="lastTkList"></div>
+
+                                </div>
+                                <!-- 이용 후 끝 -->
+
+                                <!--결제 취소-->
+                                <div id="menu5" class="m-menu2-div tab-pane fade "><br/>
+                                    <p>※ 환불은 영업일 기준 2~3일 이내에 완료됩니다.</p>
+                                    <div class="canclePay"></div>
+                                </div>
+                                <!--결제 취소-->
+                                <div id="menu6" class="m-menu2-div tab-pane fade "><br/>
+                                    <p>※내가 쓴글 내역</p>
+                                    <table class="table table-striped">
+                                        <tr class="table-primary">
+                                            <th class="board_th first_td">번호</th>
+                                            <th class="board_th second_td">제목</th>
+                                            <th class="board_th">작성자</th>
+                                            <th class="board_th">작성일</th>
+                                            <th class="board_th last_td">조회수</th>
+                                        </tr>
+                                        <tbody class="mylist"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+<div data-th-include="footer" id="footer"></div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    let loginId = `[[${session.loginId}]]`;
+    let nickName = `[[${session.nickName}]]`;
+    $.ajax({
+        url: "/favSelect",
+        type: "post",
+        data: {
+            "faLoginId": loginId
+        },
+        dataType: "json",
+        success: function (result) {
+            list = result;
+            console.log(list);
+            favList(list);
+
+        },
+        error: function () {
+            alert("통신에러");
+        }
+    })
+
+    $.ajax({
+        url: "/myGbList",
+        type: "post",
+        data: {
+            "gbWriterId": loginId
+        },
+        dataType: "json",
+        success: function (result) {
+            list = result;
+            console.log(list);
+            myGBList(list);
+        },
+        error: function () {
+            alert('리스트 에러');
+        }
+    });
+    function myGBList(list){
+        let txt = "";
+        for(let i in list){
+            txt +='<tr>';
+            txt +='<td>'+list[i].gbNum+'</td>';
+            txt +='<td><a href="/gbView/'+list[i].gbNum+'">'+list[i].gbTitle+'</a></td>';
+            txt +='<td>'+list[i].gbWriter+'</td>';
+            txt +='<td>'+list[i].gbUpdateDate+'</td>';
+            txt +='<td>'+list[i].gbHit+'</td>';
+            txt +='</tr>';
+        }
+        $('.mylist').empty();
+        $('.mylist').append(txt);
+    }
+
+
+
+    function favList(list) {
+        let txt = "";
+        for (let i in list) {
+
+            txt += '<div class="card card-div">';
+            txt += '<img class="card-img-top" src="' + list[i].faImage + '" alt="Card image" style="width:100%">';
+            txt += '<div class="card-body">';
+            txt += '<h6 class="card-title index_title">' + list[i].faHotelName + '</h6>';
+            txt += '<p class="card-score">' + list[i].faScore + '</p>';
+            txt += '<span class="card-text index_text">' + list[i].faAddr + '</span>';
+            txt += '<br/>';
+            txt += '<a href="' + list[i].faUrl + '" class="btn btn-outline-primary card-a">예약</a>';
+            txt += '</div>';
+            txt += '</div>';
+
+        }
+
+        $('.fav').empty();
+        $('.fav').append(txt);
+    }
+
+    // 탬 메뉴 이동용
+    var triggerTabList = [].slice.call(document.querySelectorAll('#infoTab a'))
+    triggerTabList.forEach(function (triggerEl) {
+        var tabTrigger = new bootstrap.Tab(triggerEl)
+
+        triggerEl.addEventListener('click', function (event) {
+            event.preventDefault()
+            tabTrigger.show()
+        })
+    })
+    let tabs=`[[${tabs}]]`
+    console.log('tabs :' + tabs);
+    if(tabs=='menu1') {
+        var triggerEl = document.querySelector('#infoTab a[href="#menu1"]')
+        bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
+    }else if(tabs=='menu2'){
+        var triggerEl = document.querySelector('#infoTab a[href="#menu2"]')
+        bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
+    }else if(tabs=='menu3'){
+        var triggerEl = document.querySelector('#infoTab a[href="#menu3"]')
+        bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
+    }else if(tabs=='menu4'){
+        var triggerEl = document.querySelector('#infoTab a[href="#menu4"]')
+        bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
+    }else if(tabs=='menu5'){
+        var triggerEl = document.querySelector('#infoTab a[href="#menu5"]')
+        bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
+    }else if(tabs=='menu6'){
+        var triggerEl = document.querySelector('#infoTab a[href="#menu6"]')
+        bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
+    }
+
+    $('#modify').click(function () {
+        location.href = "/mModiForm/[[${view.smId}]]";
+    });
+
+    $('#delete').click(function () {
+        if (confirm('정말 삭제하시겠습니까?')) {
+            alert('회원탈퇴 완료')
+            location.href = "/mDelete/[[${view.smId}]]";
+        } else {
+            alert('취소했습니다')
+        }
+    });
+
+
+    // 예약 내역 출력
+    $.ajax({
+        url : "/tkList",
+        type:"Post",
+        dataType:"json",
+        data: {
+            "tkId" : loginId
+        },
+        success:function (result){
+            list = result;
+            tkList(list);
+            tkList0(list);
+            tkList1(list);
+            cancleList(list);
+        },
+        error:function () {
+            console.log("예약내역 불러오기 실패");
+        }
+    });
+
+    // 오늘날짜 비교용 함수
+    const today = new Date();
+
+    // 예약내역
+    function tkList(list){
+        let txt="";
+        for(let i in list){
+            let day = ['일','월','화','수','목','금','토'];
+            let date= new Date(list[i].stDate);
+            let date2= new Date(list[i].stStartDay+' 23:59:59');
+            let dateFormat1 = (date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + '  (' +day[date.getDay()]+') '+date.getHours() + ' : '+ (('00'+date.getMinutes()).slice(-2))+'');
+            if(date2 >= today && list[i].stPay == 1){
+                txt +='<div class="card card-tk-div">';
+                txt +='<div ><span class="tklist1">'+dateFormat1+'</span><span class="tklist_user">예약자 연락처 : '+list[i].stPhone+'</span><span class="tklist_user"> 예약자 : '+list[i].stName+'님 &nbsp;&nbsp;</span></div>';
+                txt +='<hr/>';
+                txt +='<div class="tklist_Num_div"><span class="tklist_Num">예약번호 : '+list[i].stNum+'</span></div>';
+                txt +='<table class="tklist_table">';
+                txt +='<tr class="tklist_tr1">';
+                txt +='<td rowspan="2"><a href="'+list[i].stUrl+'"class="tklist_a"><img src="'+list[i].stImg+'" width="400px"></a></td>';
+                txt +='</tr>';
+                txt +='<tr>';
+                txt +='<td>';
+                txt +='<p class="tklist_RoomInfo"><a href="'+list[i].stUrl+'" class="tklist_a">'+list[i].stRoomInfo+'</a></p>';
+                txt +='<p class="tklist_day"> 숙박기간 : '+list[i].stStartDay+'~'+list[i].stEndDay+'</p>';
+                txt +='<div class="tklist_Amount">금액 : '+list[i].stAmount+'원</div>';
+
+                txt +='<div class="tklist_pay"><span class="btn btn-primary-pay">결제완료</span> <a href="/deletePay/'+list[i].stNum+'" class="btn btn-outline-primary">결제 취소</a></div>';
+
+                txt +='</td>';
+                txt +='</tr>';
+                txt +='</table>';
+                txt +='</div>';
+            }
+        }
+        $('.tklist').empty();
+        $('.tklist').append(txt);
+    }
+
+    // 결제 대기
+    function tkList0(list){
+        let txt="";
+        for(let i in list){
+            let day = ['일','월','화','수','목','금','토'];
+            let date= new Date(list[i].stDate);
+            let date2= new Date(list[i].stStartDay+' 23:59:59');
+            let dateFormat1 = (date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + '  (' +day[date.getDay()]+') '+date.getHours() + ' : '+ (('00'+date.getMinutes()).slice(-2))+'');
+            if(date2 >= today && list[i].stPay == 0){
+                txt +='<div class="card card-tk-div">';
+                txt +='<div ><span class="tklist1">'+dateFormat1+'</span><span class="tklist_user">예약자 연락처 : '+list[i].stPhone+'</span><span class="tklist_user"> 예약자 : '+list[i].stName+'님 &nbsp;&nbsp;</span></div>';
+                txt +='<hr/>';
+                txt +='<div class="tklist_Num_div"><span class="tklist_Num">예약번호 : '+list[i].stNum+'</span></div>';
+                txt +='<table class="tklist_table">';
+                txt +='<tr class="tklist_tr1">';
+                txt +='<td rowspan="2"><a href="'+list[i].stUrl+'"class="tklist_a"><img src="'+list[i].stImg+'" width="400px"></a></td>';
+                txt +='</tr>';
+                txt +='<tr>';
+                txt +='<td>';
+                txt +='<p class="tklist_RoomInfo"><a href="'+list[i].stUrl+'" class="tklist_a">'+list[i].stRoomInfo+'</a></p>';
+                txt +='<p class="tklist_day"> 숙박기간 : '+list[i].stStartDay+'~'+list[i].stEndDay+'</p>';
+                txt +='<div class="tklist_Amount">금액 : '+list[i].stAmount+'원</div>';
+                txt +='<div class="tklist_pay"><a href="/rePay/'+list[i].stNum+'"class="btn btn-outline-primary">결제하기</a> <a href="/deletePay/'+list[i].stNum+'" class="btn btn-outline-primary">취소하기</a></div>';
+                txt +='</td>';
+                txt +='</tr>';
+                txt +='</table>';
+                txt +='</div>';
+            }
+        }
+        $('.tklist0').empty();
+        $('.tklist0').append(txt);
+    }
+
+    // 예약 이력
+    function tkList1(list){
+        let txt="";
+        for(let i in list){
+            let day = ['일','월','화','수','목','금','토'];
+            let date= new Date(list[i].stDate);
+            let date2= new Date(list[i].stStartDay+' 23:59:59');
+            /*date3 4 를 만든 이유는 new Date(date3.setDate(date3.getDate()+7));
+            으로 생성하면 date3의 값이 변해 date4를 만든후 7일을 더해주기위해 date5를 만들어 주었고 기존 값이 필요하여 dete3를 만들었습니다.*/
+            let date3= new Date(list[i].stEndDay);
+            let date4= new Date(list[i].stEndDay);
+            let date5= new Date(date4.setDate(date4.getDate()+7));
+            let dateFormat1 = (date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + '  (' +day[date.getDay()]+') '+date.getHours() + ' : '+ (('00'+date.getMinutes()).slice(-2))+'');
+            console.log("date3: "+ date3);
+            console.log("date4: "+ date4);
+            if(date2 < today && list[i].stPay == 1){
+                txt +='<div class="card card-tk-div">';
+                txt +='<div ><span class="tklist1">'+dateFormat1+'</span><span class="tklist_user">예약자 연락처 : '+list[i].stPhone+'</span><span class="tklist_user"> 예약자 : '+list[i].stName+'님 &nbsp;&nbsp;</span></div>';
+                txt +='<hr/>';
+                txt +='<div class="tklist_Num_div"><span class="tklist_Num">예약번호 : '+list[i].stNum+'</span></div>';
+                txt +='<table class="tklist_table">';
+                txt +='<tr class="tklist_tr1">';
+                txt +='<td rowspan="2"><a href="'+list[i].stUrl+'&tabs=menu2"class="tklist_a"><img src="'+list[i].stImg+'" width="400px"></a></td>';
+                txt +='</tr>';
+                txt +='<tr>';
+                txt +='<td>';
+                txt +='<p class="tklist_RoomInfo"><a href="'+list[i].stUrl+'" class="tklist_a">'+list[i].stRoomInfo+'</a></p>';
+                txt +='<p class="tklist_day"> 숙박기간 : '+list[i].stStartDay+'~'+list[i].stEndDay+'</p>';
+                txt +='<div class="tklist_Amount">금액 : '+list[i].stAmount+'원</div>';
+                if(date3 > date5){
+                    txt +='';
+                }else {
+                    txt +='<div class="tklist_pay"><a href="#'+list[i].stNum+'offDisplay" id="'+list[i].stNum+'review_click" class="btn btn-outline-primary tkList_review_btn">리뷰등록</a></div>';
+                }
+
+                txt +='</td>';
+                txt +='</tr>';
+                txt +='</table>'+
+                      '<form method="post" action="/reviewWrite">';
+                txt +='<div id="'+list[i].stNum+'noneDiv" class="review-div">\n' +
+                    '\t\t<div>\n' +
+                    '\t\t\t<div>\n' +
+                    '\t\t\t\t별점을 선택해주세요.\n' +
+                    '\t\t\t\t</div>\n' +
+                    '<input type="hidden" name="srNickName" value="'+nickName+'"/>'+
+                    '<input type="hidden" name="srId" value="'+list[i].stId+'">'+
+                    '<input type="hidden" name="srCode" value="'+list[i].stCode+'">'+
+                    '<input type="hidden" name="srRoom" value="'+list[i].stRoomInfo+'">';
+                    txt+='<fieldset id="'+list[i].stNum+'star" name="srGrade" class="star-input">\n';
+                    txt+='<input type="radio" checked="checked" value="2" name="srGrade"/></input>';
+                    txt+='\t\t<input type="radio"  value="4" name="srGrade"/></input>\n';
+                    txt+='\t\t<input type="radio"  value="6" name="srGrade"/></input>\n';
+                    txt+='\t\t<input type="radio"  value="8" name="srGrade"/></input>\n';
+                    txt+='\t\t<input type="radio"  value="10" name="srGrade"/></input>\n';
+                txt+='\t</fieldset>';
+                txt+='\t\t</div>';
+                txt+='\t\t<div>\n';
+                txt+='\t\t\t<strong>[[${view.smNickname}]]</strong>\n';
+                txt+='\t\t\t<input type="text" name="srReview" class="review_box" placeholder="리뷰를 작성해주세요.">\n';
+                txt+='\t\t\t<input type="submit" value="등록하기" id="'+list[i].stNum+'offDisplay" class="btn btn-outline-primary review_btn">\n'+
+                    '</form>'+
+                    '\t\t</div>\n' +
+                    '\t</div>'  +
+                    '\t</div>';
+
+                // 리뷰 등록을 누르면 숨겨져 있던 div(리뷰 작성) 가 출현
+                $(function(){
+                    $('#'+list[i].stNum+'review_click').click(function(){
+                        if($('#'+list[i].stNum+'noneDiv').css("display") == "none"){
+                            $('#'+list[i].stNum+'noneDiv').show();
+                        }else{
+                            $('#'+list[i].stNum+'noneDiv').hide();
+                        }
+                    });
+                });
+                // 등록하기를 누르면 div(리뷰 작성) 숨기기
+                $(function(){
+                    $('#'+list[i].stNum+'offDisplay').click(function(){
+                        if($('#'+list[i].stNum+'noneDiv').css("display") != "none"){
+                            $('#'+list[i].stNum+'noneDiv').hide();
+                        }
+                    });
+                });
+
+            }
+        }
+
+        $('.lastTkList').empty();
+        $('.lastTkList').append(txt);
+    }
+
+    // 결제 취소 내역
+    function cancleList(list){
+        let txt="";
+        for(let i in list){
+            let day = ['일','월','화','수','목','금','토'];
+            let date= new Date(list[i].stDate);
+            let dateFormat1 = (date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + '  (' +day[date.getDay()]+') '+date.getHours() + ' : '+ (('00'+date.getMinutes()).slice(-2))+'');
+            if(list[i].stPay == 3 || list[i].stPay == 2){
+                txt +='<div class="card card-tk-div">';
+                txt +='<div ><span class="tklist1">'+dateFormat1+'</span><span class="tklist_user">예약자 연락처 : '+list[i].stPhone+'</span><span class="tklist_user"> 예약자 : '+list[i].stName+'님 &nbsp;&nbsp;</span></div>';
+                txt +='<hr/>';
+                txt +='<div class="tklist_Num_div"><span class="tklist_Num">예약번호 : '+list[i].stNum+'</span></div>';
+                txt +='<table class="tklist_table">';
+                txt +='<tr class="tklist_tr1">';
+                txt +='<td rowspan="2"><a href="'+list[i].stUrl+'"class="tklist_a"><img src="'+list[i].stImg+'" width="400px"></a></td>';
+                txt +='</tr>';
+                txt +='<tr>';
+                txt +='<td>';
+                txt +='<p class="tklist_RoomInfo"><a href="'+list[i].stUrl+'" class="tklist_a">'+list[i].stRoomInfo+'</a></p>';
+                txt +='<p class="tklist_day"> 숙박기간 : '+list[i].stStartDay+'~'+list[i].stEndDay+'</p>';
+                txt +='<div class="tklist_Amount">금액 : '+list[i].stAmount+'원</div>';
+                if(list[i].stPay == 2){
+                    txt +='<div class="tklist_pay"><div class="btn btn-outline-primary">환불 요청중</div></div>';
+                }else if(list[i].stPay == 3){
+                    txt +='<div class="tklist_pay"><div class="btn btn-outline-primary">환불 완료</div></div>';
+                }
+
+                txt +='</td>';
+                txt +='</tr>';
+                txt +='</table>';
+                txt +='</div>';
+            }
+        }
+        $('.canclePay').empty();
+        $('.canclePay').append(txt);
+    }
+
+
+    // 해당하는 value값만큼 별 width를 늘려주는 방식
+
+    // 결제 대기내역 지우기(날짜가 지나간)
+    $(document).ready(function (){
+        $.ajax({
+            type : "POST",
+            url: "/delLastList",
+            dataTypes: "text",
+            success: function (result) {
+                console.log(result);
+            },
+            error: function () {
+                alert("결제대기 내역 삭제 통신 에러")
+            }
+
+        });
+    });
+
+</script>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="author" content="Hyehwi">
+  <meta name="date" content="">
+  <meta name="description" content="">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="shortcut icon" href="https://sdsdfile.s3.ap-northeast-2.amazonaws.com/img/favicon.png" type="image/x-icon">
+  <title>숙덕숙덕 | 숙박 예약과 커뮤니티를 한번에</title>
+</head>
+<body class="index">
+<!-- admin header -->
+<div data-th-include="/admin/admin-header.html" id="admin-header" th:if="${session.loginId eq 'admin'}"></div>
+
+<!-- header -->
+<div data-th-include="header" id="header" th:if="${session.loginId ne 'admin'}"></div>
+
+<!-- PageUpButton-->
+<a href="#header" class="bi bi-arrow-up-circle" th:if="${session.loginId ne 'admin'}"></a>
+<a href="#admin-header" class="bi bi-arrow-up-circle" th:if="${session.loginId eq 'admin'}"></a>
+<main>
+  <div class="container">
+    <h2><img src="https://sdsdfile.s3.ap-northeast-2.amazonaws.com/img/profile.png" class="img-profile"> 사업자 정보</h2>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">프로필</li>
+        <li class="breadcrumb-item"><a href="http://localhost:9092/">Home</a></li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="container m-section">
+    <div class="row">
+      <div class="col-xl-12">
+
+        <div class="card">
+          <div class="card-body pt-3">
+            <div class="container mt-3">
+              <!-- Nav tabs -->
+              <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" data-bs-toggle="tab" href="#profile-overview">프로필</a>
+                </li>
+              </ul>
+              <!-- Tab panes -->
+              <div class="tab-content">
+                <!-- 프로필 -->
+                <div id="profile-overview" class="m-div tab-pane active"><br>
+                  <p class="h5"><strong class="m-color">[[${view.soName}]]</strong>님의 프로필</p><br/>
+
+                  <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label"><strong>사업자 번호</strong></label>
+                    <div class="col-md-8 col-lg-9 m-profile-div">
+                      [[${view.soNum}]]
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label"><strong>사업자 이름</strong></label>
+                    <div class="col-md-8 col-lg-9 m-profile-div">
+                      [[${view.soName}]]
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label"><strong>사업자 등록번호(ID)</strong></label>
+                    <div class="col-md-8 col-lg-9 m-profile-div">
+                      [[${view.soBusnum}]]
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label"><strong>기업체명</strong></label>
+                    <div class="col-md-8 col-lg-9 m-profile-div">
+                      [[${view.soCompany}]]
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label"><strong>연락처</strong></label>
+                    <div class="col-md-8 col-lg-9 m-profile-div">
+                      [[${view.soPhone}]]
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label"><strong>이메일</strong></label>
+                    <div class="col-md-8 col-lg-9 m-profile-div">
+                      [[${view.soEmail}]]
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label"><strong>주소</strong></label>
+                    <div class="col-md-8 col-lg-9 m-profile-div">
+                      [[${view.soComaddr}]]
+                    </div>
+                  </div>
+
+                  <div class="pt-2 m-btn">
+                    <button id="modify" class="btn btn-outline-primary" title="프로필 수정">
+                      <i class="bi bi-pencil-square"></i> 수정하기</button>
+                    <button id="delete" class="btn btn-outline-primary" title="프로필 탈퇴">
+                      <i class="bi bi-trash"></i> 탈퇴하기</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<div data-th-include="footer" id="footer"></div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+  $('#modify').click(function () {
+    location.href = "/soModiForm/[[${view.soNum}]]";
+  });
+
+  $('#delete').click(function () {
+    if (confirm('정말 삭제하시겠습니까?')) {
+      alert('회원탈퇴 완료')
+      location.href = "/soDelete/[[${view.soNum}]]";
+    } else {
+      alert('취소했습니다')
+    }
+  });
+
+</script>
+</html>

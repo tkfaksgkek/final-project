@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="kiho">
+    <meta name="date" content="">
+    <meta name="description" content="">
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"/>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="https://sdsdfile.s3.ap-northeast-2.amazonaws.com/img/favicon.png" type="image/x-icon">
+    <title></title>
+
+</head>
+<style>
+
+</style>
+<body>
+
+<nav class="navbar navbar-expand-sm bg-color">
+    <div class="container-fluid">
+        <a class="navbar-brand" style="width: 250px;" href="/"><img src="https://sdsdfile.s3.ap-northeast-2.amazonaws.com/img/logo.png" alt=""></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse " id="mynavbar">
+            <ul class="navbar-nav me-auto menu SMN_effect-4">
+                <li class="nav-item">
+                    <a class="nav-link header_menu_a" href="/HSearch">숙소 검색</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link header_menu_a" href="/GBList">자유게시판</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link header_menu_a" href="/MBList">숙소 홍보</a>
+                </li>
+                <li class="nav-item" th:if="${session.loginNum ne null}">
+                    <a class="nav-link header_menu_a" href="/MRequest">숙소 홍보요청</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link header_menu_a" href="/noticelist">공지사항</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link header_menu_a" href="/customer">고객센터</a>
+                </li>
+            </ul>
+
+            <button type="button" id="btn1" class="btn btn-outline-primary" data-bs-toggle="modal"
+                    data-bs-target="#myModal"
+                    th:if="${session.loginId eq null &amp;&amp; session.loginNum eq null}">
+                로그인
+            </button>
+            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                    data-bs-target="#myModal1"
+                    th:if="${session.loginId eq null &amp;&amp; session.loginNum eq null}">
+                회원가입
+            </button>
+            <div class="dropdown" th:if="${session.loginId ne null || session.loginNum ne null}">
+                <button th:if="${session.loginId ne null}" type="button"
+                        class="btn btn-outline-primary1 dropdown-toggle bi bi-person-bounding-box"
+                        data-bs-toggle="dropdown">&nbsp;[[${session.nickName}]]님
+                </button>
+                <button th:if="${session.loginNum ne null}" type="button"
+                        class="btn btn-outline-primary1 dropdown-toggle bi bi-person-bounding-box"
+                        data-bs-toggle="dropdown">&nbsp;[[${session.soName}]]님
+                </button>
+                <ul class="dropdown-menu">
+                    <div class="header_view" th:if="${session.loginId ne null}">[[${session.nickName}]]님
+                        <button type="button" class="btn btn-outline-primary-logout" id="mLogout">
+                            로그아웃
+                        </button>
+                    </div>
+                    <div class="header_view" th:if="${session.loginNum ne null}">[[${session.soName}]]님
+                        <button type="button" class="btn btn-outline-primary-logout" id="sLogout">
+                            로그아웃
+                        </button>
+                    </div>
+                    <p><a th:href="@{|/mView/${session.loginId}|}" class="bi bi-person-circle header_myview"
+                          th:if="${session.loginId ne null}">&nbsp; 내정보&nbsp;&nbsp;</a></p>
+                    <p><a th:href="@{|/soView/${session.loginNum}|}" class="bi bi-person-circle header_myview"
+                          th:if="${session.loginNum ne null}">&nbsp; 내정보</a></p>
+                    <p><a th:href="@{|/mView/${session.loginId}/menu1|}" class="bi bi-suit-heart header_myview" th:if="${session.loginId ne null}">&nbsp;&nbsp;찜&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                    </p>
+                    <p><a th:href="@{|/mView/${session.loginId}/menu2|}" class="bi bi-calendar-week header_myview" th:if="${session.loginId ne null}">&nbsp;
+                        예약정보</a></p>
+                    <p><a th:href="@{|/mView/${session.loginId}/menu6|}" class="bi bi-receipt header_myview" th:if="${session.loginId ne null}">&nbsp; 내가쓴글</a></p>
+
+                </ul>
+            </div>
+            <!-- The Modal -->
+            <div class="modal" id="myModal">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">로그인</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="userinfo-tab" data-bs-toggle="tab"
+                                            data-bs-target="#userinfo" type="button" role="tab" aria-controls="userinfo"
+                                            aria-selected="true">일반
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="operator-tab" data-bs-toggle="tab"
+                                            data-bs-target="#operator" type="button" role="tab"
+                                            aria-controls="operator" aria-selected="false">사업자
+                                    </button>
+                                </li>
+                            </ul>
+                            <br/>
+                            <!-- 일반 로그인 -->
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="userinfo" role="tabpanel"
+                                     aria-labelledby="userinfo-tab">
+                                    <form action="/mLogin" method="post">
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                            <input type="text" class="form-control" id="testId" name="smId"
+                                                   placeholder="아이디를 입력해주세요">
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text"><i class="bi bi-key"></i></span>
+                                            <input type="password" class="form-control" id="testPw" name="smPw"
+                                                   placeholder="비밀번호를 입력해주세요">
+                                        </div>
+                                        <div>
+                                            <a href="/idForm" class="h-div-a" data-bs-toggle="modal"
+                                               data-bs-target="#myModal2">
+                                                <strong>아이디 찾기</strong></a><span class="idFormfont">&nbsp;|</span>
+                                            <a href="/changePW" class="h-div-a" data-bs-toggle="modal"
+                                               data-bs-target="#myModal3">
+                                                <strong>비밀번호 찾기</strong></a>
+                                            <input type="button" value="로그인" onclick="testLogin()"
+                                                   class="btn btn-outline-primary h-btn-input">
+                                            <!--                                            <input type="submit" value="로그인" class="btn btn-outline-primary h-btn-input">-->
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- 사업자 로그인 -->
+                                <div class="tab-pane fade" id="operator" role="tabpanel"
+                                     aria-labelledby="operator-tab">
+                                    <form action="/soLogin" method="post">
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                            <input type="text" class="form-control" name="soBusnum"
+                                                   placeholder="사업자 등록 번호를 입력해주세요"></br>
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text"><i class="bi bi-key"></i></span>
+                                            <input type="password" class="form-control" name="soPw"
+                                                   placeholder="비밀번호를 입력해주세요"></br>
+                                        </div>
+                                        <div>
+                                            <a href="/idForm" class="h-div-a" data-bs-toggle="modal"
+                                               data-bs-target="#myModal2">
+                                                <strong>아이디 찾기</strong></a><span class="idFormfont">&nbsp;|</span>
+                                            <a href="/changePW" class="h-div-a" data-bs-toggle="modal"
+                                               data-bs-target="#myModal3">
+                                                <strong>비밀번호 찾기</strong></a>
+                                            <input type="submit" value="로그인"
+                                                   class="btn btn-outline-primary h-btn-input">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <br/>
+                            <hr/>
+                            <div class="ka_nv">
+                                <div class="d-flex justify-content-between" style="margin-top: 5px;">
+                                    <button onclick="goToKakao()" class="kakao-btn"><img
+                                            src="https://sdsdfile.s3.ap-northeast-2.amazonaws.com/img/kakao_login_medium_wide.png" class="kakao-btn-img"></button>
+                                </div>
+                                <div class="d-flex justify-content-between" style="margin-top: 5px;">
+                                    <button onclick="goToNaver()" class="naver-btn"><img src="https://sdsdfile.s3.ap-northeast-2.amazonaws.com/img/btnG_완성형.png"
+                                                                                         class="naver-btn-img"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal footer -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!--회원가입-->
+    <div class="modal" id="myModal1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">회원가입</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body" style="margin-left: auto; margin-right: auto;">
+                    <ul class="nav nav-tabs" id="joinTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="userJoin-tab" data-bs-toggle="tab"
+                                    data-bs-target="#userJoin" type="button" role="tab" aria-controls="userJoin"
+                                    aria-selected="true">일반
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="operJoin-tab" data-bs-toggle="tab"
+                                    data-bs-target="#operJoin" type="button" role="tab"
+                                    aria-controls="operJoin" aria-selected="false">사업자
+                            </button>
+                        </li>
+                    </ul>
+
+                    <!-- 일반 회원가입 -->
+                    <div class="tab-content" id="joinTabContent">
+                        <div class="tab-pane fade show active" id="userJoin" role="tabpanel"
+                             aria-labelledby="userJoin-tab">
+                            <form action="/mJoin" method="POST" encType="multipart/form-data" name="mJoinForm">
+                                <table>
+                                    <tr>
+                                        <th>아이디</th>
+                                        <th><input type="text" name="smId" id="smId" size="40px" required
+                                                   class="listbox"/>
+                                            <br/>
+                                            <span id="check1"></span></th>
+                                    </tr>
+
+                                    <tr>
+                                        <th>비밀번호</th>
+                                        <th><input type="password" name="smPw" id="smPw"
+                                                   placeholder="영문, 숫자, 특수문자를 혼합해서 8자 이상" size="40px" required
+                                                   class="listbox"/>
+                                            <br/>
+                                            <span id="check2"></span></th>
+                                    </tr>
+
+                                    <tr>
+                                        <th>비밀번호 확인</th>
+                                        <th><input type="password" id="checkPw"
+                                                   placeholder="입력한 비밀번호를 확인해 주세요" size="40px" required
+                                                   class="listbox "/>
+                                            <br/>
+                                            <span id="check3"></span></th>
+                                    </tr>
+
+                                    <tr>
+                                        <th>이름</th>
+                                        <th><input type="text" name="smName" size="40px" required class="listbox"/></th>
+                                    </tr>
+
+                                    <tr>
+                                        <th>닉네임</th>
+                                        <th><input type="text" name="smNickname" id="smNickname"
+                                                   placeholder="사용할 닉네임을 입력해 주세요" size="40px" required class="listbox"/>
+                                            <br/>
+                                            <span id="check17"></span></th>
+                                    </tr>
+
+                                    <tr>
+                                        <th>생년월일</th>
+                                        <th><input type="date" name="smBirth" required class="listbox"/></th>
+                                    </tr>
+
+                                    <tr>
+                                        <th>성별</th>
+                                        <td class="select">
+                                            <input type="radio" name="smGender" value="남자" checked id="select"/><label
+                                                for="select">남자</label>
+                                            <input type="radio" name="smGender" value="여자" checked id="select2"/><label
+                                                for="select2">여자</label>
+                                            <br/>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>이메일</th>
+                                        <th>
+                                            <input type="email" name="smEmail" id="smEmail" size="23px" required
+                                                   class="listbox"/>
+                                            <span id="check4">
+                                            <input type="button" id="checkEmail" value="인증번호 발송" class="listbox"></span>
+                                        </th>
+                                    </tr>
+
+                                    <tr>
+                                        <th>연락처</th>
+                                        <th><input type="text" name="smPhone" size="40px" class="listbox"/></th>
+                                    </tr>
+
+                                    <tr>
+                                        <th class="h-join-addr">주소</th>
+                                        <th>
+                                            <input type="text" id="sample6_postcode"
+                                                   onfocus="sample6_execDaumPostcode()" size="23px" placeholder="우편번호"
+                                                   class="listbox">
+                                            <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"
+                                                   size=10 class="listbox"><br>
+                                            <input type="text" id="sample6_address" placeholder="주소" size="40px"
+                                                   class="listbox"><br>
+                                            <input type="text" id="sample6_detailAddress" size="40px" placeholder="상세주소"
+                                                   class="listbox">
+                                            <input type="hidden" id="smAddr" name="smAddr">
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th class="h-join-file-th">프로필 사진</th>
+                                        <td class="filebox">
+                                            <input class="upload-name listbox" size="23px" value="첨부파일"
+                                                   placeholder="첨부파일" readonly>
+                                            <label for="smProfile">파일찾기</label>
+                                            <input type="file" id="smProfile" name="smProfile"
+                                                   style="margin-top: 15px;"><br/><br/>
+                                            <img id="smProfileName" width="150px"/>
+                                        </td>
+                                    </tr>
+
+                                    <tr style="text-align: center;">
+                                        <th colspan="2">
+                                            <input type="submit" class="btn btn-outline-primary" value="가입"
+                                                   id="memJoin"/>
+                                            <input type="reset" class="btn btn-outline-primary" value="다시작성"/>
+                                        </th>
+                                    </tr>
+                                </table>
+                                <br/>
+                            </form>
+                        </div>
+
+                        <!-- 사업자 회원가입 -->
+                        <div class="tab-pane fade" id="operJoin" role="tabpanel"
+                             aria-labelledby="operJoin-tab">
+                            <form action="/soJoin" method="POST" encType="multipart/form-data" name="soJoinForm">
+                                <table>
+
+                                    <tr>
+                                        <th>사업자 이름</th>
+                                        <th><input type="text" name="soName" size=40 required class="listbox"/><br/>
+                                        </th>
+                                    </tr>
+
+                                    <tr>
+                                        <th>사업자 등록번호(ID)</th>
+                                        <th><input type="text" name="soBusnum" id="soBusnum" size=40 required
+                                                   class="listbox"/><br/>
+                                            <span id="check5"></span></th>
+                                    </tr>
+
+                                    <tr>
+                                        <th>비밀번호</th>
+                                        <th><input type="password" name="soPw" id="soPw" size=40 required
+                                                   class="listbox"/><br/>
+                                            <span id="check6"></span></th>
+                                    </tr>
+
+                                    <tr>
+                                        <th>이메일</th>
+                                        <th><input type="text" name="soEmail" id="soEmail" size=23 required
+                                                   class="listbox"/>
+                                            <span id="check7"><input type="button" id="checkEmail2" value="인증번호 발송"
+                                                                     class="listbox">
+                                            </span></th>
+                                    </tr>
+
+                                    <tr>
+                                        <th>연락처</th>
+                                        <th><input type="text" name="soPhone" size=40 required class="listbox"/></th>
+                                    </tr>
+
+                                    <tr>
+                                        <th>기업체명</th>
+                                        <th><input type="text" name="soCompany" size=40 required class="listbox"/></th>
+                                    </tr>
+
+                                    <tr>
+                                        <th style="vertical-align: text-top; padding-top: 18px;">주소</th>
+                                        <th>
+                                            <input type="text" id="sample6_postcode2"
+                                                   onfocus="sample6_execDaumPostcode2()"
+                                                   placeholder="우편번호" size=23 class="listbox">
+                                            <input type="button" onclick="sample6_execDaumPostcode2()" value="우편번호 찾기"
+                                                   size=10 class="listbox"><br>
+                                            <input type="text" id="sample6_address2" placeholder="주소" size=40
+                                                   class="listbox"><br>
+                                            <input type="text" id="sample6_detailAddress2" style="margin-bottom: 20px"
+                                                   placeholder="상세주소" size=40 class="listbox">
+                                            <input type="hidden" id="soComaddr" name="soComaddr">
+                                        </th>
+                                    </tr>
+
+                                    <tr style="text-align: center;">
+                                        <th colspan="2">
+                                            <input type="button" class="btn btn-outline-primary" id="subJoin"
+                                                   value="가입"/>
+                                            <input type="reset" class="btn btn-outline-primary" value="다시작성"/>
+                                        </th>
+                                    </tr>
+                                </table>
+                                <br/>
+                            </form>
+                        </div>
+                    </div>
+                    <hr/>
+                </div>
+                <!-- Modal footer -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 아이디 찾기 -->
+    <div class="modal" id="myModal2">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">아이디 찾기</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <ul class="nav nav-tabs" id="findIdTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="findIdUser-tab" data-bs-toggle="tab"
+                                    data-bs-target="#findIdUser" type="button" role="tab" aria-controls="findIdUser"
+                                    aria-selected="true">일반
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="findIdOper-tab" data-bs-toggle="tab"
+                                    data-bs-target="#findIdOper" type="button" role="tab"
+                                    aria-controls="findIdOper" aria-selected="false">사업자
+                            </button>
+                        </li>
+                    </ul>
+                    <br/>
+
+                    <!-- 일반 -->
+                    <div class="tab-content" id="findIdTabContent">
+                        <div class="tab-pane fade show active" id="findIdUser" role="tabpanel"
+                             aria-labelledby="findIdUser-tab">
+                            <form id="searchForm" method="post">
+                                <table class="h-table">
+                                    <tr>
+                                        <th>
+                                            <input type="text" name="smName" id="smName" class="listbox h-table-input"
+                                                   placeholder="이름를 입력해 주세요" required/>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <input type="text" name="smPhone" id="smPhone" class="listbox h-table-input"
+                                                   placeholder="휴대폰 번호를 입력해 주세요" required/>
+                                            <span id="check8">
+                                                <input id="phoneChk" class="btn btn-outline-primary h-span-input"
+                                                       type="button" value="인증번호 전송"/>
+                                            </span>
+                                            <input type="submit" value="아이디 찾기"
+                                                   class="btn btn-outline-primary h-th-input">
+                                        </th>
+                                    </tr>
+                                </table>
+                                <strong><h5 id="result"></h5></strong>
+                            </form>
+                        </div>
+
+                        <!-- 사업자 -->
+                        <div class="tab-pane fade" id="findIdOper" role="tabpanel"
+                             aria-labelledby="findIdOper-tab">
+                            <form id="searchBn" method="post">
+                                <table class="h-table">
+                                    <tr>
+                                        <th>
+                                            <input type="text" name="soName" id="soName" class="listbox h-table-input"
+                                                   placeholder="사업자 이름를 입력해 주세요" required/>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th><input type="text" name="soPhone" id="soPhone" class="listbox h-table-input"
+                                                   placeholder="연락처를 입력해 주세요" required/>
+                                            <span id="check9">
+                                                <input id="phoneChk2" class="btn btn-outline-primary h-span-input"
+                                                       type="button" value="인증번호 전송"/>
+                                            </span>
+                                            <input type="submit" value="사업자 번호 찾기"
+                                                   class="btn btn-outline-primary h-th-input">
+                                        </th>
+                                    </tr>
+                                </table>
+                                <strong><h5 id="result2"></h5></strong>
+                            </form>
+                        </div>
+                        <hr/>
+                        <button type="button" class="btn btn-primary h-btn" data-bs-toggle="modal"
+                                data-bs-target="#myModal">
+                            로그인 화면으로 이동
+                        </button>
+                        <br/>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 비밀번호 찾기(변경) -->
+    <div class="modal" id="myModal3">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">비밀번호 변경하기</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <ul class="nav nav-tabs" id="changePwTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="changeSmPw-tab" data-bs-toggle="tab"
+                                    data-bs-target="#changeSmPw" type="button" role="tab" aria-controls="changeSmPw"
+                                    aria-selected="true">일반
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="changeSoPw-tab" data-bs-toggle="tab"
+                                    data-bs-target="#changeSoPw" type="button" role="tab"
+                                    aria-controls="changeSoPw" aria-selected="false">사업자
+                            </button>
+                        </li>
+                    </ul>
+                    <br/>
+
+                    <!-- 일반 -->
+                    <div class="tab-content" id="changeSmPwTabContent">
+                        <div class="tab-pane fade show active" id="changeSmPw" role="tabpanel"
+                             aria-labelledby="findIdUser-tab">
+                            <form id="changeForm" method="post">
+                                <table class="h-table">
+                                    <tr>
+                                        <th>
+                                            <input type="text" name="smId" id="smId2" placeholder="아이디를 입력해 주세요"
+                                                   required class="listbox h-table-input"/>
+                                            <br/>
+                                            <span id="check10"></span></th>
+                                    </tr>
+
+                                    <tr>
+                                        <th>
+                                            <input type="password" name="smPw" id="smPw2"
+                                                   placeholder="변경할 비밀번호를 입력해 주세요"
+                                                   class="listbox h-table-input" required/> <br/>
+                                            <span id="check12"></span></th>
+                                    </tr>
+
+                                    <tr>
+                                        <th>
+                                            <input type="password" id="checkPw2" placeholder="입력한 비밀번호를 확인해 주세요"
+                                                   class="listbox h-table-input" required/> <br/>
+                                            <span id="check13"></span></th>
+                                    </tr>
+
+                                    <tr>
+                                        <th>
+                                            <input type="text" name="smPhone" id="smPhone2"
+                                                   placeholder="휴대폰 번호를 입력해 주세요"
+                                                   class="listbox h-table-input" required/>
+                                            <span id="check14"><br/>
+                                            <input id="phoneChk3" type="button" class="btn btn-outline-primary"
+                                                   value="인증번호 전송"/></span>
+                                            <input type="submit" value="비밀번호 변경하기"
+                                                   class="btn btn-outline-primary h-th-input">
+                                        </th>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+
+                        <!-- 사업자 -->
+                        <div class="tab-pane fade" id="changeSoPw" role="tabpanel" aria-labelledby="findIdOper-tab">
+                            <form id="changeBnForm" method="post">
+                                <table class="h-table">
+                                    <tr>
+                                        <th>
+                                            <input type="text" name="soBusnum" id="soBusnum2"
+                                                   placeholder="사업자 등록번호(ID)를 입력해 주세요"
+                                                   class="listbox h-table-input" required/> <br/>
+                                            <span id="check11"></span>
+                                        </th>
+                                    </tr>
+
+                                    <tr>
+                                        <th>
+                                            <input type="password" name="soPw" id="soPw2"
+                                                   placeholder="변경할 비밀번호를 입력해 주세요"
+                                                   class="listbox h-table-input" required/><br/>
+                                            <span id="check15"></span>
+                                        </th>
+                                    </tr>
+
+                                    <tr>
+                                        <th>
+                                            <input type="text" name="soPhone" id="soPhone2" placeholder="연락처를 입력해 주세요"
+                                                   class="listbox h-table-input" required/>
+                                            <span id="check16"><br/>
+                                            <input id="phoneChk4" type="button" class="btn btn-outline-primary"
+                                                   value="인증번호 전송"/></span>
+                                            <input type="submit" value="비밀번호 변경하기"
+                                                   class="btn btn-outline-primary h-th-input">
+                                        </th>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+                        <hr/>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#myModal" style="width: 100%;">
+                            로그인 화면으로 이동
+                        </button>
+                        <br/>
+                    </div>
+                </div>
+                <!-- Modal footer -->
+            </div>
+        </div>
+    </div>
+
+</nav>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.4.js"
+        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+        crossorigin="anonymous">
+</script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"></script>
+<!-- JavaScript Bundle with Popper -->
+<script type="text/javascript">
+
+    let check_id = false;
+    let check_id2 = false;
+    let check_id3 = false;
+    let check_id4 = false;
+    let check_name = false;
+    let check_pw = false;
+    let check_pw2 = false;
+    let check_pw3 = false;
+    let check_pw4 = false;
+    let check_pw5 = false;
+    let check_pw6 = false;
+    let check_email = false;
+    let check_email2 = false;
+    let check_phone = false;
+    let check_phone2 = false;
+    let check_phone3 = false;
+    let check_phone4 = false;
+
+    // 로그인시 비밀번호 창에서 버튼 클릭 없이 엔터만 입력해도 로그인 가능하게 처리
+    let teestKey = document.getElementById('testPw');
+    teestKey.addEventListener("keyup", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            testLogin();
+        }
+    });
+
+    // 로그인 성공시 페이지 이동 없이 현재 페이지로 진입
+    function testLogin() {
+        let testId = $('#testId').val();
+        let testPw = $('#testPw').val();
+        $.ajax({
+            type: "POST",
+            url: "/testLogin",
+            data: {
+                "smId": testId,
+                "smPw": testPw
+            },
+            dataTypes: "text",
+            success: function (result) {
+                if (result == "OK") {
+                    console.log("로그인 성공")
+                    $('#myModal').modal('hide');
+                    location.reload();
+                } else {
+                    alert(result);
+                }
+            },
+            error: function () {
+                alert('idCheck 통신 실패!');
+            }
+        })
+    }
+
+
+    // 아이디 중복 체크
+    $('#smId').keyup(function () {
+        let smId = $('#smId').val();
+        let check1 = $('#check1');
+
+        let kor = smId.search(/[ㄱ-ㅎ]/);          // 자음
+        let kor2 = smId.search(/[ㅏ-ㅣ]/);          // 모음
+        let spe = smId.search(/[~!@#$%^&*]/);    // 특수문자
+        let spc = smId.search(/\s/);             // 공백여부
+
+        // Ajax를 사용해서 아이디 중복체크
+        $.ajax({
+            type: "POST",
+            url: "/idCheck",
+            data: {"smId": smId},
+            dataTypes: "text",
+            success: function (result) {
+                if (result == "OK") {
+                    if (smId.length < 3 || smId.length > 30) {
+                        check1.html("3자리에서 30자리 이내로 입력해주세요")
+                        check1.css('color', 'red');
+                        check_id = false;
+                    }else if (spc != -1) {
+                        check1.html("공백없이 입력해주세요");
+                        check1.css('color', 'red');
+                        check_id = false;
+                    } else if (spe != -1) {
+                        check1.html("특수문자없이 입력해주세요");
+                        check1.css('color', 'red');
+                        check_id = false;
+                    } else if (kor != -1 || kor2 != -1) {
+                        check1.html("영어와 숫자만 사용해주세요");
+                        check1.css('color', 'red');
+                        check_id = false;
+                    } else {
+                        check1.html(smId + '는 사용 가능한 아이디 입니다');
+                        check1.css('color', 'blue');
+                        check_id = true;
+                    }
+                } else {
+                    check1.html(smId + '는 사용 불가능한 아이디 입니다');
+                    check1.css('color', 'red');
+                    check_id = false;
+                }
+            },
+            error: function () {
+                alert('idCheck 통신 실패!');
+            }
+        });
+    });
+
+    let check2 = $('#check2');
+    let check3 = $('#check3');
+    let smPw="";
+    let checkPw="";
+
+    // 일반회원가입 비밀번호 정규식
+    $('#smPw').keyup(function () {
+        smPw = $('#smPw').val();
+
+
+        // 기본값 -1
+        let num = smPw.search(/[0-9]/);          // 숫자
+        let eng = smPw.search(/[a-z]/);          // 영문자
+        let spe = smPw.search(/[~!@#$%^&*]/);    // 특수문자
+        let spc = smPw.search(/\s/);             // 공백여부
+
+        if (smPw.length < 8 || smPw.length > 16) {
+            check2.html("8자리에서 16자리 이내로 입력해주세요")
+            check2.css('color', 'red');
+            check_pw = false;
+        } else if (spc != -1) {
+            check2.html("공백없이 입력해주세요");
+            check2.css('color', 'red');
+            check_pw = false;
+        } else if (num == -1 || eng == -1 || spe == -1) {
+            check2.html("영문, 숫자, 특수문자를 혼합해서 입력해주세요");
+            check2.css('color', 'red');
+            check_pw = false;
+        } else {
+            check2.html("사용가능한 비밀번호 입니다.");
+            check2.css('color', 'blue');
+            check_pw = true;
+        }
+        if (smPw != checkPw && checkPw!="") {
+            check3.html("비밀번호가 불일치합니다.");
+            check3.css('color', 'red');
+            check_pw2 = false;
+        }else if(smPw == checkPw && checkPw!=""){
+            check3.html("비밀번호가 일치합니다.");
+            check3.css('color', 'blue');
+            check_pw2 = true;
+        }
+    });
+
+    // 일반회원가입 비밀번호 일치 여부 확인
+    $('#checkPw').keyup(function () {
+        smPw = $('#smPw').val();
+        checkPw = $('#checkPw').val();
+
+        if (smPw == checkPw) {
+            check3.html("비밀번호가 일치합니다.");
+            check3.css('color', 'blue');
+            check_pw2 = true;
+        } else {
+            check3.html("비밀번호가 불일치합니다.");
+            check3.css('color', 'red');
+            check_pw2 = false;
+        }
+    });
+
+    // 닉네임 중복 체크
+    $('#smNickname').keyup(function () {
+        let smNickname = $('#smNickname').val();
+        let check17 = $('#check17');
+
+        // Ajax를 사용해서 닉네임 중복체크
+        $.ajax({
+            type: "POST",
+            url: "/NicknameCheck",
+            data: {"smNickname": smNickname},
+            dataTypes: "text",
+            success: function (result) {
+                if (result == "OK") {
+                    if (smNickname.length < 2 || smNickname.length > 20) {
+                        check17.html("2자리에서 30자리 이내로 입력해주세요")
+                        check17.css('color', 'red');
+                        check_name = false;
+                    }else {
+                        check17.html('사용 가능한 닉네임 입니다');
+                        check17.css('color', 'blue');
+                        check_name = true;
+                    }
+                } else {
+                    check17.html('사용 불가능한 닉네임 입니다');
+                    check17.css('color', 'red');
+                    check_name = false;
+                }
+            },
+            error: function () {
+                alert('NicknameCheck 통신 실패!');
+            }
+        });
+    });
+
+    // 일반회원 이메일 인증번호 전송
+    $('#checkEmail').click(function () {
+        console.log('클릭');
+        alert("인증메일을 발송했습니다.\n이메일에서 인증번호 확인을 해주십시오.");
+        let smEmail = $('#smEmail').val();
+        let check4 = $('#check4');
+
+        // Ajax 사용해서 이메일 전송 및 인증번호 받아오기
+        $.ajax({
+            type: "POST",
+            url: "/emailCheck",
+            data: {"smEmail": smEmail},
+            dataTypes: "text",
+            success: function (uuid) {
+                console.log(uuid);
+                $('#smEmail').attr("readonly",true);
+                check4.empty();
+                check4.append(`<br/><input type="text" class="listbox" id="uuid1" size="31"/>&nbsp;`);
+                check4.append(`<input type="button" class="btn btn-outline-primary" value="인증" id="btnUUID" data-value="${uuid}"/>`);
+            },
+            error: function () {
+                alert('유효하지 않은 email입니다.\n email 주소를 확인해 주세요');
+            }
+        });
+    });
+
+    // 일반회원 이메일 인증번호 확인
+    $(document).on("click", "#btnUUID", function () {
+        let uuid1 = $('#uuid1').val();
+        let uuid = $(this).data("value");
+
+        if (uuid1 == uuid) {
+            alert('이메일 인증에 성공했습니다.');
+            $('#uuid1').attr("disabled",true);
+            $('#btnUUID').attr("disabled",true);
+            check_email = true;
+        } else {
+            alert('인증번호를 확인해주세요.')
+            $('#uuid1').val("");
+            check_email = false;
+        }
+    });
+
+
+    // 우편번호 찾기
+    function sample6_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function (data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample6_postcode').value = data.zonecode;
+                document.getElementById("sample6_address").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("sample6_detailAddress").focus();
+            }
+        }).open();
+    }
+
+    // 파일 미리보기
+    $('#smProfile').on("change", function (event) {
+        let file = event.target.files[0];
+        let reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#smProfileName').attr("src", e.target.result);
+        }
+
+        reader.readAsDataURL(file);
+    });
+
+    // 일반회원 가입버튼
+    $('#memJoin').click(function () {
+        let smAddr = $('#smAddr');
+        let addr1 = $('#sample6_postcode').val();
+        let addr2 = $('#sample6_address').val();
+        let addr3 = $('#sample6_detailAddress').val();
+
+        let addr = "(" + addr1 + ")" + addr2 + ", " + addr3;
+
+        smAddr.val(addr); // smAddr의 값을 설정
+
+        if (check_id) {
+            console.log(check_id)
+            if (check_pw && check_pw2) {
+                if (check_name) {
+                    console.log(check_name)
+                    if (check_email) {
+                        console.log(check_email)
+                        alert('숙덕숙덕에 오신 것을 환영합니다.');
+                        mJoinForm.submit();
+                        return true;
+                    } else {
+                        alert('이메일 인증을 진행해주세요.');
+                        return false;
+                    }
+                } else {
+                    alert('닉네임 중복여부를 확인해주세요.');
+                    return false;
+                }
+            } else {
+                alert('비밀번호를 다시 확인해주세요.');
+                return false;
+            }
+        } else {
+            alert('아이디를 확인해주세요.');
+            return false;
+        }
+    });
+
+    // 로그아웃
+    $('#mLogout').click(function () {
+        if (confirm("로그아웃 하시겠습니까?") == true) { //확인
+            location.href = "/mLogout";
+        } else { //취소
+            return;
+        }
+    });
+
+    // 로그아웃
+    $('#sLogout').click(function () {
+        if (confirm("로그아웃 하시겠습니까?") == true) { //확인
+            location.href = "/mLogout";
+        } else { //취소
+            return;
+        }
+    });
+
+
+    // 사업자 번호 중복 체크
+    $('#soBusnum').keyup(function () {
+        let soBusnum = $('#soBusnum').val();
+        let check5 = $('#check5');
+
+        let kor = soBusnum.search(/[ㄱ-ㅎ]/);          // 자음
+        let kor2 = soBusnum.search(/[ㅏ-ㅣ]/);          // 모음
+        let spe = soBusnum.search(/[~!@#$%^&*]/);    // 특수문자
+        let spc = soBusnum.search(/\s/);             // 공백여부
+
+        // Ajax를 사용해서 아이디 중복체크
+        $.ajax({
+            type: "POST",
+            url: "/bnCheck",
+            data: {"soBusnum": soBusnum},
+            dataTypes: "text",
+            success: function (result) {
+                if (result == "OK") {
+                    if (spc != -1) {
+                        check5.html("공백없이 입력해주세요");
+                        check5.css('color', 'red');
+                        check_id2 = false;
+                    } else if (spe != -1) {
+                        check5.html("특수문자없이 입력해주세요");
+                        check5.css('color', 'red');
+                        check_id2 = false;
+                    } else if (kor != -1 || kor2 != -1) {
+                        check5.html("영어와 숫자만 사용해주세요");
+                        check5.css('color', 'red');
+                        check_id2 = false;
+                    } else {
+                        check5.html(soBusnum + '는 사용 가능한 아이디 입니다');
+                        check5.css('color', 'blue');
+                        check_id2 = true;
+                    }
+                } else {
+                    check5.html(soBusnum + '는 사용 불가능한 번호 입니다');
+                    check5.css('color', 'red');
+                    check_id2 = false;
+                }
+            },
+            error: function () {
+                alert('idCheck 통신 실패!');
+            }
+        });
+    });
+
+    // 사업자 회원가입 비밀번호 정규식
+    $('#soPw').keyup(function () {
+        let soPw = $('#soPw').val();
+        let check6 = $('#check6');
+
+        // 기본값 -1
+        let num = soPw.search(/[0-9]/);          // 숫자
+        let eng = soPw.search(/[a-z]/);          // 영문자
+        let spe = soPw.search(/[~!@#$%^&*]/);    // 특수문자
+        let spc = soPw.search(/\s/);             // 공백여부
+
+        if (soPw.length < 8 || soPw.length > 16) {
+            check6.html("8자리에서 16자리 이내로 입력해주세요")
+            check6.css('color', 'red');
+            check_pw3 = false;
+        } else if (spc != -1) {
+            check6.html("공백없이 입력해주세요");
+            check6.css('color', 'red');
+            check_pw3 = false;
+        } else if (num == -1 || eng == -1 || spe == -1) {
+            check6.html("영문, 숫자, 특수문자를 혼합해서 입력해주세요");
+            check6.css('color', 'red');
+            check_pw3 = false;
+        } else {
+            check6.html("사용가능한 비밀번호 입니다.");
+            check6.css('color', 'blue');
+            check_pw3 = true;
+        }
+    });
+
+
+    // 사업자 이메일 인증번호 전송
+    $('#checkEmail2').click(function () {
+        console.log('클릭');
+        alert("인증메일을 발송했습니다.\n이메일에서 인증번호 확인을 해주십시오.");
+        let soEmail = $('#soEmail').val();
+        let check7 = $('#check7');
+
+        // Ajax 사용해서 이메일 전송 및 인증번호 받아오기
+        $.ajax({
+            type: "POST",
+            url: "/emailCheck2",
+            data: {"soEmail": soEmail},
+            dataTypes: "text",
+            success: function (uuid) {
+                console.log(uuid);
+                $('#soEmail').attr("readonly",true);
+                check7.empty();
+                check7.append(`<br/><input type="text" class="listbox" id="uuid2" size="31"/>&nbsp;`);
+                check7.append(`<input type="button" class="btn btn-outline-primary" value="인증" id="btnUUID2" data-value="${uuid}"/>`);
+            },
+            error: function () {
+                alert('유효하지 않은 email입니다.\n email 주소를 확인해 주세요');
+            }
+        });
+    });
+
+    // 사업자 이메일 인증번호 확인
+    $(document).on("click", "#btnUUID2", function () {
+        let uuid2 = $('#uuid2').val();
+        let uuid = $(this).data("value");
+
+        if (uuid2 == uuid) {
+            alert('이메일 인증에 성공했습니다.');
+            $('#uuid2').attr("disabled",true);
+            $('#btnUUID2').attr("disabled",true);
+            check_email2 = true;
+        } else {
+            alert('인증번호를 확인해주세요.')
+            $('#uuid2').val("");
+            check_email2 = false;
+        }
+    });
+
+
+    // 우편번호 찾기
+    function sample6_execDaumPostcode2() {
+        new daum.Postcode({
+            oncomplete: function (data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample6_postcode2').value = data.zonecode;
+                document.getElementById("sample6_address2").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("sample6_detailAddress2").focus();
+            }
+        }).open();
+    }
+
+    // 사업자 가입버튼
+    $('#subJoin').click(function () {
+        let soComaddr = $('#soComaddr');
+
+        let addr1 = $('#sample6_postcode2').val();
+        let addr2 = $('#sample6_address2').val();
+        let addr3 = $('#sample6_detailAddress2').val();
+
+        let addr = "(" + addr1 + ")" + addr2 + ", " + addr3;
+
+        soComaddr.val(addr);
+
+        if (check_id2) {
+            if (check_pw3) {
+                if (check_email2) {
+                    alert('숙덕숙덕에 오신 것을 환영합니다.');
+                    soJoinForm.submit();
+                    return true;
+                } else {
+                    alert('이메일 인증을 진행해주세요.');
+                    return false;
+                }
+            } else {
+                alert('비밀번호를 다시 확인해주세요.');
+                return false;
+            }
+        } else {
+            alert('아이디를 확인해주세요.');
+            return false;
+        }
+    });
+
+    // 일반회원 id찾기 휴대폰 인증번호 전송
+    $('#phoneChk').click(function () {
+        console.log('클릭');
+        let smName = $('#smName').val();
+        let smPhone = $('#smPhone').val();
+        let check8 = $('#check8');
+
+        $.ajax({
+            type: "POST",
+            url: "/findPhone",
+            data: {
+                "smName": smName,
+                "smPhone": smPhone
+            },
+            dataTypes: "text",
+            success: function (result) {
+                if (result == "OK") {
+                    alert("인증번호 발송이 완료되었습니다.\n휴대폰에서 인증번호 확인을 해주십시오.");
+                    // Ajax 사용해서 휴대폰 번호 전송 및 인증번호 받아오기
+                    $.ajax({
+                        type: "POST",
+                        url: "/phoneCheck",
+                        data: {"smPhone": smPhone},
+                        dataTypes: "text",
+                        success: function (uuid) {
+                            console.log(uuid);
+                            $('#smName').attr("readonly",true)
+                            $('#smPhone').attr("readonly",true)
+                            check8.empty();
+                            check8.append(`<br/><input type="text" class="listbox" id="uuid3" size="23"/>&nbsp;`);
+                            check8.append(`<input type="button" class="btn btn-outline-primary" value="인증" id="btnUUID3" data-value="${uuid}"/>`);
+                        },
+                        error: function () {
+                            alert('phoneCheck 통신 실패!');
+                        }
+                    });
+                } else {
+                    alert("본인이름과 유효한 번호를 입력해 주세요.");
+                }
+            },
+            error: function () {
+                alert('findPhone 통신 실패!');
+            }
+        });
+    });
+
+    // 일반회원 id찾기 휴대폰 인증번호 확인
+    $(document).on("click", "#btnUUID3", function () {
+        let uuid3 = $('#uuid3').val();
+        let uuid = $(this).data("value");
+
+        if (uuid3 == uuid) {
+            alert('휴대폰 인증에 성공했습니다.');
+            $('#uuid3').attr("disabled",true)
+            $('#btnUUID3').attr("disabled",true)
+            check_phone = true;
+        } else {
+            alert('인증번호를 확인해주세요.')
+            $('#uuid3').val("");
+            check_phone = false;
+        }
+    });
+
+    // 일반회원 아이디 찾기
+    $(document).ready(function () {     // 코드를 실행하기 위한 jQuery의 축약 형식
+        $('#searchForm').submit(function (event) {
+            event.preventDefault();     // 기본 폼 제출 동작을 방지하여 기존의 폼 제출 대신 AJAX를 통해 제출을 처리할 수 있게함.
+            var smName = $('#smName').val();
+            var smPhone = $('#smPhone').val();
+
+            if (!check_phone) {
+                alert('인증을 완료해야 합니다');
+                return;
+            } else {
+                $.ajax({
+                    url: '/findId',
+                    type: 'POST',
+                    data: {
+                        smName: smName,
+                        smPhone: smPhone
+                    },
+                    dataType: "text",
+                    success: function (data) {
+                        if (data != 'NO') {
+                            alert("당신의 아이디는 " + data + "입니다");
+                            $('#result').text('당신의 아이디는 ' + data + '입니다');
+                        } else {
+                            alert("해당하는 아이디가 존재하지 않습니다");
+                        }
+                    },
+                    error: function () {
+                        alert("서버 통신 실패");
+                    }
+                });
+            }
+        });
+    });
+
+    // 사업자 등록 번호(ID)찾기 연락처 인증번호 전송
+    $('#phoneChk2').click(function () {
+        console.log('클릭');
+        let soName = $('#soName').val();
+        let soPhone = $('#soPhone').val();
+        let check9 = $('#check9')
+
+        $.ajax({
+            type: "POST",
+            url: "/findPhone2",
+            data: {
+                "soName": soName,
+                "soPhone": soPhone
+            },
+            dataTypes: "text",
+            success: function (result) {
+                if (result == "OK") {
+                    alert("인증번호 발송이 완료되었습니다.\n휴대폰에서 인증번호 확인을 해주십시오.");
+                    // Ajax 사용해서 이메일 전송 및 인증번호 받아오기
+                    $.ajax({
+                        type: "POST",
+                        url: "/phoneCheck2",
+                        data: {"soPhone": soPhone},
+                        dataTypes: "text",
+                        success: function (uuid) {
+                            console.log(uuid);
+                            $('#soName').attr("readonly",true);
+                            $('#soPhone').attr("readonly",true);
+                            check9.empty();
+                            check9.append(`<br/><input type="text" class="listbox" id="uuid4" size="23"/>&nbsp;`);
+                            check9.append(`<input type="button" class="btn btn-outline-primary" value="인증" id="btnUUID4" data-value="${uuid}"/>`);
+                        },
+                        error: function () {
+                            alert('phoneCheck 통신 실패!');
+                        }
+                    });
+                } else {
+                    alert("본인이름과 유효한 번호를 입력해 주세요.");
+                }
+            },
+            error: function () {
+                alert('findPhone 통신 실패!');
+            }
+        });
+    });
+
+    // 사업자 등록 번호(ID)찾기 연락처 인증번호 확인
+    $(document).on("click", "#btnUUID4", function () {
+        let uuid4 = $('#uuid4').val();
+        let uuid = $(this).data("value");
+
+        if (uuid4 == uuid) {
+            alert('휴대폰 인증에 성공했습니다.');
+            $('#uuid4').attr("disabled", true);
+            $('#btnUUID4').attr("disabled", true);
+            check_phone2 = true;
+        } else {
+            alert('인증번호를 확인해주세요.')
+            $('#uuid4').val("");
+            check_phone2 = false;
+        }
+    });
+
+    // 사업자 등록 번호(ID)찾기
+    $(document).ready(function () {
+        $('#searchBn').submit(function (event) {
+            event.preventDefault();
+            var soName = $('#soName').val();
+            var soPhone = $('#soPhone').val();
+
+            if (!check_phone2) {
+                alert('인증을 완료해야 합니다');
+                return false;
+            } else {
+                $.ajax({
+                    url: '/findBn',
+                    type: 'POST',
+                    data: {
+                        soName: soName,
+                        soPhone: soPhone
+                    },
+                    dataType: "text",
+                    success: function (data) {
+                        if (data != 'NO') {
+                            alert("당신의 사업자 번호는 " + data + "입니다");
+                            $('#result2').text('당신의 사업자 번호는 ' + data + '입니다');
+                        } else {
+                            alert("해당하는 사업자 번호가 존재하지 않습니다");
+                        }
+                    },
+                    error: function () {
+                        alert("서버 통신 실패");
+                    }
+                });
+            }
+        });
+    });
+
+    // 일반회원 아이디 존재 확인
+    $('#smId2').keyup(function () {
+        let smId = $('#smId2').val();
+        let check10 = $('#check10');
+
+        // Ajax를 사용해서 아이디 중복체크
+        $.ajax({
+            type: "POST",
+            url: "/idCheck",
+            data: {"smId": smId},
+            dataTypes: "text",
+            success: function (result) {
+                if (result == "OK") {
+                    check10.html('존재하지 않는 아이디 입니다');
+                    check10.css('color', 'red');
+                    check_id3 = false;
+                } else {
+                    check10.html('존재하는 아이디 입니다');
+                    check10.css('color', 'blue');
+                    check_id3 = true;
+                }
+            },
+            error: function () {
+                alert('idCheck 통신 실패!');
+            }
+        });
+    });
+
+    // 일반회원 변경할 비밀번호 정규식
+    $('#smPw2').keyup(function () {
+        let smPw = $('#smPw2').val();
+        let check12 = $('#check12');
+
+        // 기본값 -1
+        let num = smPw.search(/[0-9]/);          // 숫자
+        let eng = smPw.search(/[a-z]/);          // 영문자
+        let spe = smPw.search(/[~!@#$%^&*]/);    // 특수문자
+        let spc = smPw.search(/\s/);             // 공백여부
+
+        if (smPw.length < 8 || smPw.length > 16) {
+            check12.html("8자리에서 16자리 이내로 입력해주세요")
+            check12.css('color', 'red');
+            check_pw4 = false;
+        } else if (spc != -1) {
+            check12.html("공백없이 입력해주세요");
+            check12.css('color', 'red');
+            check_pw4 = false;
+        } else if (num == -1 || eng == -1 || spe == -1) {
+            check12.html("영문, 숫자, 특수문자를 혼합해서 입력해주세요");
+            check12.css('color', 'red');
+            check_pw4 = false;
+        } else {
+            check12.html("사용가능한 비밀번호 입니다.");
+            check12.css('color', 'blue');
+            check_pw4 = true;
+        }
+    });
+
+    // 일반회원 변경할 비밀번호 일치 여부 확인
+    $('#checkPw2').keyup(function () {
+        let smPw = $('#smPw2').val();
+        let checkPw = $('#checkPw2').val();
+        let check13 = $('#check13');
+
+        if (smPw == checkPw) {
+            check13.html("비밀번호가 일치합니다.");
+            check13.css('color', 'blue');
+            check_pw5 = true;
+        } else {
+            check13.html("비밀번호가 불일치합니다.");
+            check13.css('color', 'red');
+            check_pw5 = false;
+        }
+    });
+
+    // 일반회원 비밀번호 변경 휴대폰 인증번호 전송
+    $('#phoneChk3').click(function () {
+        console.log('클릭');
+        let smId = $('#smId2').val();
+        let smPhone = $('#smPhone2').val();
+        let check14 = $('#check14');
+
+        $.ajax({
+            type: "POST",
+            url: "/findbyIdPhone",
+            data: {
+                "smId": smId,
+                "smPhone": smPhone
+            },
+            dataTypes: "text",
+            success: function (result) {
+                if (result == "OK") {
+                    // Ajax 사용해서 이메일 전송 및 인증번호 받아오기
+                    alert("인증번호 발송이 완료되었습니다.\n휴대폰에서 인증번호 확인을 해주십시오.");
+                    $.ajax({
+                        type: "POST",
+                        url: "/phoneCheck",
+                        data: {"smPhone": smPhone},
+                        dataTypes: "text",
+                        success: function (uuid) {
+                            console.log(uuid);
+                            $('#smId2').attr("readonly",true);
+                            $('#smPhone2').attr("readonly",true);
+                            check14.empty();
+                            check14.append(`<br/><input type="text" class="listbox" id="uuid5" size="23"/>&nbsp;`);
+                            check14.append(`<input type="button" class="btn btn-outline-primary" value="인증" id="btnUUID5" data-value="${uuid}"/>`);
+                        },
+                        error: function () {
+                            alert('phoneCheck 통신 실패!');
+                        }
+                    });
+                } else {
+                    alert("유효한 번호를 입력해 주세요.");
+                }
+            },
+            error: function () {
+                alert('findPhone 통신 실패!');
+            }
+        });
+
+    });
+
+    // 일반회원 비밀번호 변경 휴대폰 인증번호 확인
+    $(document).on("click", "#btnUUID5", function () {
+        let uuid5 = $('#uuid5').val();
+        let uuid = $(this).data("value");
+
+        if (uuid5 == uuid) {
+            alert('휴대폰 인증에 성공했습니다.');
+            $('#uuid5').attr("disabled",true);
+            $('#btnUUID5').attr("disabled",true);
+            check_phone3 = true;
+        } else {
+            alert('인증번호를 확인해주세요.')
+            $('#uuid5').val("");
+            check_phone3 = false;
+        }
+    });
+
+    // 일반회원 비밀번호 변경하기
+    $(document).ready(function () {
+        $('#changeForm').submit(function (event) {
+            event.preventDefault();
+            var smId = $('#smId2').val();
+            var smPw = $('#smPw2').val();
+            var checkPw = $('#checkPw2').val();
+            var smPhone = $('#smPhone2').val();
+
+            if (!check_phone3) {
+                alert('인증을 완료해야 합니다');
+                return false;
+            } else if (!check_id3) {
+                alert("아이디가 존재하지 않습니다");
+                return false;
+            } else if (!check_pw4 || !check_pw5 || smPw != checkPw) {
+                alert("비밀번호가 일치하지 않거나 형식에 위배됩니다");
+                return false;
+            } else {
+                $.ajax({
+                    url: '/changePw',
+                    type: 'POST',
+                    data: {
+                        smId: smId,
+                        smPw: smPw,
+                        smPhone: smPhone
+                    },
+                    dataType: "text",
+                    success: function () {
+                        alert('비밀번호를 변경하였습니다.');
+                        console.log('성공')
+                        $('#changeForm')[0].reset();
+                        location.href = "/index";
+                    },
+                    error: function () {
+                        alert('비밀번호 변경에 실패하셨습니다.');
+                        console.log('실패')
+                        $('#changeForm')[0].reset();
+                    }
+                });
+            }
+        });
+    });
+
+    // 사업자 등록 번호(ID) 존재 확인
+    $('#soBusnum2').keyup(function () {
+        let soBusnum = $('#soBusnum2').val();
+        let check11 = $('#check11');
+
+        // Ajax를 사용해서 사업자 번호 중복체크
+        $.ajax({
+            type: "POST",
+            url: "/bnCheck",
+            data: {"soBusnum": soBusnum},
+            dataTypes: "text",
+            success: function (result) {
+                if (result == "OK") {
+                    check11.html('존재하지 않는 사업자 번호 입니다');
+                    check11.css('color', 'red');
+                    check_id4 = false;
+                } else {
+                    check11.html('존재하는 사업자 번호 입니다');
+                    check11.css('color', 'blue');
+                    check_id4 = true;
+                }
+            },
+            error: function () {
+                alert('idCheck 통신 실패!');
+            }
+        });
+    });
+
+    // 사업자 변경할 비밀번호 정규식
+    $('#soPw2').keyup(function () {
+        let soPw = $('#soPw2').val();
+        let check15 = $('#check15');
+
+        // 기본값 -1
+        let num = soPw.search(/[0-9]/);          // 숫자
+        let eng = soPw.search(/[a-z]/);          // 영문자
+        let spe = soPw.search(/[~!@#$%^&*]/);    // 특수문자
+        let spc = soPw.search(/\s/);             // 공백여부
+
+        if (soPw.length < 8 || soPw.length > 16) {
+            check15.html("8자리에서 16자리 이내로 입력해주세요")
+            check15.css('color', 'red');
+            check_pw6 = false;
+        } else if (spc != -1) {
+            check15.html("공백없이 입력해주세요");
+            check15.css('color', 'red');
+            check_pw6 = false;
+        } else if (num == -1 || eng == -1 || spe == -1) {
+            check15.html("영문, 숫자, 특수문자를 혼합해서 입력해주세요");
+            check15.css('color', 'red');
+            check_pw6 = false;
+        } else {
+            check15.html("사용가능한 비밀번호 입니다.");
+            check15.css('color', 'blue');
+            check_pw6 = true;
+        }
+    });
+
+    // 사업자 비밀번호 변경 연락처 인증번호 전송
+    $('#phoneChk4').click(function () {
+        console.log('클릭');
+        let soBusnum = $('#soBusnum2').val();
+        let soPhone = $('#soPhone2').val();
+        let check16 = $('#check16');
+
+        $.ajax({
+            type: "POST",
+            url: "/findByBnPhone",
+            data: {
+                "soBusnum": soBusnum,
+                "soPhone": soPhone
+            },
+            dataTypes: "text",
+            success: function (result) {
+                if (result == "OK") {
+                    alert("인증번호 발송이 완료되었습니다.\n휴대폰에서 인증번호 확인을 해주십시오.");
+                    // Ajax 사용해서 이메일 전송 및 인증번호 받아오기
+                    $.ajax({
+                        type: "POST",
+                        url: "/phoneCheck2",
+                        data: {"soPhone": soPhone},
+                        dataTypes: "text",
+                        success: function (uuid) {
+                            console.log(uuid);
+                            $('#soBusnum2').attr("readonly",true);
+                            $('#soPhone2').attr("readonly",true);
+                            check16.empty();
+                            check16.append(`<br/><input type="text" class="listbox" id="uuid6" size="23"/>&nbsp;`);
+                            check16.append(`<input type="button" class="btn btn-outline-primary" value="인증" id="btnUUID6" data-value="${uuid}"/>`);
+                        },
+                        error: function () {
+                            alert('phoneCheck 통신 실패!');
+                        }
+                    });
+                } else {
+                    alert("유효한 번호를 입력해 주세요.");
+                }
+            },
+            error: function () {
+                alert('findPhone 통신 실패!');
+            }
+        });
+    });
+
+    // 사업자 비밀번호 변경 연락처 인증번호 확인
+    $(document).on("click", "#btnUUID6", function () {
+        let uuid6 = $('#uuid6').val();
+        let uuid = $(this).data("value");
+
+        if (uuid6 == uuid) {
+            alert('휴대폰 인증에 성공했습니다.');
+            $('#uuid6').attr("disabled",true);
+            $('#btnUUID6').attr("disabled",true);
+            check_phone4 = true;
+        } else {
+            alert('인증번호를 확인해주세요.')
+            $('#uuid4').val("");
+            check_phone4 = false;
+        }
+    });
+
+    // 사업자 비밀번호 변경하기
+    $(document).ready(function () {
+        $('#changeBnForm').submit(function (event) {
+            event.preventDefault();
+            var soBusnum = $('#soBusnum2').val();
+            var soPw = $('#soPw2').val();
+            var soPhone = $('#soPhone2').val();
+
+            if (!check_phone4) {
+                alert('인증을 완료해야 합니다');
+                return false;
+            } else if (!check_id4) {
+                alert("사업자 번호가 존재하지 않습니다");
+                return false;
+            } else if (!check_pw6) {
+                alert("비밀번호가 형식에 위배됩니다");
+                return false;
+            } else {
+                $.ajax({
+                    url: '/changeBn',
+                    type: 'POST',
+                    data: {
+                        soBusnum: soBusnum,
+                        soPw: soPw,
+                        soPhone: soPhone
+                    },
+                    dataType: "text",
+                    success: function () {
+                        alert('비밀번호를 변경하였습니다.');
+                        $('#changeBnForm')[0].reset();
+                        location.href = "/index";
+                    },
+                    error: function () {
+                        alert('비밀번호 변경에 실패하셨습니다.');
+                        $('#changeBnForm')[0].reset();
+                    }
+                });
+            }
+        });
+    });
+
+    // 카카오 로그인
+    function goToKakao() {
+        var kakaoUrl = "https://kauth.kakao.com/oauth/authorize?client_id=b31d4e4b29889f9161490e4e0ba7b185&redirect_uri=http://192.168.0.53:9092/kakao/callback&response_type=code";
+        window.location.href = kakaoUrl;
+    }
+
+    // 네이버 로그인
+    function goToNaver() {
+        var naverUrl = "https://nid.naver.com/oauth2.0/authorize?client_id=5y6pGXl0eNrSk6mi3itu&redirect_uri=http://192.168.0.53:9092/naver/callback&response_type=code";
+        window.location.href = naverUrl;
+    }
+
+    // 페이지 로드 시 실행될 함수
+    window.onload = function () {
+        // 현재 URL에서 error 파라미터를 가져옴
+        const urlParams = new URLSearchParams(window.location.search);
+        const errorMessage = urlParams.get('error');
+
+        if (errorMessage) {
+            // 오류 메시지가 있을 경우 알림 창을 띄움
+            alert(errorMessage);
+            location.href = "/index";
+        }
+    };
+
+</script>
+</html>

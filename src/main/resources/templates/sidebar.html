@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="kiho">
+    <meta name="date" content="">
+    <meta name="description" content="">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="/favicon/favicon.ico?=v2" type="image/x-icon">
+    <title>숙덕숙덕 | 숙박 예약과 커뮤니티를 한번에</title>
+</head>
+
+<body>
+<div class="container side_bar">
+
+    <p class="side_bar_p">최근 본 내역</p>
+
+    <div class="side_bar_div"><a id="side1_url"><img id="side1_img" width="150"><input type="text" disabled id="side1_name" class="side_bar_name" ></a></div>
+    <div class="side_bar_div"><a id="side2_url"><img id="side2_img" width="150"><input type="text" disabled id="side2_name" class="side_bar_name" ></a></div>
+    <div class="side_bar_div"><a id="side3_url"><img id="side3_img" width="150"><input type="text" disabled id="side3_name" class="side_bar_name" ></a></div>
+</div>
+
+</body>
+<script
+        src="https://code.jquery.com/jquery-3.6.4.js"
+        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+        crossorigin="anonymous">
+</script>
+<script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+    let recent=JSON.parse(localStorage.getItem('recentList'));
+    for (let i = 0; i < recent.length; i++) {
+        $(`#side${i+1}_img`).attr('src',recent[i].image);
+        $(`#side${i+1}_url`).attr('href',recent[i].url);
+        $(`#side${i+1}_name`).attr('value',recent[i].hotelName);
+    }
+
+</script>
+
+</html>

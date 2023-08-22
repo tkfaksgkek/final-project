@@ -1,0 +1,1377 @@
+/*모든 리스트 영역*/
+.listbox-option{
+    list-style: none;
+    background: #FFFFFF;
+
+    box-sizing: border-box;
+    box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    margin-bottom: 15px;
+
+    height: 40px;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+}
+
+/* index 영역 */
+.index-list{
+    display: inline-block;
+}
+
+.index-div-btn {
+    float: right;
+}
+
+/*전체 css 영역*/
+html, body { margin:0; padding:0; height:100%; }
+
+.listbox{
+    list-style: none;
+    background: #FFFFFF;
+
+    box-sizing: border-box;
+    box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    margin-top: 9px;
+
+    height: 40px;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+}
+
+.index{
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.btn-outline-primary {
+    --bs-btn-color: #275DA0;
+    --bs-btn-border-color: #275DA0;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #275DA0;
+    --bs-btn-hover-border-color: #275DA0;
+    --bs-btn-focus-shadow-rgb: 13,110,253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #275DA0;
+    --bs-btn-active-border-color: #275DA0;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #275DA0;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #275DA0;
+    --bs-gradient: none;
+    margin-top: 9px;
+}
+
+/*----------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*------header영역-------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+/*header 컨테이너 영역*/
+.bg-color {
+    --bs-bg-opacity: 1;
+    background-image:url("https://sdsdfile.s3.ap-northeast-2.amazonaws.com/img/sky1.png");
+    border-radius: 0px 0px 10px 10px;
+    background-size:cover; /*반복하지 않고 화면에 꽉차게*/
+    font-weight: bold;
+}
+/*메뉴 영역*/
+.header_menu_a{
+    font-weight: bold;
+}
+
+/*메뉴 hover 영역*/
+.bi-file-person{
+    color: black;
+    text-decoration: none;
+}
+.menu a{
+    color: black;
+    font-family: "맑은 고딕 Semilight";
+    font-size: 15pt;
+    font-weight: bold;
+    padding: 10px 15px 3px 10px;
+    /**/
+    position: relative;
+    display: block;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.SMN_effect-4 a:after{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: #275DA0;
+    content: '';
+    opacity: 0;
+    -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+    -moz-transition: opacity 0.3s, -moz-transform 0.3s;
+    transition: opacity 0.3s, transform 0.3s;
+    -webkit-transform: translateY(10px);
+    -moz-transform: translateY(10px);
+    transform: translateY(10px);
+}
+
+.SMN_effect-4 a:hover:after, .SMN_effect-4 a:focus:after{
+    opacity: 1;
+    -webkit-transform: translateY(0px);
+    -moz-transform: translateY(0px);
+    transform: translateY(0px);
+}
+
+.mynavbar{
+    text-align: center;
+}
+/*상단 내정보 메뉴*/
+.btn-outline-primary1{
+    --bs-btn-color: black;
+    margin-top: 9px;
+    margin-right: 50px;
+}
+.show1{
+    text-align: center;
+}
+.header_view{
+    padding: 10px;
+}
+.btn-outline-primary-logout{
+    border:1px #dddddd solid;
+    --bs-btn-color: black;
+    font-size: 12px;
+
+}
+.header_myview{
+    padding: 10px;
+    color: black;
+    text-decoration: none;
+
+}
+
+/*회원가입 파일 css 디자인*/
+.h-join-file-th {
+    padding-bottom: 32px;
+}
+
+.filebox input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+
+.filebox .upload-name {
+    list-style: none;
+    background: #FFFFFF;
+
+    box-sizing: border-box;
+    box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    margin-top: 9px;
+
+    height: 40px;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+}
+
+.filebox label {
+    display: inline-block;
+    vertical-align: middle;
+    background-color: white;
+    cursor: pointer;
+    width: 120px;
+    height: 40px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    padding-top: 8px;
+    margin-top: 9px;
+}
+
+/*버튼 위치*/
+#btn1 {
+    margin-right: 10px;
+}
+/*로그인 kakao*/
+/* 버튼 스타일 */
+.ka_nv{
+    text-align: center;
+    width: 100%;
+    margin-left: 65px;
+}
+.kakao-btn {
+    text-align: center;
+    border: none;
+    background-color: white;
+    width: 70%;
+}
+.kakao-btn-img{
+    width: 100%;
+    height: 40px;
+}
+
+.naver-btn{
+    text-align: center;
+    border: none;
+    background-color: white;
+    width: 70%;
+}
+
+.naver-btn-img{
+    width: 100%;
+
+}
+
+.h-btn-input {
+    float: right;
+}
+
+.h-div-a {
+    text-align: left;
+}
+
+.h-div-kakao {
+    margin-top: 5px;
+}
+
+.h-table {
+    width: 100%;
+}
+
+.h-th-input {
+    float: right;
+    margin-top: 10px;
+}
+.h-th-input_modify_l {
+    margin-top: 10px;
+    float: left;
+}
+.h-th-input_modify_r {
+    float: right;
+    margin-top: 10px;
+}
+
+
+.h-span-input {
+    margin-top: 10px;
+}
+
+.h-table-input {
+    margin: 5px 0px 5px 0px;
+    width: 100%;
+}
+
+.h-str {
+    text-align: center;
+}
+
+.h-btn {
+    width: 100%;
+}
+
+.uuid-btn {
+    margin-top: 10px;
+}
+
+.h-join-addr {
+    vertical-align: text-top;
+    padding-top: 18px;
+}
+
+.h-join-file-th {
+    padding-bottom: 14px;
+}
+.h-div-a{
+    color: #545353;
+    text-decoration: none;
+
+}
+.idFormfont{
+    color: #dddddd;
+    border: none;
+}
+/*Latest Blog*/
+/*----------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*------ㅡmain영역-------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*page*/
+.page-link{
+    border-radius: 0.375rem;
+}
+/*index 인기글 */
+.index_list_button{
+    float:right;
+    margin-bottom: 10px;
+    --bs-btn-color: #275DA0;
+    --bs-btn-border-color: #275DA0;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #275DA0;
+    --bs-btn-hover-border-color: #275DA0;
+    --bs-btn-focus-shadow-rgb: 13,110,253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #275DA0;
+    --bs-btn-active-border-color: #275DA0;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #275DA0;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #275DA0;
+    --bs-gradient: none;
+}
+.cmt_count{
+    text-align: center;
+    display: inline-block;
+    font-weight: bold;
+    border-radius: 5px;
+    background: #dddddd;
+    width: 24px;
+    color: #295DA0;
+    height:20px;
+    font-size: 14px;
+    font-family: Serif;
+}
+/*추천 숙소 영역*/
+.index_title{
+    font-weight: bold;
+    font-family: "맑은 고딕";
+    font-size: 21px;
+    color: #295DA0;
+}
+.index_text{
+    font-weight: bold;
+}
+
+/*body 영역*/
+.main-body {
+    width:100%;
+    min-height:100%;
+    padding-left: 200px;
+}
+/*------로그인 페이지--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+.login_border{
+    border-right:1px #dddddd solid;
+}
+.login_row_border{
+    padding: 100px;
+}
+.login_padding{
+    padding-top:10px;
+}
+
+/*------고객센터------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*고객센터 css 영역*/
+.listbox-canter{
+    display: inline-block;
+
+    list-style: none;
+    background: #FFFFFF;
+
+    box-sizing: border-box;
+    box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+
+    height: 40px;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+}
+
+.index-list{
+    display: inline-block;
+}
+
+.clicked {
+    color: #275DA0;
+}
+
+/*호텔 리스트 영역(select list)------------------------------------------------------------------------------------------------------------------------------------*/
+.container{
+    margin-top: 70px;
+}
+
+/*select list 선택메뉴 영역*/
+.select_sidemenu1{
+    text-align: center;
+    width: 320px;
+    position: relative;
+    box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.15);
+    border-radius: 10px; border: 1px solid #dddddd;
+    height:33%;
+}
+
+/*select list 선택메뉴 양방향 범위 영역*/
+.range_div{
+    width: 250px;
+    padding-left: 38px;
+    padding-bottom: 40px;
+}
+.selet_sidemenu2{
+ width: 800px;
+}
+
+/*select list header css 영역*/
+.select_list_header2{
+
+    text-align: right;
+    padding-right: 185px;
+
+
+}
+
+/*hotel body 영역*/
+#main-body #container {
+    padding:45px 0 50px;
+}
+
+#main-body-hotel{
+    width:1700px;
+    min-height:100%;
+    padding-left: 60px;
+}
+
+.hotel-body{
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.hotel-list{
+    width: 800px;
+    list-style: none;
+    background: #FFFFFF;
+
+    box-sizing: border-box;
+    box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    margin-top: 9px;
+
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+}
+
+.listbox_day{
+    list-style: none;
+    background: #FFFFFF;
+    width: 75%;
+    box-sizing: border-box;
+    box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    margin-top: 9px;
+
+    height: 40px;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+}
+
+.select_list_img_th{
+    width: 500px;
+}
+
+.select_list_img{
+    width:500px
+}
+
+.select_list_name_th{
+    text-align: center;
+}
+
+.select_list_name_span{
+    color: black;
+    text-decoration-line: none; /*텍스트에 선을 만들지 않는다*/
+    font-size: 24px;
+    font-family:"맑은 고딕";
+}
+
+.select_list_Count_span{
+    text-align: center;
+    color: orange;
+    font-weight: normal;    /*글자 굵기를 보통으로 한다*/
+}
+
+.select_list_position_span{
+    font-family:함초롬바탕;
+    font-weight: bold;
+}
+
+.select_list_diffDay{
+    font-family:함초롬바탕;
+    width:100%;
+    text-align: right;
+    padding-right: 20px;
+    font-weight: bold;      /*글자 굵게한다*/
+}
+
+.select_list_price_th{
+    font-size: 20px;
+    text-align: right;
+    padding-right: 20px;
+}
+
+.select_list_price_span{
+    color: #275DA0;
+}
+
+/*지도 css영역*/
+.info {position: relative; width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+.info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
+.info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
+.info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
+.info .close:hover {cursor: pointer;}
+.info .body {position: relative;overflow: hidden;}
+.info .desc {position: relative;margin: 5px 0 0 90px;height: 75px;}
+.desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+.info .img {position: absolute;top: 6px;left: 5px;width: 80px;height: 80px;border: 1px solid #ddd;color: #888;overflow: hidden;}
+.info .link {color: #295DA0; text-decoration: none;}
+
+.selectlist_map{
+    width: 100%;
+    height:600px;
+}
+
+/*호텔 전체 검색 css영역*/
+.select_top_search{
+    padding-right: 180px;
+    float:right;
+
+}
+
+/* 지역검색 css*/
+ul li{
+    list-style: none;   /*li의 앞에 .을 지운다*/
+}
+
+.hotel_menu_li{
+    border: none;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+}
+
+.hotel_menu_b{
+    font-size: 15px;
+    color: black;
+    height: 40px;
+}
+
+.hotel_menu_span{
+    font-size: 20px;
+}
+
+#menu{
+    position: absolute;
+    margin-left: 200px;
+    text-decoration-line: none;
+    background-color: white;
+    display: inline-block;
+    height: 60px;
+}
+
+.hotel_sidemenu_li{
+    text-decoration: none; /*글자 선 지우기*/
+    color: black
+}
+
+[class*="main"] {
+    border-radius: 5px 5px 5px 5px;
+    text-align: left;
+}
+
+[class*="main"] ul [class*="nav-tabs"] none{
+    border-radius: 5px 5px 5px 5px;
+    border: 1px solid #dddddd;
+}
+
+.main1{
+
+    z-index: 99;
+    padding-left: 0px;
+    height: 100%;
+    width: 400px;
+    margin: 0 auto;
+    display: inline-block;
+}
+
+.main1>li {
+    float: left;
+    width: 25%;
+    position: relative;
+    left: 9px;
+
+}
+
+.main1>li:hover .main2 {
+    border: #dddddd 1px solid;
+    left: 0;
+}
+
+.main1>li a {
+    display: block;
+}
+
+.main1>li a:hover {
+    font-weight: bold;
+}
+
+.main2 {
+    position: absolute;
+    z-index: 99;
+    left: -9999px;
+    width: 100px;
+    padding:0px;
+    background-color: white;
+}
+
+.main1>li:hover,li:focus {
+    border-bottom: 5px solid #275DA0;
+}
+
+.main2 li:hover,li:focus{
+    border-left: 5px solid #275DA0;
+}
+
+.main2>li li:focus{
+    position: static;
+
+}
+
+.main2>li:hover .main3 {
+    left: 100%;
+    font-weight: bold;
+}
+
+.main2>li a, .main3>li a {
+    border-radius: 10px;
+    margin: 10px;
+
+}
+
+.main3 {
+    border: #dddddd 1px solid;
+    z-index: 99;
+    cursor: pointer;
+    position: absolute;
+    overflow: auto;
+    height: 100%;
+    top: 0px;
+    width: 300px;
+    left: -9999px;
+    padding: 0px;
+    line-height: 40px;
+    background-color: white;
+
+}
+
+.main3>li a:hover {
+    color: maroon;
+}
+
+/* 지역검색 css 끝*/
+/*양방향 슬라이드 css*/
+.middle {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+}
+
+.slider {
+    position: relative;
+    z-index: 1;
+    height: 10px;
+    margin: 0 15px;
+}
+
+.slider > .track {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border-radius: 5px;
+    background-color: #c6aee7;
+}
+
+.slide r > .range {
+    position: absolute;
+    z-index: 2;
+    left: 25%;
+    right: 25%;
+    top: 0;
+    bottom: 0;
+    border-radius: 5px;
+    background-color: #6200ee;
+}
+
+.slider > .thumb {
+    position: absolute;
+    z-index: 3;
+    width: 30px;
+    height: 30px;
+    background-color: #6200ee;
+    border-radius: 50%;
+}
+
+.slider > .thumb.left {
+    left: 25%;
+    transform: translate(-15px, -10px);
+}
+
+.slider > .thumb.right {
+    right: 25%;
+    transform: translate(15px, -10px);
+}
+
+input[type="range"] {
+    position: absolute;
+    /* opacity로 가린 것을 이벤트도 비활성화하기 위해 */
+    pointer-events: none;
+    -webkit-appearance: none;
+    z-index: 2;
+    height: 10px;
+    width: 100%;
+    opacity: 0;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    /* 겹쳐진 두 thumb를 모두 활성화 */
+    pointer-events: all;
+    width: 30px;
+    height: 30px;
+    border-radius: 0;
+    border: 0 none;
+    background-color: red;
+    cursor: pointer;
+
+    /* appearance를 해야 위의 스타일들을 볼 수 있음 */
+    -webkit-appearance: none;
+}
+
+.range_value1{
+    font-size: 10px;
+    float: left;
+    padding-top: 10px;
+}
+
+.range_value2{
+    font-size: 10px;
+    float: right;
+    padding-top: 10px;
+}
+
+.range_value_span{
+    font-size: 13px;
+    font-weight: bold;
+    padding-bottom: 13px;
+}
+/*양방향 css 끝*/
+
+/*hotel view css*/
+.hotel_view_div1{
+    width: 500px;
+    solid:1px
+}
+
+.listbox_view_day{
+    list-style: none;
+    background: #FFFFFF;
+    width: 220px;
+    box-sizing: border-box;
+    box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    margin-top: 9px;
+
+    height: 40px;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+}
+
+.view_table_tr{
+    text-align: right;
+    width: 100%;
+}
+
+.listbox_table{
+    list-style: none;
+    background: #FFFFFF;
+    width: 900px;
+    box-sizing: border-box;
+    box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    margin-top: 9px;
+
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+}
+
+.listbox_table th{
+    font-family: "맑은 고딕 Semilight";
+    font-size: 18px;
+    padding-right: 20px;
+    text-align: right;
+}
+
+.view_main_name{
+    font-size: 30px; font-weight:bold;
+}
+
+.view_main_score {
+    font-weight: bold;
+    border-radius: 5px;
+    background: #FFA726;
+    width: 39px;
+    color: white;
+    height:20px;
+    font-size: 14px;
+    font-family: Serif;
+}
+
+.view_div_tel {
+    padding-top: 70px;
+}
+
+.view_div_addr {
+    padding-top: 30px;
+}
+
+/*찜하기 버튼*/
+.btn-outline-dangery{
+    --bs-btn-color: #dc3545;
+    --bs-btn-border-color: #dc3545;
+    --bs-btn-hover-color: #dc3545;
+    --bs-btn-hover-border-color: #dc3545;
+    --bs-btn-focus-shadow-rgb: 220,53,69;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #dc3545;
+    --bs-btn-active-border-color: #dc3545;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #dc3545;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #dc3545;
+    --bs-gradient: none;
+}
+
+.view_btn {
+    margin-top: 10px;
+}
+
+.view_tab_div {
+    padding: 50px;
+}
+
+.view_tab {
+    padding: 0px 50px 30px;
+}
+
+/*view-review 영역*/
+.review_div {
+    text-align: center;
+    padding: 25px 0px 25px;
+}
+
+.re_view_div {
+    padding: 25px 0px 25px;
+}
+
+.view_border {
+    border-bottom: #d9d9d9 1px solid;
+}
+
+.review_strong {
+    font-size: 20px;
+}
+
+.name {
+    line-height: 1;
+    -webkit-text-size-adjust: none;
+    visibility: visible;
+    list-style: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    box-sizing: border-box;
+    color: rgba(0,0,0,0.56);
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.guest {
+    line-height: 1;
+    color: rgba(0,0,0,0.87);
+    list-style: none;
+    box-sizing: border-box;
+    margin: 35px;
+    padding-bottom: 35px;
+    border-bottom: #d9d9d9 1px solid;
+}
+
+.txt {
+    color: rgba(0,0,0,0.87);
+    -webkit-text-size-adjust: none;
+    visibility: visible;
+    list-style: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    box-sizing: border-box;
+    padding: 5px 30px 5px;
+    font-size: 16px;
+    line-height: 26px;
+}
+
+.date {
+    line-height: 1;
+    -webkit-text-size-adjust: none;
+    visibility: visible;
+    list-style: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    box-sizing: border-box;
+    display: inline-block;
+    font-size: 14px;
+    padding: 13px 0 0 0;
+    color: rgba(0,0,0,0.56);
+}
+
+/*리뷰등록 영역*/
+.review-div{
+    display: none;
+}
+.review_box {
+    list-style: none;
+    background: #FFFFFF;
+
+    box-sizing: border-box;
+    box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+
+    width: 550px;
+    height: 100px;
+    padding: 0 15px;
+    margin: 0 15px;
+
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+}
+
+.review-div {
+    text-align: center;
+    padding: 30px 0px 30px;
+}
+
+.review_btn {
+    margin-top: 58px;
+}
+
+/*별점 영역*/
+.star-input{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-style: solid;
+    border-color: white;
+    border-width: 10px 25px;
+    border-radius: 15px;
+    position: relative;
+    font-size: 2rem;
+    padding: 0;
+    margin-left: 270px;
+    width: 220px;
+    height: 50px;
+    background-color: white;
+}
+.star-input:before,
+.star-input:after{
+    content: '★★★★★';
+    position: absolute;
+    left: 0;
+    display: flex;
+    letter-spacing: 0.25rem;
+    color: #9c9c9c;
+}
+.star-input:after{
+    content: '★';
+    color: #295DA0;
+    mix-blend-mode: multiply;
+}
+.star-input:has(input[value='2']:checked):after{
+    content: '★';
+}
+.star-input:has(input[value='4']:checked):after{
+    content: '★★';
+}
+.star-input:has(input[value='6']:checked):after{
+    content: '★★★';
+}
+.star-input:has(input[value='8']:checked):after{
+    content: '★★★★';
+}
+.star-input:has(input[value='10']:checked):after{
+    content: '★★★★★';
+}
+.star-input label {
+    outline: none;
+    position: absolute;
+    left: -100vw;
+}
+.star-input input{
+    position: relative;
+    display: block;
+    border:none;
+    appearance: none;
+    font-size: 2rem;
+    z-index: 1;
+    padding: 1.2rem;
+    margin: 0;
+    border: solid 1px transparent;
+}
+
+/*별점 영역 끝*/
+
+/*호텔 view*/
+.view_main1{
+    width: 1350px;
+}
+.carousel-inner{
+    width: 650px;
+}
+
+.admin_list{
+    width: 1500px;
+}
+/*리뷰 영역*/
+.view_numbering{
+    display: inline-block;
+    padding-left: 65px;
+}
+/*index호텔 css ---------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*내정보(프로필) 영역(memberView)------------------------------------------------------------------------------------------------------------------------------------*/
+/*사업자정보(프로필) 영역(opView)------------------------------------------------------------------------------------------------------------------------------------*/
+/*회원정보수정 영역(memberModify)------------------------------------------------------------------------------------------------------------------------------------*/
+/*사업자정보수정 영역(opModify)------------------------------------------------------------------------------------------------------------------------------------*/
+
+.m-section {
+    margin-bottom: 50px;
+}
+
+.m-div {
+    padding: 20px 20px 20px;
+}
+
+.m-label {
+    margin-top: 80px;
+}
+
+.m-profile-div {
+    margin-top: 7px;
+}
+
+.m-btn {
+    text-align: right;
+}
+
+.m-div-card {
+    text-align: center;
+    align-items: center!important;
+    padding: 20px 20px 20px;
+}
+
+.m-color {
+    color: #275DA0;
+}
+
+.m-data-label {
+    margin-top: 10px;
+}
+
+/*사업자정보 영역(opView)------------------------------------------------------------------------------------------------------------------------------------*/
+.img-profile {
+    width: 35px;
+    height: 35px;
+    margin-bottom: 8px;
+}
+
+/*사업자정보 수정 영역(opModify)-------------------------------------------------------------------------------------------------------------------------------*/
+.op-div {
+    padding: 0px 40px 0px;
+}
+
+/*내정보-찜 영역-------------------------------------------------------------------------------------------------------------------------------*/
+.card-div {
+    width: 300px;
+    display: inline-block;
+    margin: 20px 40px 20px;
+}
+.card-div2 {
+    width: 350px;
+    display: inline-block;
+    margin: 20px 40px 20px;
+}
+
+.card-a {
+    float: right;
+    margin-bottom: 15px;
+}
+
+.card-score {
+    font-weight: bold;
+    border-radius: 5px;
+    background: #FFA726;
+    width: 39px;
+    color: white;
+    height:20px;
+    font-size: 15px;
+    font-family: Serif;
+    text-align: center;
+}
+
+.fav_list_table{
+    width: 650px;
+}
+
+/*내정보-예약내역 영역-------------------------------------------------------------------------------------------------------------------------------*/
+/*예약내역*/
+.myReserv_table{
+    list-style: none;
+    background: #FFFFFF;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    margin-top: 9px;
+
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+}
+.card-tk-div {
+    width: 100%;
+    display: inline-block;
+    padding: 10px;
+    margin-top: 10px;
+}
+.card-tk-div1 {
+    width: 65%;
+    display: inline-block;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+
+.tklist1{
+    font-size: 20px;
+}
+
+.tklist_user{
+    float: right;
+    padding-top:6px;
+    font-family: "맑은 고딕";
+    font-size: 14px;
+    color: #9c9c9c;
+}
+
+.tklist_Num_div{
+    padding-bottom: 10px;
+}
+
+.tklist_Num{
+    font-family: "맑은 고딕";
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #9c9c9c;
+}
+
+.m-menu2-div {
+    padding: 5px 5px 5px;
+}
+
+.tklist_tr1{
+    padding: 10px;
+}
+
+.tklist_table{
+    margin-bottom: 20px;
+}
+
+.tklist_RoomInfo {
+    font-family: "맑은 고딕";
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 85px;
+}
+
+.tklist_day{
+    text-align: right;
+    font-size: 16px;
+    color: #9c9c9c;
+    font-weight: normal;
+    font-family: "맑은 고딕";
+
+}
+.tklist_Amount{
+    text-align: right;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.tklist_a{
+    color: black;
+    text-decoration : none;
+}
+
+.tklist_pay{
+    text-align: right;
+    padding-top: 15px;
+}
+.tklist_pay1{
+    bottom : -10px;
+}
+.tkList_review_btn{
+    margin-right: 5px;
+}
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+    color: white;
+    background-color: #275DA0;
+    text-align: center;
+}
+
+.btn-primary-pay{
+    background-color: #295DA0;
+    color: white;
+    --bs-btn-color: #275DA0;
+    --bs-btn-border-color: #275DA0;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #275DA0;
+    --bs-btn-hover-border-color: #275DA0;
+    --bs-btn-focus-shadow-rgb: 13,110,253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #275DA0;
+    --bs-btn-active-border-color: #275DA0;
+    --bs-btn-active-shadow: #275DA0;
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #275DA0;
+    --bs-gradient: none;
+    margin-top: 9px;
+    cursor:default
+}
+
+/*관리자 영역*/
+/*회원목록 사업자목록 예약목록*/
+.listbox_memberlist{
+    list-style: none;
+    background: #FFFFFF;
+
+    box-sizing: border-box;
+    box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+}
+.tklist{
+    width: 100%;
+}
+#numbering{
+    display: inline-block;
+}
+.reservation_select{
+    margin-top: 20px;
+    float: right;
+}
+
+/*----------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*------footer영역-------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+#footer {
+    width:1700px;
+    height:50px;
+}
+
+.footer-div {
+    float: right;
+    padding-top: 20px;
+    padding-right: 650px;
+}
+
+.footer-a {
+    width: 250px;
+}
+
+.footer-p {
+    padding-top: 20px;
+}
+
+/*사업자정보확인 영역*/
+.f-div {
+    margin-bottom: 240px;
+}
+
+/*개인정보처리방침 영역*/
+.f-col {
+    color: #275DA0;
+}
+
+/*숙덕숙덕소개 영역*/
+.text-div {
+    margin-bottom: 85px;
+}
+
+.row-div {
+    margin-top: 125px;
+}
+
+.text-span {
+    color: #275DA0;
+}
+
+/*---------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*sidebar영역-----------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+#sidebar{
+    float: left;
+    padding-top: 50px;
+
+}
+
+.side_bar{
+    width: 190px;
+    position:fixed;
+    border:1px solid #dddddd;
+    text-align:center;
+}
+
+.side_bar_div{
+    padding: 5px;
+}
+
+.side_bar_p{
+    font-size: 14px;
+    padding-top: 8px;
+}
+
+.side_bar_name{
+    color: black;
+    border: none;
+    font-size: 12px;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/*위로가기 버튼 css*/
+.bi-arrow-up-circle{
+    font-size: 50px;
+    color: #337ab7;
+    text-decoration: none;
+    position: fixed;
+    /*margin-left: 1590px;*/
+    /*margin-top: 640px;*/
+    bottom : 5rem;
+    right : 5rem;
+    z-index: 1;
+
+}

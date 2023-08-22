@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="kiho">
+    <meta name="date" content="">
+    <meta name="description" content="">
+    <!--구글 fonts-->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <!--bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/payment-css.css">
+    <link rel="shortcut icon" href="https://sdsdfile.s3.ap-northeast-2.amazonaws.com/img/favicon.png"
+          type="image/x-icon">
+    <title>숙덕숙덕 | 숙박 예약과 커뮤니티를 한번에</title>
+</head>
+
+<body class="index">
+<!-- header -->
+<div data-th-include="header" id="header"></div>
+
+<!-- PageUpButton-->
+<a href="#header" class="bi bi-arrow-up-circle" th:if="${session.loginId ne 'admin'}"></a>
+<a href="#admin-header" class="bi bi-arrow-up-circle" th:if="${session.loginId eq 'admin'}"></a>
+<!--main 시작-->
+<main th:if="${session.loginId ne null}">
+
+    <div class="container">
+        <div class="row">
+
+            <!-- left -->
+            <div class="col-sm-7">
+                <div class="payment">
+                    <!-- 예약정보 -->
+                    <div>
+                        <h3 class="p-h3">예약자 정보</h3>
+                        <p class="p-p">예약자 이름<br/>
+                            <input id="buyerName" type="text" name="userName" class="p-input"
+                                   placeholder="체크인시 필요한 정보입니다." required>
+                        </p>
+                        <p class="p-p">휴대폰 번호<br/>
+                            <span style="font-size: 14px;">개인 정보 보호를 위해 안심번호로 숙소에 전송됩니다.</span><br/>
+                            <input id="buyerPhone" type="tel" name="userName" class="p-input"
+                                   placeholder="체크인시 필요한 정보입니다." required>
+                        </p>
+                    </div>
+                    <!-- 방문수단 -->
+                    <div class="p-div">
+                        <p class="p-p" style="margin-top: 35px">방문 방법</p>
+                        <button type="button"
+                                class="btn btn-outline-primary fa-solid fa-person-walking button_check1 buyerVist clicked2"
+                                value="도보">
+                            도보
+                        </button>
+                        <button type="button"
+                                class="btn btn-outline-primary fa-solid fa-car-side button_check1 buyerVist" value="차량">
+                            차량
+                        </button>
+
+                        <br/>
+                        <span class="p-left-span">주차장 만차 시 주차가 어려울 수 있습니다.</span>
+                        </p>
+                    </div>
+                    <!-- 결제수단 -->
+
+                    <!-- 결제 전 동의 -->
+                    <div class="p-div">
+                        <div class="container mt-3">
+                            <form action="/action_page.php" class="check-form">
+                                <p class="p-p">결제 전 필수 이용 동의 항목에 동의(체크)해주세요.</p>
+                                <div class="checkbox_group">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input check-input" id="check-all"
+                                               name="option-all"
+                                               value="something">
+                                        <span class="p-span check-label" for="check-all">전체 동의</span>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input check-input" id="check1"
+                                               name="option"
+                                               value="something">
+                                        <label class="form-check-label check-label" for="check1">숙소이용규칙 및 취소/환불규정
+                                            동의</label>
+                                        <b class="p-b">(필수)</b>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input check-input" id="check2"
+                                               name="option"
+                                               value="something">
+                                        <label class="form-check-label check-label" for="check2">개인정보 수집 및 이용 동의</label>
+                                        <b class="p-b">(필수)</b>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input check-input" id="check3"
+                                               name="option"
+                                               value="something">
+                                        <label class="form-check-label check-label" for="check3">개인정보 제 3자 제공 동의</label>
+                                        <b class="p-b">(필수)</b>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- right -->
+            <div class="col-sm-5">
+                <div class="payment">
+                    <!-- 숙소정보 -->
+                    <div>
+                        <h3 class="p-h3">숙소 정보</h3>
+                        <p class="p-p1">
+                            <strong class="p-strong">숙소이름</strong>
+                            [[${result.name}]]
+                        </p>
+                        <p class="p-p1">
+                            <strong class="p-strong">객실타입</strong>
+                            [[${result.position}]]
+                        </p>
+                        <p class="p-p1">
+                            <strong class="p-strong">체크인</strong>
+                            [[${result.sel_date}]]
+                        </p>
+                        <p class="p-p1">
+                            <strong class="p-strong">체크아웃</strong>
+                            [[${result.sel_date2}]]
+                        </p>
+                    </div>
+                    <!-- 금액정보,결제버튼 -->
+                    <div class="p-div">
+                        <p class="p-p2">
+                            <strong class="p-strong1"><b class="p-b1">총 결제 금액</b>(VAT포함)</strong>
+                            <span class="p-span1"></span>
+                        </p>
+                        <ul class="p-ul">
+                            <li class="p-li">해당 객실가는 세금, 봉사료가 포함된 금액입니다.</li>
+                            <li class="p-li">
+                                결제완료 후 <span class="p-span2">예약자 이름</span>으로 바로
+                                <span class="p-span2">체크인</span> 하시면 됩니다.
+                            </li>
+                        </ul>
+                    </div>
+                    <button type="button" class="p-btn" disabled onclick="requestPay()" id="payButton">결제하기</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</main>
+<!--main 마지막-->
+
+<div data-th-include="footer" id="footer" style="margin-top: 50px;"></div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script
+        src="https://code.jquery.com/jquery-3.6.4.js"
+        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+        crossorigin="anonymous">
+</script>
+
+<script src="https://kit.fontawesome.com/5e5c806755.js" crossorigin="anonymous"></script>
+
+<!-- 포트원 라이브러리(결제) -->
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+<script>
+    window.onload = function () {
+        var loginId = "[[${session.loginId}]]";
+        if (loginId == "") {
+            alert("로그인 후 이용해주세요");
+            $('#myModal').modal('show');
+        }
+    }
+    // 로그인 체크 스크립트
+    // var loginId = "[[${session.loginId}]]";
+    // console.log("로그인 아이디 : " + loginId);
+    // if (loginId == "") {
+    //     alert("로그인 후 이용해주세요");
+    //     // 인덱스 페이지로
+    //     location.href = "/";
+    // }
+
+
+    // 도보 차량 선택
+
+    var div2 = document.getElementsByClassName("button_check1");
+
+    function onClick(event) {
+        console.log(event.target);
+        // console.log(this);
+        // 콘솔창을 보면 둘다 동일한 값이 나온다
+
+        console.log(event.target.classList);
+
+        if (event.target.classList[1] === "clicked2") {
+            event.target.classList.remove("clicked2");
+        } else {
+            for (var i = 0; i < div2.length; i++) {
+                div2[i].classList.remove("clicked2");
+            }
+
+            event.target.classList.add("clicked2");
+        }
+    }
+
+    function init() {
+        for (var i = 0; i < div2.length; i++) {
+            div2[i].addEventListener("click", onClick);
+        }
+    }
+
+    init();
+
+
+    // 결제 구역
+    // 숫자 세번째 자리마다  ',' 추가
+    var price = [[${result.price}]];
+    $('.p-span1').html(price.toLocaleString('ko-KR') + ' 원');
+
+
+    var IMP = window.IMP; // 생략 가능
+    IMP.init("imp05868603"); // 예: imp00000000a
+
+    var startD = "[[${result.sel_date}]]";
+    var endD = "[[${result.sel_date2}]]";
+
+    // 예약번호
+    var reservNum = null;
+    // 예약자 이름
+    var buyerName = "";
+    // 예약자 핸드폰 번호
+    var buyerPhone = "";
+    // 예약자 방문수단
+    var walkOrCar = "도보"; //>> 체크하지 않았다면 기본 도보
+
+    // 클릭된 버튼의 value값 가져오기
+    $('.buyerVist').click(function () {
+        walkOrCar = $(this).val();
+    });
+
+
+    function requestPay() {
+        //DB에 먼저 담기 STPAY = 0;(결제전)
+        buyerName = $('#buyerName').val();
+
+        console.log(buyerName);
+        buyerPhone = $('#buyerPhone').val();
+        console.log(buyerPhone);
+        if (buyerName != "" && buyerPhone != "") {
+            $.ajax({
+                url: "/insertDB",
+                method: "Post",
+                data: {
+                    "stId": '[[${session.loginId}]]',          // 구매자 아이디
+                    "stCode": [[${result.ano}]],      // 숙소 일련번호
+                    "stRoomInfo": "[[${result.name}]]" + "/" + "[[${result.position}]]",   // 숙소이름 및 방 정보
+                    "stStartDay": startD,    // 숙박 시작 날짜
+                    "stEndDay": endD,     // 숙박 종료 날짜
+                    "stAmount": price,    // 결제 금액
+                    "stName": buyerName,           // 예약자 이름
+                    "stPhone": buyerPhone,          // 예약자 연락처
+                    "stVist": walkOrCar,           // 방문수단
+                    "stUrl": `[[${result.link}]]`,  // 호텔링크
+                    "stImg": `[[${result.image}]]`    // 호텔이미지
+
+                },
+                dataType: "text",
+                success: function (result) {
+                    if (result != null) {
+                        reservNum = result;
+                        console.log("DB 입력 STPAY = 0 " +
+                            "reservNum : " + reservNum);
+                    } else {
+                        console.log("실패");
+                    }
+                }, error: function () {
+                    console.log("DB 1차 입력실패!")
+                }
+            });
+
+            IMP.request_pay(
+                {
+                    pg: "kicc.T5102001",
+                    pay_method: "card",
+                    merchant_uid: reservNum, // 상점에서 생성한 고유 주문번호
+                    name: "[[${result.name}]]",
+                    amount: 100,
+                    buyer_email: "",
+                    buyer_name: buyerName,
+                    buyer_tel: buyerPhone, // 필수
+                    buyer_addr: "서울특별시 강남구 삼성동",
+                    buyer_postcode: "123-456",
+                    m_redirect_url: "{모바일에서 결제 완료 후 리디렉션 될 URL}",
+                },
+                function (rsp) {
+                    // callback 로직
+
+                    // 결제 성공시
+                    if (rsp.success) {
+                        jQuery.ajax({
+                            url: "/successPay",
+                            method: "POST",
+                            data: {
+                                "stNum": reservNum,       // 예약 번호
+                            },
+                            dataType: "text",
+                            success: function (result) {
+                                if (result == "OK") {
+                                    location.href = "/mView/[[${session.loginId}]]/menu2";
+                                }
+                            },
+                            error: function () {
+                                console.log("결제완료 입력실패!")
+                            }
+                        })
+                        // 결제 실패시
+                    } else {
+                        var msg = '결제에 실패하였습니다.';
+                        msg += '에러내용 : ' + rsp.error_msg;
+                        location.href = "/mView/[[${session.loginId}]]/menu3"
+                        alert(msg);
+                    }
+                }
+            );
+        } else {
+            alert("예약자 이름과 휴대폰 번호는 반드시 입력해야 합니다")
+        }
+    }
+
+    // 체크박스 전체 선택
+    $(".checkbox_group").on("click", "#check-all", function () {
+        console.log("1111")
+        // $(this).parents(".checkbox_group").find('input').prop("checked", $(this).is(":checked"));
+
+        var checked = $(this).is(":checked");
+
+        if (checked) {
+            $(this).parents(".checkbox_group").find('input').prop("checked", true);
+            $('#payButton').attr("disabled", false);
+        } else {
+            $(this).parents(".checkbox_group").find('input').prop("checked", false);
+            $('#payButton').attr("disabled", true);
+        }
+    });
+
+    // 체크박스 개별 선택
+    $(".checkbox_group").on("click", ".form-check-input", function () {
+        let check1 = $('input#check1').is(":checked");
+        let check2 = $('input#check2').is(":checked");
+        let check3 = $('input#check3').is(":checked");
+
+
+        if (check1 && check2 && check3) {
+            $("#check-all").prop("checked", true);
+            $('#payButton').attr("disabled", false);
+        } else {
+            $("#check-all").prop("checked", false);
+            $('#payButton').attr("disabled", true);
+        }
+    });
+
+</script>
+
+</html>

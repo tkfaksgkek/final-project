@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="kiho">
+    <meta name="date" content="">
+    <meta name="description" content="">
+    <!--구글 fonts-->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <!--bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="https://sdsdfile.s3.ap-northeast-2.amazonaws.com/img/favicon.png" type="image/x-icon">
+    <title>숙덕숙덕 | 숙박 예약과 커뮤니티를 한번에</title>
+</head>
+
+<body class="index">
+<!-- admin header -->
+<div data-th-include="/admin/admin-header.html" id="admin-header" th:if="${session.loginId eq 'admin'}"></div>
+
+<!-- header -->
+<div data-th-include="header" id="header" th:if="${session.loginId ne 'admin'}"></div>
+
+<!-- sideber -->
+<div data-th-include="sidebar" id="sidebar"></div>
+
+<!-- PageUpButton-->
+<a href="#header" class="bi bi-arrow-up-circle" th:if="${session.loginId ne 'admin'}"></a>
+<a href="#admin-header" class="bi bi-arrow-up-circle" th:if="${session.loginId eq 'admin'}"></a>
+<!--main 시작 부분-->
+<main class="main-body">
+
+    <!--게시판 div 시작 부분-->
+    <!--컨테이너 시작-->
+    <div class="container">
+        <!--row시작 -->
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <h2 class="index-list">공지사항 </h2><button class="btn index_list_button" id="notiList">더보기</button>
+                <table class="table table-striped">
+                    <tr>
+                        <th class="table-primary">No.</th>
+                        <th class="table-primary">제목</th>
+                        <th class="table-primary">작성일</th>
+                    </tr>
+                    <tbody id="NList"></tbody>
+                </table>
+            </div>
+
+            <div class="col-md-6 col-sm-12">
+                <h2 class="index-list">자유게시판 인기글</h2><button class="btn index_list_button" id="toGB">더보기</button>
+                <table class="table table-striped">
+                    <tr>
+                        <th class="table-primary">No.</th>
+                        <th class="table-primary">제목</th>
+                        <th class="table-primary">조회수</th>
+                    </tr>
+                    <tbody id="gbhotlist">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!--컨테이너 끝-->
+    <!--게시판 div 마지막-->
+<!-- 추천숙소 영역-->
+    <section id="blog">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="latest_blog text-center">
+                        <h2>추천 숙소</h2>
+                        <p>고객님들의 평점이 높은 숙소 부터!</p>
+                    </div>
+                </div>
+            </div>
+            <!--첫번째 호텔 div 시작-->
+            <div class="row fav_index">
+
+            </div>
+            <!--End of row-->
+        </div>
+        <!--컨테이너 끝-->
+    </section>
+    <!-- end of blog-->
+
+</main>
+<!--main 마지막-->
+<!--footer-->
+<div data-th-include="footer" id="footer" class="main-footer">
+</div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script
+        src="https://code.jquery.com/jquery-3.6.4.js"
+        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+        crossorigin="anonymous">
+</script>
+<script>
+
+    // 인덱스 자유게시판 인기글 불러오기
+    // 자유게시판 리스트 담을 변수
+    var list = [];
+    $(function (){
+        let msg='[[${msg}]]';
+        if(msg!="")
+            alert(msg);
+        $.ajax({
+            type: "Post",
+            url: "/indexGBlist",
+            dataType:"json",
+            success:function (result){
+                list = result;
+                HotList(list);
+            },
+            error:function (){
+                console.log("자유게시판 인기글 불러오기 실패")
+            }
+        });
+    });
+
+    // 자유게시판 인기글 출력
+    let listEnter = $('#gbhotlist');
+    function HotList(list){
+        console.log(list);
+        var listTxt = "";
+        let listLength=list.length;
+        if (listLength>5)
+            listLength=5;
+        for(let i=0 ; i < listLength; i++){
+            listTxt += '<tr>';
+            listTxt += '<th>'+(i+1)+'</th>';
+            listTxt += `<td><a style="text-decoration: none;color: #275da0" href="/gbView/${list[i].gbNum}" id="${list[i].gbNum}">${list[i].gbTitle}</a></td>`;
+            listTxt += '<td>'+list[i].gbHit+'</td>';
+            listTxt += '</tr>';
+            gbNum = list[i].gbNum
+            gbTitle = list[i].gbTitle
+            countCmt(gbNum, gbTitle);
+        }
+        listEnter.append(listTxt);
+    }
+
+    function countCmt(gbNum, gbTitle) {
+        $.ajax({
+            type: "POST",
+            url: "/countCmt",
+            data: {"gbNum": gbNum},
+            dataTypes: "text",
+            success: function (result) {
+                console.log(result);
+                document.getElementById(gbNum).innerHTML = gbTitle +"&nbsp;&nbsp;<div class='cmt_count'>"+result+"</div>";
+            },
+            error: function () {
+                console.log('댓글 수량 가져오기 실패');
+            }
+        });
+    }
+
+    // 자유게시판 더보기 버튼
+    $('#toGB').click(function (){
+        location.href="/GBList";
+    })
+
+    /* 추천숙소 부분 아이디 admin으로 찜 해놓은 것을 랜덤으로 출력*/
+    $.ajax({
+        url: "/favSelect",
+        type: "post",
+        data: {
+            "faLoginId": 'admin'
+        },
+        dataType: "json",
+        success: function (result) {
+            let list=[];
+            let random1=Math.floor(Math.random()*result.length);
+            let random2=Math.floor(Math.random()*result.length);
+            while(random2==random1)
+                random2=Math.floor(Math.random()*result.length);
+
+            let random3=Math.floor(Math.random()*result.length);
+            while(random3==random1 || random3==random2)
+                random3=Math.floor(Math.random()*result.length);
+            console.log(random1+","+random2+","+random3);
+            list.push(result[random1]);
+            list.push(result[random2]);
+            list.push(result[random3]);
+            console.log(list);
+            favList(list);
+
+        },
+        error: function () {
+            alert("통신에러");
+        }
+    })
+    function favList(list){
+        let txt ="";
+        for(let i in list){
+            txt +='<div class="col-xxl-4 col-lg-6">'
+            txt +='<a href="'+list[i].faUrl+'"><div class="card card-div2">';
+            txt +='<img class="card-img-top" src="'+list[i].faImage+'" alt="Card image" style="width:100%">';
+            txt +='<div class="card-body">';
+            txt +='<h6 class="card-title index_title">'+list[i].faHotelName+'</h6>';
+            txt +='<p class="card-score">'+list[i].faScore+'</p>';
+            txt +='<span class="card-text index_text">'+list[i].faPrice+'</span>';
+            txt +='<br/>';
+            txt +='</div>';
+            txt +='</div></a>';
+            txt +='</div>';
+        }
+        $('.fav_index').empty();
+        $('.fav_index').append(txt);
+
+    }
+
+    $('#notiList').on("click", function (){
+        location.href="/noticelist";
+    })
+
+    // 공지사항 불러오기
+    var noList = [];
+    $(function (){
+        $.ajax({
+            type: "Post",
+            url: "/noticeList",
+            dataType:"json",
+            success:function (result){
+                noList = result;
+                notiList(noList);
+            },
+            error:function (){
+                console.log("공지사항 불러오기 실패")
+            }
+        });
+    });
+
+    // 공지사항 출력
+    let nlistEnter = $('#NList');
+    function notiList(list){
+        console.log(list);
+        var listTxt = "";
+        let listLength=list.length;
+        if (listLength>5)
+            listLength=5;
+        for(let i=0 ; i < listLength; i++){
+            listTxt += '<tr>';
+            listTxt += '<th>'+(i+1)+'</th>';
+            listTxt += `<td><a style="text-decoration: none;color: #275da0" href="/snView/${list[i].snNum}">${list[i].snTitle}</a></td>`;
+            listTxt += '<td>'+list[i].snUpdateDate+'</td>';
+            listTxt += '</tr>';
+        }
+        nlistEnter.append(listTxt);
+    }
+
+</script>
+
+</html>

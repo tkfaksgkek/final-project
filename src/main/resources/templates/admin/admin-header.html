@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="author" content="kiho">
+  <meta name="date" content="">
+  <meta name="description" content="">
+  <!-- CSS only -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"/>
+  <link rel="stylesheet" href="/css/admin.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="shortcut icon" href="https://sdsdfile.s3.ap-northeast-2.amazonaws.com/img/favicon.png" type="image/x-icon">
+  <title>숙덕숙덕 | 숙박 예약과 커뮤니티를 한번에</title>
+
+</head>
+<style>
+
+</style>
+<body>
+
+<nav class="navbar navbar-expand-sm bg-color">
+  <div class="container-fluid">
+    <a class="navbar-brand" style="width: 250px;" href="/"><img src="https://sdsdfile.s3.ap-northeast-2.amazonaws.com/img/logo.png" alt=""></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse " id="mynavbar">
+      <ul class="navbar-nav me-auto menu SMN_effect-4">
+        <li class="nav-item">
+          <a class="nav-link header_menu_a" href="/reservation">예약 목록</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link header_menu_a" href="/GBList">자유게시판</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link header_menu_a" href="/MBList">숙소 홍보</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link header_menu_a" href="/request">홍보요청확인</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link header_menu_a" href="/notice">공지사항관리</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link header_menu_a" href="/customer">고객센터</a>
+        </li>
+      </ul>
+
+      <div class="dropdown" th:if="${session.loginId ne null || session.loginNum ne null}">
+        <button type="button" class="btn btn-outline-primary1 dropdown-toggle" data-bs-toggle="dropdown">
+          <img src="https://sdsdfile.s3.ap-northeast-2.amazonaws.com/img/admin.png" width="18px" height="18px">&nbsp;[[${session.nickName}]]님
+        </button>
+        <ul class="dropdown-menu dropdown">
+          <div class="header_view">&nbsp;[[${session.nickName}]]님&nbsp;
+            <button type="button" class="btn btn-outline-primary-logout" id="mLogout">
+              로그아웃
+            </button>
+          </div>
+          <p><a href="/AMList" class="header_myview bi bi-person-lines-fill"> 일반 회원목록</a></p>
+          <p><a href="/AOList" class="header_myview bi bi-people-fill"> 사업자 회원목록</a></p>
+          <p><a href="/ARList" class="header_myview bi bi-person-fill-x"> 환불요청</a></p>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.6.4.js"
+        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+        crossorigin="anonymous">
+</script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js" charset="utf-8"></script>
+<!-- JavaScript Bundle with Popper -->
+
+<script>
+  $('#mLogout').click(function () {
+    if (confirm("로그아웃 하시겠습니까?") == true) { //확인
+      location.href = "/mLogout";
+    } else { //취소
+      alert('취소했습니다.');
+      return;
+    }
+  });
+</script>
+
+</html>

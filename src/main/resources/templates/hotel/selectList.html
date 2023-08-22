@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="hyunsang">
+    <meta name="date" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="https://sdsdfile.s3.ap-northeast-2.amazonaws.com/img/favicon.png" type="image/x-icon">
+    <link
+            rel="stylesheet"
+            href="./air-datepicker/dist/css/datepicker.min.css"
+    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/range%20slider.css">
+
+    <title></title>
+
+</head>
+<body class="hotel-body">
+
+<!-- header -->
+<div data-th-include="header" id="header"></div>
+
+<!-- sideber -->
+<div data-th-include="sidebar" id="sidebar"></div>
+
+<!-- loading -->
+<div data-th-include="loading" id="loading"></div>
+
+<!-- PageUpButton-->
+<a href="#header" class="bi bi-arrow-up-circle" th:if="${session.loginId ne 'admin'}"></a>
+<a href="#admin-header" class="bi bi-arrow-up-circle" th:if="${session.loginId eq 'admin'}"></a>
+
+<main id="main-body-hotel">
+
+        <div id="menu">
+
+            <ul class="main1">
+                <li class="hotel_menu_li" ><b class="hotel_menu_b" >&nbsp;<span class="hotel_menu_span bi bi-geo-alt"></span> 지역선택</b></a>
+                    <ul class="main2">
+                        <li><a href="#" class="hotel_sidemenu_li">서울</a>
+                            <ul class="main3">
+                                <li onclick="searchCrawling(typeCode,7052,sel_date,sel_date2)">강남/역삼/삼성/논현</li>
+                                <li onclick="searchCrawling(typeCode,7053,sel_date,sel_date2)">서초/신사/방배</li>
+                                <li onclick="searchCrawling(typeCode,7040,sel_date,sel_date2)">잠실/방이</li>
+                                <li onclick="searchCrawling(typeCode,7044,sel_date,sel_date2)">잠실새내/신천</li>
+                                <li onclick="searchCrawling(typeCode,122,sel_date,sel_date2)">영등포/여의도</li>
+                                <li onclick="searchCrawling(typeCode,20,sel_date,sel_date2)">구로/금천/오류/신도림</li>
+                                <li onclick="searchCrawling(typeCode,45,sel_date,sel_date2)">강서/화곡/까치산역/목동</li>
+                                <li onclick="searchCrawling(typeCode,17,sel_date,sel_date2)">천호/길동/둔촌</li>
+                                <li onclick="searchCrawling(typeCode,19,sel_date,sel_date2)">서울대/신림/사당/동작</li>
+                                <li onclick="searchCrawling(typeCode,14,sel_date,sel_date2)">종로/대학로</li>
+                                <li onclick="searchCrawling(typeCode,120,sel_date,sel_date2)">용산/중구/명동/이태원</li>
+                                <li onclick="searchCrawling(typeCode,7026,sel_date,sel_date2)">성신여대/성북/월곡</li>
+                                <li onclick="searchCrawling(typeCode,7027,sel_date,sel_date2)">노원/도봉/창동</li>
+                                <li onclick="searchCrawling(typeCode,95,sel_date,sel_date2)">강북/수유/미아</li>
+                                <li onclick="searchCrawling(typeCode,96,sel_date,sel_date2)">왕십리/성수/금호</li>
+                                <li onclick="searchCrawling(typeCode,135,sel_date,sel_date2)">건대/광진/구의</li>
+                                <li onclick="searchCrawling(typeCode,97,sel_date,sel_date2)">동대문/장안/청량리/답십리</li>
+                                <li onclick="searchCrawling(typeCode,125,sel_date,sel_date2)">중랑/상봉/면목/태릉</li>
+                                <li onclick="searchCrawling(typeCode,123,sel_date,sel_date2)">신촌/홍대/서대문/마포</li>
+                                <li onclick="searchCrawling(typeCode,46,sel_date,sel_date2)">은평/연신내/불광</li>
+                            </ul>
+                        <li><a href="#" class="hotel_sidemenu_li">경기</a>
+                            <ul class="main3">
+                                <li onclick="searchCrawling(typeCode,89,sel_date,sel_date2)">수원/인계</li>
+                                <li onclick="searchCrawling(typeCode,160,sel_date,sel_date2)">수원시청/권선/영통</li>
+                                <li onclick="searchCrawling(typeCode,88,sel_date,sel_date2)">수원역/세류/팔달문/구운/장안</li>
+                                <li onclick="searchCrawling(typeCode,161,sel_date,sel_date2)">대부도/제부도</li>
+                                <li onclick="searchCrawling(typeCode,100,sel_date,sel_date2)">안성/평택/송탄</li>
+                                <li onclick="searchCrawling(typeCode,99,sel_date,sel_date2)">오산/화성/동탄</li>
+                                <li onclick="searchCrawling(typeCode,7042,sel_date,sel_date2)">파주/금촌/헤이리/통일동산</li>
+                                <li onclick="searchCrawling(typeCode,7043,sel_date,sel_date2)">김포/장기/구래/대명항</li>
+                                <li onclick="searchCrawling(typeCode,21,sel_date,sel_date2)">고양/일산</li>
+                                <li onclick="searchCrawling(typeCode,22,sel_date,sel_date2)">의정부</li>
+                                <li onclick="searchCrawling(typeCode,53,sel_date,sel_date2)">부천</li>
+                                <li onclick="searchCrawling(typeCode,128,sel_date,sel_date2)">안양/평촌/인덕원/과천</li>
+                                <li onclick="searchCrawling(typeCode,28,sel_date,sel_date2)">군포/금정/산본/의왕</li>
+                                <li onclick="searchCrawling(typeCode,31,sel_date,sel_date2)">안산</li>
+                                <li onclick="searchCrawling(typeCode,7034,sel_date,sel_date2)">광명/철산/시흥신천역</li>
+                                <li onclick="searchCrawling(typeCode,7035,sel_date,sel_date2)">시흥/월곶/정왕/오이도</li>
+                                <li onclick="searchCrawling(typeCode,27,sel_date,sel_date2)">용인</li>
+                                <li onclick="searchCrawling(typeCode,127,sel_date,sel_date2)">이천/광주/여주</li>
+                                <li onclick="searchCrawling(typeCode,25,sel_date,sel_date2)">성남/분당</li>
+                                <li onclick="searchCrawling(typeCode,7036,sel_date,sel_date2)">구리/하남</li>
+                                <li onclick="searchCrawling(typeCode,7037,sel_date,sel_date2)">남양주</li>
+                                <li onclick="searchCrawling(typeCode,136,sel_date,sel_date2)">가평/양평</li>
+                                <li onclick="searchCrawling(typeCode,162,sel_date,sel_date2)">양주/동두천/연천/장흥</li>
+                                <li onclick="searchCrawling(typeCode,23,sel_date,sel_date2)">포천</li>
+                            </ul>
+                        <li><a href="#" class="hotel_sidemenu_li">인천</a>
+                            <ul class="main3">
+                                <li onclick="searchCrawling(typeCode,90,sel_date,sel_date2)">부평</li>
+                                <li onclick="searchCrawling(typeCode,93,sel_date,sel_date2)">주안</li>
+                                <li onclick="searchCrawling(typeCode,172,sel_date,sel_date2)">구월/소래포구</li>
+                                <li onclick="searchCrawling(typeCode,94,sel_date,sel_date2)">동암/간석</li>
+                                <li onclick="searchCrawling(typeCode,7028,sel_date,sel_date2)">을왕리/인천공항</li>
+                                <li onclick="searchCrawling(typeCode,7029,sel_date,sel_date2)">월미도/차이나타운/신포/동인천</li>
+                                <li onclick="searchCrawling(typeCode,171,sel_date,sel_date2)">작전/경인교대</li>
+                                <li onclick="searchCrawling(typeCode,170,sel_date,sel_date2)">용현/숭의/도화/송림</li>
+                                <li onclick="searchCrawling(typeCode,91,sel_date,sel_date2)">송도/연수</li>
+                                <li onclick="searchCrawling(typeCode,119,sel_date,sel_date2)">서구/검단/검단신도시</li>
+                                <li onclick="searchCrawling(typeCode,173,sel_date,sel_date2)">강화/옹진/백령도</li>
+
+                            </ul>
+                        <li><a href="#" class="hotel_sidemenu_li">강원</a>
+                            <ul class="main3">
+                                <li onclick="searchCrawling(typeCode,150,sel_date,sel_date2)">강릉역/교동택지/옥계</li>
+                                <li onclick="searchCrawling(typeCode,36,sel_date,sel_date2)">경포대/사천/주문진</li>
+                                <li onclick="searchCrawling(typeCode,180,sel_date,sel_date2)">양양/낙산/하조대/인제</li>
+                                <li onclick="searchCrawling(typeCode,33,sel_date,sel_date2)">속초/설악/동명항/고성</li>
+                                <li onclick="searchCrawling(typeCode,32,sel_date,sel_date2)">춘천/홍천/철원/화천</li>
+                                <li onclick="searchCrawling(typeCode,34,sel_date,sel_date2)">원주/횡성</li>
+                                <li onclick="searchCrawling(typeCode,37,sel_date,sel_date2)">정동진/동해/삼척</li>
+                                <li onclick="searchCrawling(typeCode,35,sel_date,sel_date2)">평창/영월/정선/태백</li>
+
+                            </ul>
+                        <li><a href="#" class="hotel_sidemenu_li">제주</a>
+                            <ul class="main3">
+                                <li onclick="searchCrawling(typeCode,7030,sel_date,sel_date2)">제주시</li>
+                                <li onclick="searchCrawling(typeCode,7031,sel_date,sel_date2)">애월/협재</li>
+                                <li onclick="searchCrawling(typeCode,87,sel_date,sel_date2)">서귀포/마라도</li>
+
+                            </ul>
+                        <li><a href="#" class="hotel_sidemenu_li">부산</a>
+                            <ul class="main3">
+                                <li onclick="searchCrawling(typeCode,101,sel_date,sel_date2)">해운대/재송</li>
+                                <li onclick="searchCrawling(typeCode,102,sel_date,sel_date2)">송정/기장/정관</li>
+                                <li onclick="searchCrawling(typeCode,103,sel_date,sel_date2)">4서면/초읍/양정/부산시민공원/범천4</li>
+                                <li onclick="searchCrawling(typeCode,43,sel_date,sel_date2)">남포동/중앙동/자갈치/송도/태종대/영도</li>
+                                <li onclick="searchCrawling(typeCode,261,sel_date,sel_date2)">부산역/범일동/부산진역/부산항국제여객터미널</li>
+                                <li onclick="searchCrawling(typeCode,7044,sel_date,sel_date2)">광안리/수영/민락</li>
+                                <li onclick="searchCrawling(typeCode,7045,sel_date,sel_date2)">경성대/대연/용호/문현</li>
+                                <li onclick="searchCrawling(typeCode,41,sel_date,sel_date2)">동래/온천장/부산대/구서/사직</li>
+                                <li onclick="searchCrawling(typeCode,104,sel_date,sel_date2)">연산/토곡</li>
+                                <li onclick="searchCrawling(typeCode,44,sel_date,sel_date2)">사상(공항경전철)/학장/엄궁</a></li>
+                                <li onclick="searchCrawling(typeCode,82,sel_date,sel_date2)">강서/하단/사하/명지/신호/다대포</li>
+                                <li onclick="searchCrawling(typeCode,133,sel_date,sel_date2)">덕천/만덕/구포/화명/북구</li>
+                            </ul>
+                        <li><a href="#" class="hotel_sidemenu_li">경남</a>
+                            <ul class="main3">
+                                <li onclick="searchCrawling(typeCode,105,sel_date,sel_date2)">김해/장유/율하</li>
+                                <li onclick="searchCrawling(typeCode,106,sel_date,sel_date2)">양산/밀양</li>
+                                <li onclick="searchCrawling(typeCode,107,sel_date,sel_date2)">거제/통영/고성군</li>
+                                <li onclick="searchCrawling(typeCode,108,sel_date,sel_date2)">진주</li>
+                                <li onclick="searchCrawling(typeCode,132,sel_date,sel_date2)">사천/남해/하동</li>
+                                <li onclick="searchCrawling(typeCode,7013,sel_date,sel_date2)">창원 상남/용호/중앙</li>
+                                <li onclick="searchCrawling(typeCode,7014,sel_date,sel_date2)">창원 명서/팔용/봉곡/북면</li>
+                                <li onclick="searchCrawling(typeCode,109,sel_date,sel_date2)">마산/진해</li>
+                                <li onclick="searchCrawling(typeCode,79,sel_date,sel_date2)">거창/함안/창녕/합천/의령</li>
+                            </ul>
+                        <li><a href="#" class="hotel_sidemenu_li">대구</a>
+                            <ul class="main3">
+                                <li onclick="searchCrawling(typeCode,7017,sel_date,sel_date2)">동성로/시청/서문시장</li>
+                                <li onclick="searchCrawling(typeCode,7018,sel_date,sel_date2)">대구역/경북대/엑스코/칠곡3지구/<br/>태전동/금호지구</li>
+                                <li onclick="searchCrawling(typeCode,7054,sel_date,sel_date2)">동대구역/신암/신천/동촌유원지/<br/>대구공항/혁신도시/팔공산</li>
+                                <li onclick="searchCrawling(typeCode,7055,sel_date,sel_date2)">수성구/수성못/범어/알파시티/<br/>남구/대명/봉덕/성당못</li>
+                                <li onclick="searchCrawling(typeCode,7056,sel_date,sel_date2)">두류공원/두류/본리/죽전/감삼</li>
+                                <li onclick="searchCrawling(typeCode,7022,sel_date,sel_date2)">서대구역/평리/내당/비산/원대</li>
+                                <li onclick="searchCrawling(typeCode,7025,sel_date,sel_date2)">성서공단/계명대/이곡/상인/<br/>월배/대곡/달성군/현풍/가창</li>
+                            </ul>
+                        <li><a href="#" class="hotel_sidemenu_li">경북</a>
+                            <ul class="main3">
+                                <li onclick="searchCrawling(typeCode,70,sel_date,sel_date2)">경주/보문단지/황리단길/불국사/안강/감포/양남</li>
+                                <li onclick="searchCrawling(typeCode,71,sel_date,sel_date2)">구미</li>
+                                <li onclick="searchCrawling(typeCode,7015,sel_date,sel_date2)">포항남구/시청/시외버스터미널/구룡포/문덕/오천</li>
+                                <li onclick="searchCrawling(typeCode,7016,sel_date,sel_date2)">포항북구/영일대/죽도시장/여객터미널</li>
+                                <li onclick="searchCrawling(typeCode,129,sel_date,sel_date2)">울진/울릉도/청송/영덕</li>
+                                <li onclick="searchCrawling(typeCode,73,sel_date,sel_date2)">경산/하양/영남대/갓바위/영천/청도</li>
+                                <li onclick="searchCrawling(typeCode,190,sel_date,sel_date2)">문경/상주/영주/예천</li>
+                                <li onclick="searchCrawling(typeCode,72,sel_date,sel_date2)">안동/경북도청/하회마을/도산서원</li>
+                                <li onclick="searchCrawling(typeCode,191,sel_date,sel_date2)">김천/칠곡/왜관/군위/성주/의성</li>
+                            </ul>
+                        <li><a href="#" class="hotel_sidemenu_li">울산</a>
+                            <ul class="main3">
+                                <li onclick="searchCrawling(typeCode,117,sel_date,sel_date2)">동구/북구/울주군/일산/정자/진하/영남알프스</li>
+                                <li onclick="searchCrawling(typeCode,116,sel_date,sel_date2)">남구/중구/삼산/성남/무거/신정</li>
+                            </ul>
+                        <li><a href="#" class="hotel_sidemenu_li">대전</a>
+                            <ul class="main3">
+                                <li onclick="searchCrawling(typeCode,67,sel_date,sel_date2)">유성 봉명/도안/장대</li>
+                                <li onclick="searchCrawling(typeCode,68,sel_date,sel_date2)">중구 은행/대흥/선화/유천</li>
+                                <li onclick="searchCrawling(typeCode,66,sel_date,sel_date2)">동구 용전/복합터미널</li>
+                                <li onclick="searchCrawling(typeCode,250,sel_date,sel_date2)">대덕구 신탄진/중리</li>
+                                <li onclick="searchCrawling(typeCode,69,sel_date,sel_date2)">서구 둔산/용문/월평</li>
+                            </ul>
+                        <li><a href="#" class="hotel_sidemenu_li">충남</a>
+                            <ul class="main3">
+                                <li onclick="searchCrawling(typeCode,65,sel_date,sel_date2)">천안 서북구</li>
+                                <li onclick="searchCrawling(typeCode,7012,sel_date,sel_date2)">천안 동남구</li>
+                                <li onclick="searchCrawling(typeCode,7057,sel_date,sel_date2)">계룡/금산/논산</li>
+                                <li onclick="searchCrawling(typeCode,7058,sel_date,sel_date2)">공주/동학사</li>
+                                <li onclick="searchCrawling(typeCode,63,sel_date,sel_date2)">아산</li>
+                                <li onclick="searchCrawling(typeCode,7059,sel_date,sel_date2)">태안/안면도</li>
+                                <li onclick="searchCrawling(typeCode,7061,sel_date,sel_date2)">서산</li>
+                                <li onclick="searchCrawling(typeCode,7060,sel_date,sel_date2)">당진</li>
+                                <li onclick="searchCrawling(typeCode,200,sel_date,sel_date2)">서천/부여</li>
+                                <li onclick="searchCrawling(typeCode,64,sel_date,sel_date2)">대천/보령</a></li>
+                                <li onclick="searchCrawling(typeCode,138,sel_date,sel_date2)">예산/청양/홍성</li>
+                                <li onclick="searchCrawling(typeCode,50,sel_date,sel_date2)">세종</li>
+                            </ul>
+                        <li><a href="#" class="hotel_sidemenu_li">충북</a>
+                            <ul class="main3">
+                                <li onclick="searchCrawling(typeCode,58,sel_date,sel_date2)">청주 흥덕구/서원구</li>
+                                <li onclick="searchCrawling(typeCode,7011,sel_date,sel_date2)">청주 상당구/청원구</li>
+                                <li onclick="searchCrawling(typeCode,7050,sel_date,sel_date2)">진천/음성</li>
+                                <li onclick="searchCrawling(typeCode,7051,sel_date,sel_date2)">제천/단양</li>
+                                <li onclick="searchCrawling(typeCode,59,sel_date,sel_date2)">충주/수안보</li>
+                                <li onclick="searchCrawling(typeCode,60,sel_date,sel_date2)">증평/괴산/영동/보은/옥천</li>
+                            </ul>
+                        <li><a href="#" class="hotel_sidemenu_li">광주</a>
+                            <ul class="main3">
+                                <li onclick="searchCrawling(typeCode,111,sel_date,sel_date2)">북구/챔피언스필드/광주역/전남대학교</li>
+                                <li onclick="searchCrawling(typeCode,112,sel_date,sel_date2)">서구/유스퀘어터미널/상무지구</li>
+                                <li onclick="searchCrawling(typeCode,220,sel_date,sel_date2)">동구/남구/국립아시아문화전당/충장로</li>
+                                <li onclick="searchCrawling(typeCode,7046,sel_date,sel_date2)">광산구 하남/송정역</li>
+                                <li onclick="searchCrawling(typeCode,7047,sel_date,sel_date2)">광산구 첨단지구</li>
+                            </ul>
+                        <li><a href="#" class="hotel_sidemenu_li">전남</a>
+                            <ul class="main3">
+                                <li onclick="searchCrawling(typeCode,113,sel_date,sel_date2)">여수</li>
+                                <li onclick="searchCrawling(typeCode,7048,sel_date,sel_date2)">순천</li>
+                                <li onclick="searchCrawling(typeCode,7049,sel_date,sel_date2)">광양</li>
+                                <li onclick="searchCrawling(typeCode,114,sel_date,sel_date2)">목포/무안/영암</li>
+                                <li onclick="searchCrawling(typeCode,240,sel_date,sel_date2)">나주/담양/곡성/구례/영광/장성/함평</li>
+                                <li onclick="searchCrawling(typeCode,115,sel_date,sel_date2)">화순/보성/해남/완도/강진/고흥/진도</li>
+                            </ul>
+                        <li><a href="#" class="hotel_sidemenu_li">전북</a>
+                            <ul class="main3">
+                                <li onclick="searchCrawling(typeCode,85,sel_date,sel_date2)">전주 덕진구</li>
+                                <li onclick="searchCrawling(typeCode,140,sel_date,sel_date2)">전주 완산구/완주</li>
+                                <li onclick="searchCrawling(typeCode,83,sel_date,sel_date2)">군산/비응도</li>
+                                <li onclick="searchCrawling(typeCode,230,sel_date,sel_date2)">남원/임실/순창/무주/진안/장수</li>
+                                <li onclick="searchCrawling(typeCode,134,sel_date,sel_date2)">익산/익산터미널/익산역</li>
+                                <li onclick="searchCrawling(typeCode,84,sel_date,sel_date2)">김제/부안/고창/정읍</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    <!-- 컨테이너 영역-->
+    <div class="container" >
+        <div class="row">
+            <div class="select_list_header2">
+                <input type="text" id="searchKeyword" class="listbox "><button id="searchBtn" onclick="searchKeyword()" class="listbox ">검색</button>
+                <button class="listbox bi bi-map" data-bs-toggle="modal" data-bs-target="#mapModal">&nbsp;지도</button>
+            </div>
+            <!-- 컨테이너 안 영역1 https://www.w3schools.com/bootstrap5/bootstrap_get_started.php 참고-->
+            <!--col-sm-3      총범위 12 왼쪽 영역은 3의 범위 오른쪽 영역은 9의 범위-->
+            <!--sm은 사이즈-->
+            <div class="col-sm-3 select_sidemenu1"  >
+
+                <input id="datepicker" type="text" placeholder="날짜 선택" class="listbox_day"/>
+                <input type="button" value="검색" onclick="search()" class="listbox">
+                <input type="button" value="초기화" onclick="defaultVal()" class="listbox">
+                <!-- 지도 -->
+                <div class="modal fade" id="mapModal" tabindex="-1" aria-labelledby="mapModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="mapModalLabel">지역 보기</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- 지도를 표시할 div 입니다 -->
+                                <div id="map" class="selectlist_map"></div>
+                                <button class="button listbox" onclick="relayout()">초기화</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- 지도 끝 -->
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <div class="range_div">
+                    <div class="range_value_span"><span id="slider-range-value1"></span>만원 이상~<span id="slider-range-value2"></span>만원 이하</div>
+                    <div id="slider-range"></div>
+                    <span class="range_value1">1만원</span> <span class="range_value2">30만원</span>
+                    <form>
+                        <input type="hidden" name="min-value" value="">
+                        <input type="hidden" name="max-value" value="">
+                    </form>
+                </div>
+            </div>
+            <!--  컨테이너 안 영역 2 사이즈 작게 범위 9-->
+            <div class="col-sm-9 selet_sidemenu2">
+
+
+                <table  class="hotel-list hotel">
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+<div data-th-include="footer" id="footer">
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!--카카오 지도 API-->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ab7a1728ddc487b0604564419256df88"></script>
+<!--카카오 지도 주소를 좌표로 변환 하는 service (장소검색도 가능)-->
+<script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ab7a1728ddc487b0604564419256df88&libraries=services"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+<script src="./air-datepicker/dist/js/datepicker.min.js"></script>
+<script src="./air-datepicker/dist/js/i18n/datepicker.ko.js"></script>
+<script src="/js/range%20slider.js"></script>
+<script>
+    let today = new Date();
+    let now = new Date();
+    let tomorrow = new Date(now.setDate(now.getDate() + 1))
+
+    // 숙박 시작일 기본값 오늘
+    let sel_date = today.getFullYear() + "-" + ('0' + (today.getMonth() + 1)).slice(-2) + "-" + ('0' + today.getDate()).slice(-2);
+    // 숙박 시작일 기본값 내일
+    let sel_date2 = tomorrow.getFullYear() + "-" + ('0' + (tomorrow.getMonth() + 1)).slice(-2) + "-" + ('0' + tomorrow.getDate()).slice(-2);
+    // 숙소 지역  기본값 미추홀구
+    let areaCode = 170;
+    // 숙소 타입 기본값 모텔
+    let typeCode = 1;
+    // 숙박일수 기본값
+    let diffDay=1;
+    // 정보 담을 리스트 생성
+    let list=[];
+    // 검색 기본값
+    let keyword="";
+    let minPrice=10000;
+    let maxPrice=300000;
+
+    // 페이징 로딩시 기본값으로 정보 불러오기
+    $(function () {
+        searchCrawling(typeCode, areaCode, sel_date, sel_date2, minPrice, maxPrice);
+
+    })
+
+    // 정보 불러오기
+    function searchCrawling(typeCode, areaCode1, sel_date, sel_date2, minPrice, maxPrice) {
+        // 로딩화면 출력
+        $('#loading').show();
+        // 검색창에 값이 있다면 삭제
+        $('#searchKeyword').val("");
+        areaCode=areaCode1
+        $.ajax({
+            url: "searchCrawling",
+            type: "post",
+            data: {
+                "sel_date": sel_date,
+                "sel_date2": sel_date2,
+                "areaCode": areaCode,
+                "typeCode": typeCode,
+                "minPrice" : minPrice,
+                "maxPrice" : maxPrice
+            },
+            dataType: "json",
+            success: function (result) {
+                // 리스트에 결과값 담기
+                list = result;
+                console.log(list);
+                stayList(list);
+                // 숙박일수가 2일 이상일 시 출력멘트 추가
+                if(diffDay>1){
+                    let stay='<td class="select_list_diffDay">'+diffDay+'박 가능</td>';
+                    console.log(stay);
+                    $(".reviewCount").append(stay);
+                }
+                // 로딩화면 없애기
+                $('#loading').hide();
+                markerMap(list)
+
+            },
+            error: function () {
+                alert("통신에러");
+                $('#loading').hide();
+            }
+        })
+    }
+
+    // 달력 및 가격바 초기화
+    function defaultVal(){
+
+        $('#datepicker').val("");
+        var rangeSlider = document.getElementById('slider-range');
+        rangeSlider.noUiSlider.set([1,30]);
+
+    }
+
+    // 검색창 이용시 버튼 클릭 없이 enter키로 검색 실행
+    let searchKey=document.getElementById('searchKeyword');
+    searchKey.addEventListener("keyup", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            searchKeyword();
+        }
+    });
+
+    // 키워드 검색을 통한 검색
+    function searchKeyword() {
+        // 로딩화면 출력
+        $('#loading').show();
+        // 날짜 및 가격 입력 정보가 있다면 초기화
+        defaultVal();
+        keyword=$('#searchKeyword').val()
+        $.ajax({
+            url: "searchKeyword",
+            type: "post",
+            data: {
+                "keyword": keyword
+            },
+            dataType: "json",
+            success: function (result) {
+                // 리스트에 결과값 담기
+                list = result;
+                console.log(list);
+                stayList(list);
+                // 로딩화면 없애기
+                $('#loading').hide();
+                markerMap(list)
+
+            },
+            error: function () {
+                alert("통신에러");
+                $('#loading').hide();
+            }
+        })
+    }
+
+    // 숙박일 선택용 달력 생성
+    $("#datepicker").datepicker({
+        language: "ko",
+        minDate: new Date(),
+        range: true,
+        multipleDatesSeparator: " ~ "
+
+    });
+
+    // 숙박일 및 가격정보 선택 후 검색
+    function search() {
+        // 숙박 시작일
+        sel_date = $('#datepicker').val().substring(0, 10);
+        // 숙박 종료일
+        sel_date2 = $('#datepicker').val().slice(13);
+        let date1 = new Date(sel_date);
+        let date2 = new Date(sel_date2);
+        // 숙박 일수
+        diffDay = (date2.getTime() - date1.getTime()) / (1000 * 60 * 60 * 24);
+        console.log(diffDay);
+        minPrice=$('#slider-range-value1').html()*10000;
+        maxPrice=$('#slider-range-value2').html()*10000;
+        console.log("최소 : "+minPrice+" 최대 : "+maxPrice);
+        // 검색값이 없는 경우
+        if(keyword=="")
+            searchCrawling(typeCode, areaCode, sel_date, sel_date2, minPrice, maxPrice);
+        // 검색값이 있는 경우
+        else{
+            $('#loading').show();
+
+            $.ajax({
+                url: "searchCondition",
+                type: "post",
+                data: {
+                    "sel_date": sel_date,
+                    "sel_date2": sel_date2,
+                    "minPrice": minPrice,
+                    "maxPrice": maxPrice,
+                    "keyword" : keyword
+                },
+                dataType: "json",
+                success: function (result) {
+                    // 리스트에 결과값 담기
+                    list = result;
+                    console.log(list);
+                    stayList(list);
+                    // 숙박일수가 2일 이상일 시 출력멘트 추가
+                    if(diffDay>1){
+                        let stay='<td class="select_list_diffDay">'+diffDay+'박 가능</td>';
+                        console.log(stay);
+                        $(".reviewCount").append(stay);
+                    }
+                    // 로딩화면 없애기
+                    $('#loading').hide();
+                    // 재검색시 기존 마커를 지우기
+
+                    markerMap(list)
+
+                },
+                error: function () {
+                    alert("통신에러");
+                    $('#loading').hide();
+                }
+            })
+        }
+
+    }
+
+    // 불러온 정보 화면에 출력
+    function stayList(list) {
+        let txt = "";
+
+        for (let i in list) {
+            txt += '<tr class="hotel-list">';
+
+            txt += '<th rowspan="4" class="select_list_img_th"><a href="' + list[i].link + '"><img src="' + list[i].image + '"  class="select_list_img"></a></th>';
+            txt += '</tr>';
+            txt += '<tr>';
+            txt += '<th class="select_list_name_th"><span class="select_list_name_span"><a class="select_list_name_span" href="' + list[i].link + '">' + list[i].name +'</a></span><br/><span class="select_list_Count_span">'+list[i].reviewCount +'</span><br/><span class="select_list_position_span">'+ list[i].position +'</span></th>';
+            txt += '</tr>';
+            txt += '<tr class="reviewCount">';
+            txt += '</tr>'
+            txt += '<tr>';
+            txt += '<th class="select_list_price_th"> <span class="select_list_price_span">숙박</span>&nbsp;&nbsp;' + list[i].price + '</th>';
+            txt += '</tr>';
+
+        }
+
+        $('.hotel').empty();
+        $('.hotel').append(txt);
+
+    }
+
+    /* 지도영역 */
+    var infowindow = new kakao.maps.InfoWindow({
+        zIndex:1
+    });
+    // 카카오 지도 생성
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+        mapOption = {
+            center: new kakao.maps.LatLng(33.4509, 126.6493), // 지도의 중심좌표
+            level: 6 // 지도의 확대 레벨
+        };
+
+    // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+    var map = new kakao.maps.Map(mapContainer, mapOption);
+    // 마커를 제어하기 위한 마커객체
+    var markers = [];
+    // 맵 클릭시 인포윈도우 닫기
+    kakao.maps.event.addListener(map, 'click', function() {
+        closeinfowindow();
+    })
+    // 마커 위치로 맵 중심점 잡기 위한 변수
+    var bounds = new kakao.maps.LatLngBounds();
+
+    // 숙소 위치 마커 찍기
+    function markerMap(list) {
+
+        hideMarkers();
+        bounds=new kakao.maps.LatLngBounds();
+
+        for(let i in list){
+            displayMarker(list[i]);
+            bounds.extend(new kakao.maps.LatLng(list[i].alat, list[i].alng));
+        }
+
+        // 지도에 마커를 표시하는 함수입니다
+
+
+        // // 좌표가 담긴 배열 초기화
+        // positions = [];
+        // for (let i in list) {
+        //     // 마커를 표시할 위치와 title 객체 배열
+        //     positions.push({
+        //         latlng: new kakao.maps.LatLng(list[i].alat, list[i].alng),
+        //         content:
+        //             '    <div class="info clickinfo">' +
+        //             '        <div class="body">' +
+        //             '            <div class="img">' +
+        //             '                <img src="' + list[i].image + '" width="73" height="70">' +
+        //             '           </div>' +
+        //             '            <div class="desc">' +
+        //             list[i].name +
+        //             '                <div class="ellipsis">' + list[i].position + ' </div>' +
+        //             '                <div><a href="' + list[i].link + '" class="link">예약하기</a></div>' +
+        //             '            </div>' +
+        //             '        </div>' +
+        //             '    </div>'
+        //
+        //     });
+        // }
+        // console.log(positions);
+        // for (var i = 0; i < positions.length; i++) {
+        //
+        //     // 마커를 생성합니다
+        //     var marker = new kakao.maps.Marker({
+        //         map: map, // 마커를 표시할 지도
+        //         position: positions[i].latlng, // 마커를 표시할 위치
+        //     });
+        //
+        //     /* var iwContent = '<div style="padding:5px;">Hello World!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+        //          iwPosition = new kakao.maps.LatLng(positions[i].latlng), //인포윈도우 표시 위치입니다
+        //          iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+        //
+        //      // 인포윈도우를 생성하고 지도에 표시합니다
+        //      var infowindow = new kakao.maps.InfoWindow({
+        //          map: map, // 인포윈도우가 표시될 지도
+        //          position : iwPosition,
+        //          content : iwContent,
+        //          removable : iwRemoveable
+        //      });*/
+        //
+        //     iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+        //     // 마커에 표시할 인포윈도우를 생성합니다
+        //     var infowindow = new kakao.maps.InfoWindow({
+        //         content: positions[i].content, // 인포윈도우에 표시할 내용
+        //         removable : iwRemoveable    // 닫기 버튼 추가
+        //     });
+        //
+        //
+        //     // 마커에 클릭 이벤트 넣기
+        //     kakao.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow));
+        //
+        //     // 마커를 제어할수 있는 객체에 넣기( 한번에 지우기 위해여)
+        //     markers.push(marker);
+        //
+        // }
+
+    }
+
+    //마커 생성
+    function displayMarker(place) {
+        var imageSrc = 'https://sdsdfile.s3.ap-northeast-2.amazonaws.com/img/marker1.png', // 마커이미지의 주소입니다
+            imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+            imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+
+        // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+            markerPosition = new kakao.maps.LatLng(place.alat, place.alng); // 마커가 표시될 위치입니다
+        // 마커를 생성하고 지도에 표시합니다
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: markerPosition,
+            image : markerImage
+        });
+
+        // 마커에 클릭이벤트를 등록합니다
+        kakao.maps.event.addListener(marker, 'click', function() {
+            // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+            infowindow.setContent(
+                '    <div class="info">' +
+                '        <div class="title">' + place.name +
+                '            <div class="close" onclick="closeinfowindow()" title="닫기"></div>' +
+                '        </div>' +
+                '        <a href="'+place.link +'" class="link"><div class="body">' +
+                '            <div class="img">' +
+                '                <img src="'+place.image+'" width="80" height="80">' +
+                '           </div>' +
+                '            <div class="desc">' +
+                '                <div class="ellipsis">'+place.position+'</div>' +
+                '                <div>'+place.price+'</div>'+
+                '                <div>'+place.reviewCount+'</div>'+
+                '            </div>' +
+                '        </div></a>' +
+                '    </div>'
+
+                // '<div class="overlay_info">' +
+                // '    <a href="'+place.link +'" target="_blank"><strong>'+place.name+'</strong></a>' +
+                // '    <div class="desc">' +
+                // '        <img src="'+place.image+'" width="73" height="70" alt="">' +
+                // '        <span class="address">'+place.position+'</span>' +
+                // '    </div>' +
+                // '</div>'
+            )
+
+            infowindow.open(map, marker);
+        });
+        markers.push(marker);
+    }
+
+    function closeinfowindow() {
+        infowindow.close();
+    }
+
+    // 생성되었던 마커 지우기 함수
+    function hideMarkers() {
+        for(let i in markers){
+            markers[i].setMap(null);
+        }
+    }
+
+    // shown modal이 출력이 완료된 후 실행
+    $('#mapModal').on('shown.bs.modal', function () {
+        relayout();
+    })
+
+    // // modal 닫을 때 인포윈도우 모두 닫기 및 지도 크기 초기화
+    // $('#mapModal').on('hidden.bs.modal', function () {
+    //     closeinfowindow();
+    //     map.setLevel(6);
+    // })
+
+    // 초기화
+    function relayout() {
+        // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
+        // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다
+        // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
+        map.relayout();
+        // 인포윈도우 닫기
+        closeinfowindow();
+        // 마커 기준으로 중심점 재설정
+        map.setBounds(bounds);
+
+    }
+
+    /* 지도영역 끝 */
+
+</script>
+</html>

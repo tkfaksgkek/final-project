@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="hyunsang">
+    <meta name="date" content="">
+    <meta name="description" content="">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/board-css.css">
+    <link rel="shortcut icon" href="https://sdsdfile.s3.ap-northeast-2.amazonaws.com/img/favicon.png"
+          type="image/x-icon">
+    <link rel="stylesheet" href="./air-datepicker/dist/css/datepicker.min.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>숙덕숙덕 | 숙박 예약과 커뮤니티를 한번에</title>
+    <style>
+        /* 기본 맵 출력 css 변경금지! */
+        #google_maps {
+            height: 600px;
+        }
+    </style>
+</head>
+<body class="index">
+<!-- header -->
+<div data-th-include="header" id="header"></div>
+<!--sideber-->
+<div data-th-include="sidebar" id="sidebar"></div>
+<!-- loading -->
+<div data-th-include="loading" id="loading"></div>
+<!-- PageUpButton-->
+<!--<a href="#header" class="bi bi-arrow-up-circle"></a>-->
+
+<a href="#header" class="bi bi-arrow-up-circle" th:if="${session.loginId ne 'admin'}"></a>
+<a href="#admin-header" class="bi bi-arrow-up-circle" th:if="${session.loginId eq 'admin'}"></a>
+
+<main id="main-body-hotel">
+
+    <div class="container" id="hotel-list-view">
+        <div class="row view_main1">
+            <div class="col-sm-6">
+                <!--캐러셀 슬라이더 부트스트랩 https://www.w3schools.com/bootstrap5/bootstrap_carousel.php 참고-->
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div th:each="images:${images}" class="carousel-item">
+                            <img th:src="${images}" class="w-100">
+                        </div>
+
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                            data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                            data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+
+            <!--케러샐 슬라이더 끝-->
+            <div class="col-sm-4">
+                <div class="hotel_view_div1">
+                    <div class="view_main_name">[[${result.name}]]</div>
+                    <div class="view_main_score">
+                        &nbsp;[[${result.score}]]&nbsp;
+                    </div>
+                    전체 리뷰 <b class="reviewCount">전체리뷰수</b>
+                    <div class="view_div_tel">
+                        <il class="bi bi-telephone"> [[${result.tel}]]</il>
+                    </div>
+                    <div class="view_div_addr">[[${result.address}]]</div>
+
+                    <div class="container mt-3">
+                        <!--드롭다운 https://www.w3schools.com/bootstrap5/bootstrap_dropdowns.php 참고-->
+                        <button type="button" th:if="${result.comment!=''}" class="btn btn-outline-primary view-btn"
+                                data-bs-toggle="collapse" data-bs-target="#demo">
+                            사장님 한마디
+                        </button>
+
+                        <button type="button" th:if="${session.loginId!=null}" class="btn btn-outline-dangery view_btn"
+                                id="fav">
+                            <i class="bi bi-heart"></i>
+                            찜하기
+                        </button>
+
+                        <button type="button" th:if="${session.loginNum!=null}" class="btn btn-outline-primary view_btn"
+                                id="marketing">
+                            홍보 등록
+                        </button>
+
+                        <!-- 사장님 한마디(comment 내용) -->
+                        <div id="demo" class="collapse ">
+                            <div th:utext="${result.comment}"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-sm-10 view_tab_div">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist" id="myTab">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#home">객실정보</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#menu1" id="mapOn">숙소정보</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#menu2" id="review">리뷰</a>
+                    </li>
+                </ul>
+                <!-- Nav tabs end -->
+
+                <!-- Tab panes -->
+                <div class="tab-content view_tab">
+
+                    <!-- 객실정보 -->
+                    <div id="home" class="tab-pane active"><br>
+                        <input id="datepicker" type="text" placeholder="날짜 선택" class="listbox_view_day"/>
+                        <input type="button" value="검색" onclick="search()" class="listbox">
+                        <table class="listbox_table" th:each="room : ${rooms}">
+                            <tr>
+                                <td th:rowspan="4"><img style="width: 500px" th:src="${room.roomImage}"></td>
+                            </tr>
+                            <tr>
+                                <th th:text="${room.roomInfo}"></th>
+                            </tr>
+                            <tr>
+                                <th th:text="${room.roomPrice}"></th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <button class="buy-button btn btn-outline-primary" th:roomPrice="${room.roomPrice}"
+                                            th:roomInfo="${room.roomInfo}"
+                                            th:onclick="reserve(this.getAttribute('roomPrice'),this.getAttribute('roomInfo'))">
+                                        예약하기
+                                    </button>
+                                </th>
+                            </tr>
+                            <tr th:if="${rooms.isEmpty}">
+                                <td style="text-align: center; padding:100px">선택하신 날짜에 예약 가능한 객실이 없습니다.<br/>날짜를 변경하세요.
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <!-- 객실정보 끝 -->
+
+                    <!-- 숙소정보 -->
+                    <!--아코디언 https://www.w3schools.com/bootstrap5/bootstrap_collapse.php 참고 -->
+                    <div id="menu1" class="tab-pane fade"><br>
+                        <div class="container mt-3">
+
+                            <div class="accordion" id="accordionExample">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingOne">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#collapseOne" aria-expanded="true"
+                                                aria-controls="collapseOne">
+                                            기본정보
+                                        </button>
+                                    </h2>
+                                    <div id="collapseOne" class="accordion-collapse collapse show"
+                                         aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <div th:utext="${result.defaultInfo}"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingTwo">
+                                        <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                                aria-expanded="false" aria-controls="collapseTwo">
+                                            숙소정보
+                                        </button>
+                                    </h2>
+                                    <div id="collapseTwo" class="accordion-collapse collapse"
+                                         aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <div th:utext="${result.sellerInfo}"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- 숙소정보 끝 -->
+
+                    <!-- 리뷰 -->
+                    <div id="menu2" class="tab-pane fade"><br>
+                        <div class="review_div view_border">
+                            <div>
+                                <strong class="h3" id="review_main">추천해요</strong>
+                            </div>
+                            <br/>
+                            <p>
+                                <span>전체 추천 점수</span><span class="view_main_score">[[${result.score}]]</span>
+                                <span>|</span> 전체 리뷰 <b class="reviewCount">전체리뷰수</b>
+                            </p>
+                        </div>
+
+                        <div class="re_view_div">
+                            <ul id="reviewContent">
+
+                            </ul>
+                        </div>
+                        <div id="numbering" style="display: inline-block"></div>
+                    </div>
+
+                    <!-- 리뷰 끝 -->
+
+                </div>
+                <!-- Tab panes end -->
+
+            </div>
+        </div>
+    </div>
+
+</main>
+<div data-th-include="footer" id="footer">
+</div>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="./air-datepicker/dist/js/datepicker.min.js"></script>
+<script src="./air-datepicker/dist/js/i18n/datepicker.ko.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!--카카오 지도 API & 주소,좌표 변환 서비스(Geocoder) api-->
+<script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ab7a1728ddc487b0604564419256df88&libraries=services"></script>
+
+<script>
+    // 화면 로딩 후 로딩 페이지 숨기기
+    window.onload = function () {
+        $('#loading').hide();
+    };
+    // 숙박일 선택용 달력 날짜 표시줄에 현재 선택된 날짜 표시
+    $('#datepicker').val("[[${result.sel_date}]]" + " ~ " + "[[${result.sel_date2}]]");
+
+    // 숙소 첫번째 이미지 active 속성 부여
+    document.querySelector(".carousel-item").classList.add("active");
+    // 사장님 한마디 중복으로 나와서 정보탭에서는 안 보이게 세팅
+    let comment = document.querySelector(".comment_mobile");
+    if (comment != null)
+        comment.style.display = 'none';
+    let ano = [[${result.ano}]];
+    let adcno = [[${result.adcno}]];
+    let hotelName = `[[${result.name}]]`;
+    let hotelScore = `[[${result.score}]]`;
+    let hotelAddr = `[[${result.address}]]`;
+    let loginId = `[[${session.loginId}]]`;
+    let loginNum = `[[${session.loginNum}]]`;
+    let sel_date = "[[${result.sel_date}]]";
+    let sel_date2 = "[[${result.sel_date2}]]";
+    let date1 = new Date(sel_date);
+    let date2 = new Date(sel_date2);
+    // 찜하기 버튼
+    let fav = document.querySelector('#fav');
+    // 홍보요청 버튼
+    let req = document.querySelector('#marketing');
+    // 찜번호 기본값
+    let faNum = 0;
+    // 홍보요청번호 기본값
+    let mrNum = 0;
+    // 최근 본 페이지 생성용
+    let url = '/detail?ano=' + ano + '&adcno=' + adcno;
+    let image = `[[${images[0]}]]`;
+    console.log(hotelName + "," + url + "," + image);
+    // 최근 본 페이지에 필요한 정보를 담은 객체
+    let obj = {
+        hotelName: hotelName,
+        url: url,
+        image: image
+    }
+    // 저장된 정보 불러오기, 정보가 없다면 빈 리스트
+    let recentList = JSON.parse(localStorage.getItem('recentList')) || [];
+    // 현재 방문한 페이지의 정보가 저장된 정보에 있다면 제거
+    recentList = recentList.filter(recent => recent.hotelName != obj.hotelName);
+    // 방문한 페이지 정보 리스트에 추가, 최상단 노출 위해 리스트 앞에 추가
+    recentList.unshift(obj);
+    // 저장된 정보는 최대 5개, 5개가 넘어서면 오래된 정보부터 삭제
+    if (recentList.length > 5) {
+        // 리스트의 끝에서 삭제
+        recentList.pop();
+    }
+    // localStorage에 방문 정보 저장
+    localStorage.setItem('recentList', JSON.stringify(recentList));
+
+    console.log(recentList);
+    // 현재 페이지 방문정보 업데이트
+    for (let i = 0; i < recentList.length; i++) {
+        $(`#side${i + 1}_img`).attr('src', recentList[i].image);
+        $(`#side${i + 1}_url`).attr('href', recentList[i].url);
+        $(`#side${i + 1}_name`).attr('value', recentList[i].hotelName);
+    }
+
+    // 숙박 일수
+    let diffDay = (date2.getTime() - date1.getTime()) / (1000 * 60 * 60 * 24);
+    console.log(diffDay);
+    if (diffDay > 1) {
+        $('.buy-button').html('(' + diffDay + '박) 예약하기');
+    } else {
+        $('.buy-button').html('예약하기')
+    }
+
+    $("#datepicker").datepicker({
+        language: "ko",
+        minDate: new Date(),
+        range: true,
+        multipleDatesSeparator: " ~ "
+
+    });
+
+    // tab 메뉴 이동용
+    var triggerTabList = [].slice.call(document.querySelectorAll('#myTab a'))
+    triggerTabList.forEach(function (triggerEl) {
+        var tabTrigger = new bootstrap.Tab(triggerEl)
+
+        triggerEl.addEventListener('click', function (event) {
+            event.preventDefault()
+            tabTrigger.show()
+        })
+    })
+    // tab 메뉴 정보를 받아서 필요한 탭으로 이동, 기본값 객실정보
+    let tabs = `[[${result.tabs}]]`
+    console.log('tabs :' + tabs);
+    // 숙소정보 탭
+    if (tabs == 'menu1') {
+        var triggerEl = document.querySelector('#myTab a[href="#menu1"]')
+        bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
+    }
+    // 리뷰 탭
+    else if (tabs == 'menu2') {
+        var triggerEl = document.querySelector('#myTab a[href="#menu2"]')
+        bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
+    }
+
+    // 찜여부 확인
+    $.ajax({
+        url: "/favSearch",
+        type: "post",
+        data: {
+            "faCode": ano,
+            "faLoginId": loginId
+        },
+        dataType: "text",
+        success: function (result) {
+            faNum = result;
+            console.log("찜번호 : " + faNum);
+            if (faNum != 0)
+                fav.classList.add('active');
+        },
+        error: function () {
+            alert("통신에러");
+        }
+    })
+
+    // 홍보요청여부 확인
+    $.ajax({
+        url: "/requestSearch",
+        type: "post",
+        data: {
+            "mrAno": ano,
+            "mrSoName": loginNum
+        },
+        dataType: "text",
+        success: function (result) {
+            mrNum = result;
+            console.log("요청번호 : " + mrNum);
+            if (mrNum != 0)
+                req.setAttribute('disabled',"disabled");
+       },
+        error: function () {
+            alert("통신에러");
+        }
+    })
+
+    // 로그인시 찜버튼이 사라짐으로 찜버튼이 있을때만 클릭이벤트 부여
+    if (fav != null) {
+        fav.addEventListener("click", function (e) {
+            // 찜이 되어 있는 상태에서 클릭시
+            if (this.classList.contains('active')) {
+                this.classList.remove('active');
+                // 찜 내역 삭제
+                $.ajax({
+                    url: "/favDel",
+                    type: "post",
+                    data: {
+                        "faNum": faNum
+                    },
+                    dataType: "text",
+                    success: function () {
+                        console.log("삭제")
+                        faNum = 0;
+                    },
+                    error: function () {
+                        alert("통신에러");
+                        $('#loading').hide();
+                    }
+                })
+            }
+            // 찜을 새로 할 때
+            else {
+                this.classList.add('active');
+                // 찜 내역 저장
+                $.ajax({
+                    url: "/favInsert",
+                    type: "post",
+                    data: {
+                        "faHotelName": hotelName,
+                        "faUrl": url,
+                        "faImage": image,
+                        "faCode": ano,
+                        "faScore": hotelScore,
+                        "faAddr": hotelAddr,
+                        "faLoginId": loginId
+                    },
+                    dataType: "text",
+                    success: function (result) {
+                        faNum = result;
+                        console.log("찜번호 : " + faNum);
+                    },
+                    error: function () {
+                        alert("통신에러");
+                        $('#loading').hide();
+                    }
+                })
+            }
+        })
+    }
+
+    // 예약하기 버튼 클릭 이벤트
+    function reserve(roomPrice, roomInfo) {
+        if (roomPrice == "숙소에 문의") {
+            alert("이용 불가능한 숙소입니다")
+        } else {
+            if (diffDay > 1) {
+                roomPrice = roomPrice.slice(0, -4).replace(',', '');
+                console.log(roomPrice)
+            } else {
+                roomPrice = roomPrice.slice(0, -1).replace(',', '');
+            }
+            let totalPrice = diffDay * roomPrice;
+            roomInfo = roomInfo.replace("[", "(");
+            roomInfo = roomInfo.replace("]", ")");
+            location.href = '/reserve?ano=' + ano + '&adcno=' + adcno + '&totalPrice=' + totalPrice + '&hotelName=' + hotelName + '&roomInfo=' + roomInfo + '&sel_date=' + sel_date + '&sel_date2=' + sel_date2;
+        }
+
+    }
+
+    // 숙박일 선택 후 검색
+    function search() {
+        $('#loading').show();
+
+        let datepicker = $('#datepicker').val();
+        // 숙박 시작일
+        sel_date = datepicker.substring(0, 10);
+        // 숙박 종료일
+        sel_date2 = datepicker.slice(13);
+
+        location.href = "/detail?ano=" + ano + "&adcno=" + adcno + "&sel_date=" + sel_date + "&sel_date2=" + sel_date2;
+        // 정보 로딩 후 로딩창 숨기기
+        window.onload = function () {
+            $('#loading').hide();
+        }
+
+    }
+
+    $('#marketing').click(function () {
+        console.log("버튼");
+        location.href = "/MRWriteForm/" + ano;
+    })
+
+
+    /* 지도 google map 영역에 표현 */
+    var mapContainer = document.getElementById('google_maps'), // 지도를 표시할 div
+        mapOption = {
+            center: new kakao.maps.LatLng(33.4509, 126.6493), // 지도의 중심좌표
+            level: 3 // 지도의 확대 레벨
+        };
+    // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+    var map = new kakao.maps.Map(mapContainer, mapOption);
+    relayout();
+
+    // 주소를 담을 객체 생성
+    var viewAddr = null;
+
+    // #collapseTwo 의 주소 ul의 정보를 가져오는 jQuery. each() 는 index값으로 반복문을 돌린다.(0,1,2.. index의 길이만큼)
+    $("#collapseTwo ul:eq(2)>li").each(function (index, element) {
+        // 객체에 주소 담기
+        viewAddr = $(this).text();
+        console.log($(this).text());
+    });
+
+    // 주소-좌표 변환 객체를 생성합니다
+    var geocoder = new kakao.maps.services.Geocoder();
+    // 변환된 좌표를 담을 변수 생성
+    var changedCoor_y = 33.4509;     // 위도(lat)
+    var changedCoor_x = 126.6493;    // 경도(lng)
+    // 주소로 좌표를 검색합니다
+    geocoder.addressSearch(viewAddr, function (result, status) {
+
+        // 정상적으로 검색이 완료됐으면
+        if (status === kakao.maps.services.Status.OK) {
+
+
+            var imageSrc = 'https://sdsdfile.s3.ap-northeast-2.amazonaws.com/img/marker1.png', // 마커이미지의 주소입니다
+                imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+                imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+
+            // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+            var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+                markerPosition = new kakao.maps.LatLng(result[0].y, result[0].x); // 마커가 표시될 위치입니다
+
+            // 결과값으로 받은 위치를 마커로 표시합니다
+            var marker = new kakao.maps.Marker({
+                position: markerPosition,
+                image: markerImage // 마커이미지 설정
+            });
+            marker.setMap(map);
+
+            // 인포윈도우로 장소에 대한 설명을 표시합니다
+            // var infowindow = new kakao.maps.InfoWindow({
+            //     content: '<div style="width:150px;text-align:center;padding:6px 0;font-size: 5px">[[${result.name}]]</div>'
+            // });
+            // infowindow.open(map, marker);
+
+            //맵의 크기 가 바뀌었으니 relayout() 실행
+            map.relayout();
+
+            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+            map.setCenter(markerPosition);
+
+            // 주소를 변환한 좌표를 외부에서쓰기위해 변수에 저장
+            changedCoor_y = result[0].y;
+            changedCoor_x = result[0].x;
+        }
+    });
+
+    // 숙소 정보 탭이 눌리면 relayout() 한번 더 실행
+    $('#mapOn').click(function () {
+        relayout();
+    });
+
+    // 지도 위치맞추기 function
+    function relayout() {
+        // 지도 변경 후 무조건 실행
+        map.relayout();
+        // 센터를 주소위치로!
+        map.setCenter(new kakao.maps.LatLng(changedCoor_y, changedCoor_x));
+        map.setLevel(3);
+    }
+
+    /* 지도 끝 */
+
+    /* 리뷰 출력 및 페이징 */
+    let page = 1;
+    let limit = 10;
+    const block = 5;
+    let count = 0;
+    let list = [];
+    // 리뷰 총개수
+    let ReviewCount = 0;
+    $.ajax({
+        url: "/reviewList",
+        type: "POST",
+        data: {
+            "srCode": ano
+        },
+        dataType: "json",
+        success: function (result) {
+            list = result;
+            pagingList(page, list);
+            ReviewCount = result[0].srCount;
+            $('.reviewCount').html(ReviewCount);
+        },
+        error: function () {
+            alert('리스트 에러');
+        }
+    });
+
+    // 리스트 출력 메소드
+    function pagingList(page, list) {
+        count = list.length;
+        console.log(`page# : ${page} `);
+        console.log(`count# : ${count} `);
+
+        let maxPage = Math.ceil(count / limit);
+
+        if (page > maxPage) {
+            if (maxPage == 0) {
+                maxPage = 1;
+            }
+            page = maxPage;
+        }
+
+        // 1 11 21
+        let startRow = (page - 1) * limit;
+
+        // 끝나는 행 : 10 20 30
+        let endRow = page * limit - 1;
+
+        if (endRow >= count) {
+            endRow = count - 1;
+        }
+
+        // 시작하는 페이지
+        let startPage = (((Math.ceil(page / block))) - 1) * block + 1;
+
+        // 끝나는 페이지
+        let endPage = startPage + block - 1;
+
+        if (endPage > maxPage) {
+            endPage = maxPage;
+        }
+
+        let txt = "";
+
+        for (let i = startRow; i <= endRow; i++) {
+
+
+            txt += "<li>\n" +
+                "                                    <div class=\"guest\">\n" +
+                "                                        <br/><p>\n" +
+                "                                            <strong class=\"review_strong\">" + list[i].srReviewTitle + "</strong> <span class=\"view_main_score\">" + list[i].srGrade + "</span>\n" +
+                "                                        </p>\n" +
+                "                                        <div class=\"name\">\n" +
+                "                                            <b>" + list[i].srRoom + "</b>" + list[i].srNickName + "\n" +
+                "                                        </div>\n" +
+                "                                        <div class=\"txt\">\n" +
+                "                                            " + list[i].srReview + "\n" +
+                "                                        </div>\n" +
+                "                                        <span class=\"date\">" + list[i].srDate + "</span>\n" +
+                "                                    </div>\n" +
+                "                                </li>";
+
+        }
+
+        $('#reviewContent').empty();
+        $('#reviewContent').append(txt);
+
+        let pageNum = "";
+        let prev = (page - 1 < 1 ? 1 : page - 1);              // 이전 페이지
+        let next = (page + 1 >= maxPage ? maxPage : page + 1); // 다음페이지
+
+        pageNum += `<ul class="pagination">`;
+        // [이전] 버튼
+        if (page <= 1) {
+            pageNum += `<li class="prev page-link">이전</li>`;
+        } else {
+            pageNum += `<li class="page-item"><a class="prev page-link" href="#review_main" data-page="${prev}">이전</a></li>`;
+        }
+
+        // [번호] 버튼
+        for (let i = startPage; i <= endPage; i++) {
+            if (page == i) {
+                pageNum += `<li class="iNum page-link active">${i}</li>`;
+                continue;
+            }
+            pageNum += `<li class="iNum page-item"><a class="iNum page-link" href="#review_main" data-page="${i}"> ${i} </a></li>`;
+        }
+        // [다음] 버튼
+        if (page >= maxPage) {
+            pageNum += `<li class="next page-link">다음</li>`;
+        } else {
+            pageNum += `<li class="next page-item"><a class="next page-link" href="#review_main" data-page="${next}">다음</a></li>`;
+        }
+        pageNum += `</ul>`;
+        $('#numbering').empty();
+        $('#numbering').append(pageNum);
+
+        // 이전, 번호, 다음 클릭시
+        $(document).on("click", "#numbering a", function (e) {
+            page = parseInt($(this).data('page'));
+            pagingList(page, list);
+        });
+    }
+
+    /* 리뷰 끝 */
+
+
+</script>
+</html>

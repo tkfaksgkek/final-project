@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="Hyehwi">
+    <meta name="date" content="">
+    <meta name="description" content="">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="https://sdsdfile.s3.ap-northeast-2.amazonaws.com/img/favicon.png"
+          type="image/x-icon">
+    <title>숙덕숙덕 | 숙박 예약과 커뮤니티를 한번에</title>
+</head>
+<body class="index">
+<!-- admin header -->
+<div data-th-include="/admin/admin-header.html" id="admin-header" th:if="${session.loginId eq 'admin'}"></div>
+
+<!-- header -->
+<div data-th-include="header" id="header" th:if="${session.loginId ne 'admin'}"></div>
+
+<!-- PageUpButton-->
+<a href="#header" class="bi bi-arrow-up-circle" th:if="${session.loginId ne 'admin'}"></a>
+<a href="#admin-header" class="bi bi-arrow-up-circle" th:if="${session.loginId eq 'admin'}"></a>
+<main>
+
+    <div class="container">
+        <h2><i class="bi bi-pencil-square"></i> 내 정보 수정</h2>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">회원수정 페이지</li>
+                <li class="breadcrumb-item"><a href="http://localhost:9092/">Home</a></li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="container m-section">
+        <form action="/mModify" method="POST" encType="multipart/form-data" name="mModiForm">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="card m-div-card">
+                        <label><strong>프로필 사진 수정</strong></label><br/>
+                        <img id="smProfileName2" th:src="${modify.smProfileName}"
+                             width="200px" class="rounded-circle"
+                             onerror='this.src="https://sdsdfile.s3.ap-northeast-2.amazonaws.com/img/defaultProfile.png"'/><br/>
+                        <input type="file" name="smProfile" id="smProfile2">
+                        <input type="hidden" th:value="${modify.smProfileName}" name="smProfileName">
+                    </div>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="card">
+                        <div class="card-body pt-3">
+                            <div class="container mt-3">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-bs-toggle="tab" href="#memberModify">정보수정</a>
+                                    </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div id="memberModify" class="m-div tab-pane active"><br>
+                                        <p class="h5"><strong class="m-color">[[${view.smNickname}]]</strong>님의 프로필</p>
+                                        <h6 class="card-title">수정할 정보를 입력해 주세요.</h6><br/>
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label m-data-label"><strong>아이디</strong></label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="smId" class="listbox" size="40"
+                                                       th:value="${modify.smId}" readonly/>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label m-data-label"><strong>닉네임</strong></label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="smNickname" size="20"
+                                                       class="listbox" th:value="${modify.smNickname}" readonly/>
+                                                <button type="button" id="btn1" class="listbox"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#myModal4">
+                                                    닉네임 변경하기
+                                                </button>
+                                                <br/>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label m-data-label"><strong>비밀번호</strong></label>
+                                            <div class="col-sm-10">
+                                                <input type="password" name="smPw" id="smPw3" class="listbox"
+                                                       placeholder="영문, 숫자, 특수문자를 혼합해서 8자 이상" size="40" required/><br/>
+                                                <span id="check18"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label m-data-label"><strong>비밀번호 확인</strong></label>
+                                            <div class="col-sm-10">
+                                                <input type="password" id="checkPw3" class="listbox"
+                                                       placeholder="입력한 비밀번호를 확인해주세요" size="40" required/><br/>
+                                                <span id="check19"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label m-data-label"><strong>이름</strong></label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="smName" class="listbox" size="40"
+                                                       th:value="${modify.smName}"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label m-data-label"><strong>생일</strong></label>
+                                            <div class="col-sm-10">
+                                                <input type="date" name="smBirth" class="listbox"
+                                                       th:value="${modify.smBirth}"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <legend class="col-form-label col-sm-2 pt-0 m-data-label">
+                                                <strong>성별</strong></legend>
+                                            <div class="col-sm-10">
+                                                <div class="form-check m-data-label">
+                                                    <input type="radio" name="smGender" value="남자" id="gridCheck2"
+                                                           checked>
+                                                    <label class="form-check-label" for="gridCheck2">
+                                                        <strong>남자</strong>
+                                                    </label>
+                                                    <input type="radio" name="smGender" value="여자" id="gridCheck1">
+                                                    <label class="form-check-label" for="gridCheck1">
+                                                        <strong>여자</strong>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label m-data-label"><strong>이메일</strong></label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="smEmail" class="listbox" size="40"
+                                                       th:value="${modify.smEmail}"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label m-data-label"><strong>연락처</strong></label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="smPhone" class="listbox" size="40"
+                                                       th:value="${modify.smPhone}"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label m-data-label"><strong>주소</strong></label>
+                                            <div class="col-sm-10">
+                                                <input type="text" id="sample6_postcode3"
+                                                       onclick="sample6_execDaumPostcode()" placeholder="우편번호"
+                                                       class="listbox" size="23">
+                                                <input type="button" onclick="sample6_execDaumPostcode()"
+                                                       class="listbox" value="우편번호 찾기"><br/>
+                                                <input type="text" id="sample6_address3" placeholder="주소"
+                                                       class="listbox" size="40"><br/>
+                                                <input type="text" id="sample6_detailAddress3" placeholder="상세주소"
+                                                       class="listbox" size="40">
+                                                <input type="hidden" id="smAddr2" name="smAddr"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="m-btn">
+                                            <input type="button" class="btn btn-outline-primary" value="회원수정"
+                                                   id="modifyForm"/>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="modal" id="myModal4">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">닉네임 변경하기</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <!-- 일반 -->
+                        <div class="tab-content" id="changeSmPwTabContent">
+                            <div class="tab-pane fade show active" id="changeSmPw" role="tabpanel"
+                                 aria-labelledby="findIdUser-tab">
+                                <form id="changeNick" method="post">
+                                    <table class="h-table">
+                                        <tr>
+                                            <th>
+                                                <input type="hidden" name="smId" id="smId3" th:value="${modify.smId}"/>
+                                                <input type="text" name="smNickname" id="smNickname2"
+                                                       placeholder="변경할 닉네임을 입력해 주세요"
+                                                       class="listbox h-table-input" required/> <br/>
+                                                <span id="check20"></span>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                <input type="button" value="랜덤 닉네임 생성하기" onclick="createNick()"
+                                                       class="btn btn-outline-primary h-th-input_modify_l">
+                                                <input type="submit" value="닉네임 변경하기"
+                                                       class="btn btn-outline-primary h-th-input_modify_r">
+                                            </th>
+                                        </tr>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal footer -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+<div data-th-include="footer" id="footer"></div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.4.js"
+        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+        crossorigin="anonymous">
+</script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js" charset="utf-8"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- JavaScript Bundle with Popper -->
+<script type="text/javascript">
+    let check_name1 = false;
+    let check_pw1 = false;
+    let check_pwa = false;
+
+
+    // 비밀번호 정규식
+    $('#smPw3').keyup(function () {
+
+        console.log('비밀번호 확인!');
+        let smPw = $('#smPw3').val();
+        let check18 = $('#check18');
+
+        // 기본값 -1
+        let num = smPw.search(/[0-9]/);          // 숫자
+        let eng = smPw.search(/[a-z]/);          // 영문자
+        let spe = smPw.search(/[~!@#$%^&*]/);    // 특수문자
+        let spc = smPw.search(/\s/);             // 공백여부
+
+        if (smPw.length < 8 || smPw.length > 16) {
+            check18.html("8자리에서 16자리 이내로 입력해주세요")
+            check18.css('color', 'red');
+            check_pw1 = false;
+        } else if (spc != -1) {
+            check18.html("공백없이 입력해주세요");
+            check18.css('color', 'red');
+            check_pw1 = false;
+        } else if (num == -1 || eng == -1 || spe == -1) {
+            check18.html("영문, 숫자, 특수문자를 혼합해서 입력해주세요");
+            check18.css('color', 'red');
+            check_pw1 = false;
+        } else {
+            check18.html("사용가능한 비밀번호 입니다.");
+            check18.css('color', 'blue');
+            check_pw1 = true;
+        }
+    });
+
+    // 비밀번호 일치 여부 확인
+    $('#checkPw3').keyup(function () {
+        let smPw = $('#smPw3').val();
+        let checkPw = $('#checkPw3').val();
+        let check19 = $('#check19');
+
+        if (smPw == checkPw) {
+            check19.html("비밀번호가 일치합니다.");
+            check19.css('color', 'blue');
+            check_pwa = true;
+        } else {
+            check19.html("비밀번호가 불일치합니다.");
+            check19.css('color', 'red');
+            check_pwa = false;
+        }
+    });
+
+    let check20 = $('#check20');
+    // 닉네임 중복 체크
+    $('#smNickname2').keyup(function () {
+        console.log('닉네임 확인');
+        let smNickname = $('#smNickname2').val();
+
+        // Ajax를 사용해서 닉네임 중복체크
+        $.ajax({
+            type: "POST",
+            url: "/NicknameCheck",
+            data: {"smNickname": smNickname},
+            dataTypes: "text",
+            success: function (result) {
+                if (result == "OK") {
+                    check20.html('사용 가능한 닉네임 입니다');
+                    check20.css('color', 'blue');
+                    check_name1 = true;
+                } else {
+                    check20.html('사용 불가능한 닉네임 입니다');
+                    check20.css('color', 'red');
+                    check_name1 = false;
+                }
+            },
+            error: function () {
+                alert('NicknameCheck 통신 실패!');
+            }
+        });
+    });
+
+
+    // 랜덤 닉네임 생성하기
+    function createNick() {
+        $.ajax({
+            type: "POST",
+            url: "/createNick",
+            dataTypes: "text",
+            success: function (result) {
+                $('#smNickname2').val(result);
+                // Ajax를 사용해서 닉네임 중복체크
+                $.ajax({
+                    type: "POST",
+                    url: "/NicknameCheck",
+                    data: {"smNickname": result},
+                    dataTypes: "text",
+                    success: function (result2) {
+                        if (result2 == "OK") {
+                            check20.html('사용 가능한 닉네임 입니다');
+                            check20.css('color', 'blue');
+                            check_name1 = true;
+                        } else {
+                            check20.html('사용 불가능한 닉네임 입니다');
+                            check20.css('color', 'red');
+                            check_name1 = false;
+                        }
+                    },
+                    error: function () {
+                        alert('NicknameCheck 통신 실패!');
+                    }
+                });
+
+            },
+            error: function () {
+                alert('NicknameCheck 생성 실패!');
+            }
+        });
+
+    }
+
+    // 닉네임 변경하기
+    $(document).ready(function () {
+        $('#changeNick').submit(function (event) {
+            event.preventDefault();
+            var smId = $('#smId3').val();
+            var smNickname = $('#smNickname2').val();
+
+            if (!check_name1) {
+                alert('닉네임 중복 여부를 확인해주세요.');
+                return false;
+            } else {
+                $.ajax({
+                    url: '/changeNickname',
+                    type: 'POST',
+                    data: {
+                        smId: smId,
+                        smNickname: smNickname,
+                    },
+                    dataType: "text",
+                    success: function () {
+                        alert('닉네임을 변경하였습니다.');
+                        location.href = "/mModiForm/[[${modify.smId}]]";
+                    },
+                    error: function () {
+                        alert('닉네임 변경에 실패하셨습니다.');
+                        $('#changeNick')[0].reset();
+                    }
+                });
+            }
+        });
+    });
+
+    // 우편번호 찾기
+    function sample6_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function (data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample6_postcode3').value = data.zonecode;
+                document.getElementById("sample6_address3").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("sample6_detailAddress3").focus();
+            }
+        }).open();
+    }
+
+    // 파일 미리보기
+    $('#smProfile2').on("change", function (event) {
+        let file = event.target.files[0];
+        let reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#smProfileName2').attr("src", e.target.result);
+        }
+
+        reader.readAsDataURL(file);
+    });
+
+    // 수정버튼
+    $('#modifyForm').click(function () {
+        console.log('수정 되나?');
+        let smAddr = $('#smAddr2');
+        let smPw = $('#smPw3').val();
+        let checkPw = $('#checkPw3').val();
+
+        let addr1 = $('#sample6_postcode3').val();
+        let addr2 = $('#sample6_address3').val();
+        let addr3 = $('#sample6_detailAddress3').val();
+
+        let addr = "(" + addr1 + ")" + addr2 + ", " + addr3;
+
+        smAddr.val(addr); // smAddr의 값을 설정
+
+        if (!check_pw1 || !check_pwa || smPw !== checkPw) {
+            alert('비밀번호를 다시 확인해주세요.');
+        } else {
+            mModiForm.submit();
+            alert('회원정보를 수정했습니다.');
+            // location.href = "/mView/[[${modify.smId}]]";
+        }
+    });
+
+</script>
+</html>

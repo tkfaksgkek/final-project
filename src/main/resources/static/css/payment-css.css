@@ -1,0 +1,283 @@
+.payment {
+    border: 0px;
+    margin-top: 9px;
+    box-shadow: 0px 0px 14px #d1d3d1;
+    padding: 15px;
+    margin-top: 20px;
+}
+.p-h3 {
+    font-size: 20px;
+    margin-top: 8px;
+    margin-bottom: 30px;
+    font-weight: bold ;
+}
+.p-input {
+    list-style: none;
+    background: #FFFFFF;
+
+    box-sizing: border-box;
+    box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    margin-top: 15px;
+
+    width: 80%;
+    height: 50px;
+
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+    border-collapse: collapse;
+}
+.form-check-input{
+    cursor: pointer;
+}
+.form-check-input.check-input {
+
+    padding: 0px 5px 5px 0px;
+}
+.p-span.form-check-label.check-label {
+    padding: 0px 0px 5px 0px;
+}
+.check-form {
+    margin-top: 35px;
+}
+.alert_txt {
+    line-height: 1;
+    -webkit-text-size-adjust: none;
+    font-family: Pretendard,"Pretendard_Alt","Apple SD Gothic Neo","맑은 고딕","Malgun Gothic",sans-serif!important;
+    visibility: visible;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    box-sizing: border-box;
+    height: 46px;
+    padding-top: 5px;
+    font-size: 14px;
+    color: rgb(39, 93, 160);
+}
+.p-p {
+    color: #646464;
+    font-size: 16px;
+}
+.p-div {
+    margin-top: 35px;
+    border-top: solid 1px #dbdbdb;
+}
+.listbox{
+    list-style: none;
+    background: #FFFFFF;
+    box-sizing: border-box;
+    box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    width: 250px;
+    height: 50px;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+    color: #646464;
+}
+.p-span {
+    -webkit-text-size-adjust: none;
+    font-family: Pretendard,"Pretendard_Alt","Apple SD Gothic Neo","맑은 고딕","Malgun Gothic",sans-serif!important;
+    visibility: visible;
+    font-size: 16px;
+    line-height: 1.2;
+    font-weight: 700;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    box-sizing: border-box;
+    display: inline-block;
+    cursor: pointer;
+    color: rgba(0,0,0,.87);
+}
+.p-span1 {
+    line-height: 1;
+    -webkit-text-size-adjust: none;
+    font-family: Pretendard,"Pretendard_Alt","Apple SD Gothic Neo","맑은 고딕","Malgun Gothic",sans-serif!important;
+    visibility: visible;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    box-sizing: border-box;
+    display: block;
+    padding: 19px 0 23px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #275DA0;
+}
+.p-span2 {
+    -webkit-text-size-adjust: none;
+    font-family: Pretendard,"Pretendard_Alt","Apple SD Gothic Neo","맑은 고딕","Malgun Gothic",sans-serif!important;
+    visibility: visible;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    list-style: none;
+    font-size: 16px;
+    line-height: 26px;
+    box-sizing: border-box;
+    color: #275da0;
+}
+.p-b {
+    -webkit-text-size-adjust: none;
+    font-family: Pretendard,"Pretendard_Alt","Apple SD Gothic Neo","맑은 고딕","Malgun Gothic",sans-serif!important;
+    visibility: visible;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    font-size: 16px;
+    line-height: 1.2;
+    cursor: pointer;
+    box-sizing: border-box;
+    font-weight: 400;
+    color: #275da0;
+}
+.form-check-label {
+    -webkit-text-size-adjust: none;
+    font-family: Pretendard,"Pretendard_Alt","Apple SD Gothic Neo","맑은 고딕","Malgun Gothic",sans-serif!important;
+    visibility: visible;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    font-size: 16px;
+    line-height: 1.2;
+    color: rgba(0,0,0,.56);
+    box-sizing: border-box;
+    font-style: normal;
+    text-decoration: none;
+}
+.p-p1 {
+    -webkit-text-size-adjust: none;
+    font-family: Pretendard,"Pretendard_Alt","Apple SD Gothic Neo","맑은 고딕","Malgun Gothic",sans-serif!important;
+    visibility: visible;
+    box-sizing: border-box;
+    position: relative;
+    font-size: 20px;
+    color: rgba(0,0,0,0.87);
+    height: auto;
+    border-bottom: none;
+    line-height: 32px;
+    text-align: left;
+}
+.p-p2 {
+    line-height: 1;
+    -webkit-text-size-adjust: none;
+    font-family: Pretendard,"Pretendard_Alt","Apple SD Gothic Neo","맑은 고딕","Malgun Gothic",sans-serif!important;
+    visibility: visible;
+    font-size: 18px;
+    color: rgba(0,0,0,0.87);
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    box-sizing: border-box;
+    margin-top: 35px;
+}
+.p-strong {
+    -webkit-text-size-adjust: none;
+    font-family: Pretendard,"Pretendard_Alt","Apple SD Gothic Neo","맑은 고딕","Malgun Gothic",sans-serif!important;
+    visibility: visible;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    box-sizing: border-box;
+    font-weight: normal;
+    text-align: left;
+    display: block !important;
+    position: relative;
+    margin-bottom: 15px;
+    font-size: 16px !important;
+    line-height: 1;
+    color: #646464;
+}
+.p-strong1 {
+    line-height: 1;
+    -webkit-text-size-adjust: none;
+    font-family: Pretendard,"Pretendard_Alt","Apple SD Gothic Neo","맑은 고딕","Malgun Gothic",sans-serif!important;
+    visibility: visible;
+    color: rgba(0,0,0,0.87);
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    box-sizing: border-box;
+    display: block;
+    font-size: 16px;
+    font-weight: 400;
+}
+.p-b1 {
+    line-height: 1;
+    -webkit-text-size-adjust: none;
+    font-family: Pretendard,"Pretendard_Alt","Apple SD Gothic Neo","맑은 고딕","Malgun Gothic",sans-serif!important;
+    visibility: visible;
+    color: rgba(0,0,0,0.87);
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    box-sizing: border-box;
+    font-size: 18px;
+    font-weight: 700;
+}
+.p-ul {
+    line-height: 1;
+    -webkit-text-size-adjust: none;
+    font-family: Pretendard,"Pretendard_Alt","Apple SD Gothic Neo","맑은 고딕","Malgun Gothic",sans-serif!important;
+    visibility: visible;
+    font-size: 16px;
+    color: rgba(0,0,0,0.87);
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    box-sizing: border-box;
+    list-style: none;
+}
+.p-li {
+    -webkit-text-size-adjust: none;
+    font-family: Pretendard,"Pretendard_Alt","Apple SD Gothic Neo","맑은 고딕","Malgun Gothic",sans-serif!important;
+    visibility: visible;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    box-sizing: border-box;
+    list-style: none;
+    margin-bottom: 2px;
+    padding-left: 16px;
+    background: url(//image.goodchoice.kr/images/web_v3/ico_bul.png) 0 0 no-repeat;
+    background-size: 14px auto;
+    font-size: 16px;
+    line-height: 26px;
+    color: rgba(0,0,0,.72);
+}
+.p-left-span {
+    font-size: 14px;
+}
+.p-btn {
+    -webkit-text-size-adjust: none;
+    visibility: visible;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-appearance: none;
+    cursor: pointer;
+    font-family: inherit;
+    background: linear-gradient(
+            to right,
+            rgb(39, 93, 160) 1%,
+            rgb(39, 93, 160) 100%
+    );
+    width: 100%;
+    height: 59px;
+    border: none;
+    font-size: 20px;
+    line-height: 56px;
+    color: #fff;
+    text-align: center;
+    display: block;
+    border-radius: 0 0 4px 4px;
+    margin-top: 37px;
+}
+.btn-outline-primary {
+    --bs-btn-color: #275da0;
+    --bs-btn-border-color: #275da0;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #275da0;
+    --bs-btn-hover-border-color: #275da0;
+    --bs-btn-focus-shadow-rgb: 13,110,253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #275da0;
+    --bs-btn-active-border-color: #275da0;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #275da0;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #275da0;
+    --bs-gradient: none;
+    margin-bottom: 15px;
+    width: 100px;
+}
+.button_check1{
+
+    color: #275DA0;
+    width: 100px;
+    height: 40px;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.clicked2 {
+    background-color: #295DA0;
+    color: white;
+}

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="kiho">
+    <meta name="date" content="">
+    <meta name="description" content="">
+    <!--구글 fonts-->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <!--bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/inquiry.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="https://sdsdfile.s3.ap-northeast-2.amazonaws.com/img/favicon.png" type="image/x-icon">
+    <title>숙덕숙덕 | 숙박 예약과 커뮤니티를 한번에</title>
+</head>
+
+<body class="index">
+<!-- admin header -->
+<div data-th-include="/admin/admin-header.html" id="admin-header" th:if="${session.loginId eq 'admin'}"></div>
+
+<!-- header -->
+<div data-th-include="header" id="header" th:if="${session.loginId ne 'admin'}"></div>
+
+<!-- PageUpButton-->
+<a href="#header" class="bi bi-arrow-up-circle" th:if="${session.loginId ne 'admin'}"></a>
+<a href="#admin-header" class="bi bi-arrow-up-circle" th:if="${session.loginId eq 'admin'}"></a>
+<!--main 시작-->
+<main>
+
+    <div class="container">
+        <div class="container mt-3">
+            <h1>고객센터</h1>
+            <br>
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-bs-toggle="tab" href="#home">나의 문의 내역</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#menu1">새 문의 작성</a>
+                </li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <!-- 나의 문의 내역 -->
+                <div id="home" class="container tab-pane active"><br>
+                    <div class="i-div">
+                        <h4>등록된 1:1 문의가 없습니다.</h4><br/>
+                        <p>
+                            숙덕숙덕은 회원님들의 소중한 의견에 귀기울여<br/>
+                            신속하고 정확하게 답변드리도록 하겠습니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content">
+                <!-- 새 문의 작성 -->
+                <div id="menu1" class="container tab-pane fade"><br>
+                    <div class="i-div1 i-div-text">
+                        숙덕숙덕 이용 중 불편하신 점을 문의주시면 최대한 빠른 시일내에 답변 드리겠습니다.<br/><br/>
+                        <table class="i-table">
+                            <tr>
+                                <td>
+                                    <select class="listbox-canter">
+                                        <option>카테고리유형을 선택하세요</option>
+                                        <option>숙소</option>
+                                        <option>리뷰</option>
+                                        <option>커뮤니티</option>
+                                        <option>포인트</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="listbox-canter">
+                                        <option>문의유형을 선택하세요</option>
+                                        <option>예약/결제</option>
+                                        <option>취소/환불</option>
+                                        <option>이용문의</option>
+                                        <option>회원정보</option>
+                                        <option>리뷰</option>
+                                        <option>커뮤니티</option>
+                                        <option>기타</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">고객문의 및 상담요청에 대한 회신, 상담을 위해 연락받으실 수단을 선택하여 입력해주세요.</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="text" name="userName" class="i-input" placeholder="연락처를 입력해주세요.">
+                                </td>
+                                <td>
+                                    <input type="text" name="userName" class="i-input" placeholder="이메일을 입력해주세요.">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <textarea class="i-text"
+                                              placeholder="문의하실 내용을 10자 이상 입력해주세요.&#13;&#10;문의하시는 제휴점 이름과 예약정보를 남겨주시면 보다 빠른 상담이 가능합니다."></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <button type="button" class="btn btn-outline-primary">작성 완료</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+<!--main 마지막-->
+
+<div data-th-include="footer" id="footer" style="margin-top: 50px;"></div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script
+        src="https://code.jquery.com/jquery-3.6.4.js"
+        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+        crossorigin="anonymous">
+</script>
+
+<script>
+    // 로그인 체크 스크립트
+    var loginId = "[[${session.loginId}]]";
+    $(document).ready(function (){
+        console.log("로그인 아이디 : "+loginId);
+        if(loginId == ""){
+            alert("로그인 후 이용해주세요");
+            // 인덱스 페이지로
+            location.href="/";
+        };
+    });
+</script>
+
+</html>
